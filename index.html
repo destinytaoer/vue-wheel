@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    *::after, *::before {
+      box-sizing: border-box;
+    }
+    :root {
+      --font-size: 14px;
+      --btn-height: 32px;
+      --border-raduis: 4px;
+      --border-color: #ccc;
+      --border-color-hover: #666;
+      --btn-bg: #fff;
+      --btn-hover-bg: #fff;
+      --btn-active-bg: #eee;
+      --color: #333;
+    }
+    body {
+      font-size: var(--font-size);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <g-button></g-button>
+  </div>
+  <script src="./src/app.js"></script>
+</body>
+</html>
