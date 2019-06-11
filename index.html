@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,12 @@
       padding: 0;
       box-sizing: border-box;
     }
-    *::after, *::before {
+
+    *::after,
+    *::before {
       box-sizing: border-box;
     }
+
     :root {
       --font-size: 14px;
       --btn-height: 32px;
@@ -25,15 +29,27 @@
       --btn-active-bg: #eee;
       --color: #333;
     }
+
     body {
+      margin: 20px;
       font-size: var(--font-size);
+    }
+
+    .icon {
+      width: 1em;
+      height: 1em;
     }
   </style>
 </head>
+
 <body>
   <div id="app">
-    <g-button></g-button>
+    <g-button>按钮</g-button>
+    <g-button icon="settings">按钮</g-button>
+    <g-button icon="settings" icon-pos="right">按钮</g-button>
   </div>
   <script src="./src/app.js"></script>
+  <script src="//at.alicdn.com/t/font_1237708_noh1pqwvdhf.js"></script>
 </body>
+
 </html>
