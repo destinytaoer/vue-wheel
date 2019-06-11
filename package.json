@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/destinytaoer/vue-wheel/issues"
   },
-  "homepage": "https://github.com/destinytaoer/vue-wheel#readme"
+  "homepage": "https://github.com/destinytaoer/vue-wheel#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
 }
