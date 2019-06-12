@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Icon from './Icon'
 import Button from './Button'
-import ButtonGroup from './Button-Group'
+import ButtonGroup from './ButtonGroup'
 
 Vue.component('g-icon', Icon)
 Vue.component('g-button', Button)
