@@ -49,7 +49,7 @@ export default {
   align-items: center;
   height: var(--btn-height);
   padding: 0 1em;
-  border-radius: var(--border-raduis);
+  border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   font-size: var(--font-size);
   color: var(--color);
