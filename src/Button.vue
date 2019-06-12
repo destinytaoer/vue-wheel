@@ -1,10 +1,13 @@
 <template>
   <!-- 利用 class 决定 icon 位置 利用 flex 的 order-->
+  <!-- 按钮的点击触发组件的点击事件 -->
   <button
     class="g-button"
     :class="{'icon-right': iconPos === 'right'}"
+    @click='$emit("click")'
   >
-    <g-icon v-if="icon" :name="icon"></g-icon>
+    <g-icon v-if="loading" class="loading" name="loading"></g-icon>
+    <g-icon v-if="icon && !loading" :name="icon"></g-icon>
     <div class="content">
       <slot/>
     </div>
@@ -23,11 +26,23 @@ export default {
          // 校验属性 left right
         return value === 'left' || value === 'right'
       }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   }
 };
 </script>
 <style lang="scss">
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
 .g-button {
   display: inline-flex;
   justify-content: center;
@@ -66,6 +81,9 @@ export default {
     > .content {
       order: 1;
     }
+  }
+  .loading {
+    animation: spin 1s linear infinite;
   }
 }
 </style>
