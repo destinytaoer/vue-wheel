@@ -50,14 +50,14 @@ import 'vue-wheel-1/dist/index.css'
 
 export defult {
   components: {
-    'g-button': Button
+    'd-button': Button
   }
 }
 ```
 
 ### 使用组件
 ```html
-<g-buttton>按钮<g-button>
+<d-buttton>按钮<d-button>
 ```
 
 ## 组件进度

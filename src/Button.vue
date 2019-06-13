@@ -2,12 +2,12 @@
   <!-- 利用 class 决定 icon 位置 利用 flex 的 order-->
   <!-- 按钮的点击触发组件的点击事件 -->
   <button
-    class="g-button"
+    class="d-button"
     :class="{'icon-right': iconPos === 'right'}"
     @click='$emit("click")'
   >
-    <g-icon v-if="loading" class="loading" name="loading"></g-icon>
-    <g-icon v-if="icon && !loading" :name="icon"></g-icon>
+    <d-icon v-if="loading" class="loading" name="loading"></d-icon>
+    <d-icon v-if="icon && !loading" :name="icon"></d-icon>
     <div class="content">
       <slot/>
     </div>
@@ -17,7 +17,7 @@
 import Icon from './Icon'
 export default {
   components: {
-    'g-icon': Icon
+    'd-icon': Icon
   },
   props: {
     icon: {
@@ -56,7 +56,7 @@ $color: #333;
     transform: rotate(360deg)
   }
 }
-.g-button {
+.d-button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
