@@ -31,13 +31,21 @@
 
 <body>
   <div id="app">
-    <d-button :loading='loading1' @click="loading1 = !loading1">按钮</d-button>
-    <d-button icon="settings" :loading='loading2' @click="loading2 = !loading2">按钮</d-button>
-    <d-button icon="settings" icon-pos="right" :loading='loading3' @click="loading3 = !loading3">按钮</d-button>
-    <d-button-group>
-      <d-button icon='left'>上一页</d-button>
-      <d-button icon='right' icon-pos="right">下一页</d-button>
-    </d-button-group>
+    <div>
+      <d-input></d-input>
+      <d-input value="aaa"></d-input>
+      <d-input value="aaa" disabled></d-input>
+      <d-input value="aaa" error="不能少于6个字"></d-input>
+    </div>
+    <div>
+      <d-button :loading='loading1' @click="loading1 = !loading1">按钮</d-button>
+      <d-button icon="settings" :loading='loading2' @click="loading2 = !loading2">按钮</d-button>
+      <d-button icon="settings" icon-pos="right" :loading='loading3' @click="loading3 = !loading3">按钮</d-button>
+      <d-button-group>
+        <d-button icon='left'>上一页</d-button>
+        <d-button icon='right' icon-pos="right">下一页</d-button>
+      </d-button-group>
+    </div>
   </div>
   <script src="./src/app.js"></script>
 </body>
