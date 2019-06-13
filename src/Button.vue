@@ -16,6 +16,7 @@
 <script>
 import Icon from './Icon'
 export default {
+  name: 'DButton',
   components: {
     'd-icon': Icon
   },

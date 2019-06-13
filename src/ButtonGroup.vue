@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
+  name: 'DButtonGroup',
   mounted() {
     // 校验其子元素是否是 d-button
     for (let node of this.$el.children) {
