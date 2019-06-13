@@ -1,6 +1,25 @@
-# Vue-Wheel
+<p align="center">
+  <a href="https://github.com/zyqq/wheel" target="_blank" rel="noopener noreferrer">
+    <img width="100" src="img/轮子.png" alt="Echo Wheel logo">
+  </a>
+</p>
 
-Vue 实现的 UI 组件库，本项目[官方文档](https://destinytaoer.github.io/vue-wheel/)👀
+<p align="center">
+  <a href="https://www.travis-ci.org/destinytaoer/vue-wheel" target="_blank">
+    <img src="https://www.travis-ci.org/destinytaoer/vue-wheel.svg?branch=master" alt="Build Status">
+  </a>
+  <a href="https://npmcharts.com/compare/vue-wheel-1?minimal=true" target="_blank">
+    <img src="https://img.shields.io/npm/dm/vue-wheel-1.svg" alt="Downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/vue-wheel-1" target="_blank">
+    <img src="https://img.shields.io/github/package-json/v/destinytaoer/vue-wheel/master.svg" alt="Version">
+  </a>
+  <a href="./LICENSE" target="_blank">
+    <img src="https://img.shields.io/npm/l/vue-wheel-1.svg?registry_uri=https%3A%2F%2Fregistry.npmjs.com" alt="License">
+  </a>
+</p>
+
+<h2 align="center">Vue Wheel -- 一个用 Vue 写的 UI 组件库</h2>
 
 ## 开始使用
 
