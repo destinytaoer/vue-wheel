@@ -18,21 +18,8 @@
       box-sizing: border-box;
     }
 
-    :root {
-      --font-size: 14px;
-      --btn-height: 32px;
-      --border-radius: 4px;
-      --border-color: #ccc;
-      --border-color-hover: #666;
-      --btn-bg: #fff;
-      --btn-hover-bg: #fff;
-      --btn-active-bg: #eee;
-      --color: #333;
-    }
-
     body {
       margin: 20px;
-      font-size: var(--font-size);
     }
 
     .icon {
@@ -49,11 +36,10 @@
     <g-button icon="settings" icon-pos="right" :loading='loading3' @click="loading3 = !loading3">按钮</g-button>
     <g-button-group>
       <g-button icon='left'>上一页</g-button>
-      <g-button icon='right'>下一页</g-button>
+      <g-button icon='right' icon-pos="right">下一页</g-button>
     </g-button-group>
   </div>
   <script src="./src/app.js"></script>
-  <script src="//at.alicdn.com/t/font_1237708_qwyahcx9yy.js"></script>
 </body>
 
 </html>

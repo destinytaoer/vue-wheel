@@ -38,7 +38,16 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+$font-size: 14px;
+$btn-height: 32px;
+$border-radius: 4px;
+$border-color: #ccc;
+$border-color-hover: #666;
+$btn-bg: #fff;
+$btn-hover-bg: #fff;
+$btn-active-bg: #eee;
+$color: #333;
 @keyframes spin {
   0% {
     transform: rotate(0deg)
@@ -51,20 +60,20 @@ export default {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: var(--btn-height);
+  height: $btn-height;
   padding: 0 1em;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  font-size: var(--font-size);
-  color: var(--color);
-  background: var(--btn-bg);
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  font-size: $font-size;
+  color: $color;
+  background: $btn-bg;
   vertical-align: middle;
   &:hover {
-    background: var(--btn-hover-bg);
-    border-color: var(--border-color-hover);
+    background: $btn-hover-bg;
+    border-color: $border-color-hover;
   }
   &:active {
-    background: var(--btn-active-bg);
+    background: $btn-active-bg;
   }
   &:focus {
     outline: none;
