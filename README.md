@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://github.com/zyqq/wheel" target="_blank" rel="noopener noreferrer">
-    <img width="100" src="img/轮子.png" alt="Echo Wheel logo">
+  <a href="https://github.com/destinytaoer/vue-wheel" target="_blank" rel="noopener noreferrer">
+    <img width="100" src="https://lccdn.phphub.org/assets/images/twemoji/snowflake.png" alt="Vue Wheel logo">
   </a>
 </p>
 
@@ -20,6 +20,8 @@
 </p>
 
 <h2 align="center">Vue Wheel -- 一个用 Vue 写的 UI 组件库</h2>
+
+这是学习 Vue 时，通过一个[视频教程](https://xiedaimala.com/courses/6d63da67-6eea-4711-aeb4-0c3a949341dc#/common)构建的，对自己帮助非常大，也希望对你有所帮助。
 
 ## 开始使用
 
