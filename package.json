@@ -4,6 +4,8 @@
   "description": "使用 VUE 实现的 UI 组件库",
   "main": "dist/index.js",
   "scripts": {
+    "start": "parcel index.html --no-cache",
+    "build": "parcel index.js --no-cache --no-minify",
     "test:dev": "parcel watch test/* --no-cache & karma start",
     "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
   },
