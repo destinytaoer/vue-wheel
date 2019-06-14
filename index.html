@@ -36,6 +36,7 @@
       <d-input value="aaa"></d-input>
       <d-input value="aaa" disabled></d-input>
       <d-input value="aaa" error="不能少于6个字"></d-input>
+      <d-input value="aaa" @change="inputChange"></d-input>
     </div>
     <div>
       <d-button :loading='loading1' @click="loading1 = !loading1">按钮</d-button>
