@@ -71,9 +71,14 @@ describe('Input', () => {
         let inputElement = vm.$el.querySelector('input')
         // 手动创建事件并进行派发
         let event = new Event(eventName)
+        Object.defineProperty(event, 'target', {
+          value: {
+            value: 'xxx'
+          }
+        })
         inputElement.dispatchEvent(event)
         // 期望回调被调用，并且携带了参数 event，传给 calledWith 的所有参数就是期望携带的参数
-        expect(callback).to.have.been.calledWith(event)
+        expect(callback).to.have.been.calledWith('xxx')
       })
     })
   })
