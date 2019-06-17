@@ -32,10 +32,6 @@ export default {
     offset: {
       type: [Number, String]
     },
-    phone: {
-      type: Object,
-      validator
-    },
     pad: {
       type: Object,
       validator
@@ -57,7 +53,7 @@ export default {
     colClass() {
       let { span, offset } = this;
       let colClass = [span && `col-${span}`, offset && `offset-${offset}`];
-      ["phone", "pad", "narrowPc", "pc", "widePc"].forEach(key => {
+      ["pad", "narrowPc", "pc", "widePc"].forEach(key => {
         if (this[key]) {
           let { span, offset } = this[key];
           colClass.push(
@@ -97,21 +93,7 @@ export default {
       margin-left: ($n / 24) * 100%;
     }
   }
-  @media (max-width: 576px) {
-    $class-prefix: col-phone-;
-    @for $n from 1 through 24 {
-      &.#{$class-prefix}#{$n} {
-        width: ($n / 24) * 100%;
-      }
-    }
-    $class-prefix: offset-phone-;
-    @for $n from 1 through 24 {
-      &.#{$class-prefix}#{$n} {
-        margin-left: ($n / 24) * 100%;
-      }
-    }
-  }
-  @media (min-width: 577px) and (max-width: 768px) {
+  @media (min-width: 576px) {
     $class-prefix: col-pad-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
@@ -125,7 +107,7 @@ export default {
       }
     }
   }
-  @media (min-width: 769px) and (max-width: 992px) {
+  @media (min-width: 768px) {
     $class-prefix: col-narrowPc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
@@ -139,7 +121,7 @@ export default {
       }
     }
   }
-  @media (min-width: 993px) and (max-width: 1200px) {
+  @media (min-width: 992px) {
     $class-prefix: col-pc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
@@ -153,7 +135,7 @@ export default {
       }
     }
   }
-  @media (min-width: 1201px) {
+  @media (min-width: 1200px) {
     $class-prefix: col-widePc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
