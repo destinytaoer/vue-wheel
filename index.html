@@ -22,15 +22,56 @@
       margin: 20px;
     }
 
-    .icon {
-      width: 1em;
-      height: 1em;
+    .demo-box {
+      height: 100px;
+      background: grey;
+      border: 1px solid red;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .logo-wrapper {
+      padding: 10px;
     }
   </style>
 </head>
 
 <body>
   <div id="app">
+    <div>
+      <d-row>
+        <d-col class="demo-box" span="9">
+          <d-row align="left">
+            <d-col span="3">1</d-col>
+            <d-col span="3">2</d-col>
+            <d-col span="3">3</d-col>
+            <d-col span="3">4</d-col>
+          </d-row>
+        </d-col>
+        <d-col class="demo-box" span="15">
+          <d-row align="right">
+            <d-col span="3">1</d-col>
+            <d-col span="3">2</d-col>
+            <d-col span="3">3</d-col>
+            <d-col span="3">4</d-col>
+            <d-col span="3">5</d-col>
+            <d-col span="3">6</d-col>
+            <d-col span="3">7</d-col>
+          </d-row>
+        </d-col>
+      </d-row>
+      <d-row>
+        <d-col class="demo-box" span="4">
+          <div class="logo-wrapper">
+            <img src="//img.alicdn.com/tps/TB1YZkPLpXXXXbzXXXXXXXXXXXX-213-57.png" alt="">
+          </div>
+        </d-col>
+        <d-col class="demo-box" span="14"></d-col>
+        <d-col class="demo-box" span="6"></d-col>
+      </d-row>
+    </div>
     <div>
       <d-row>
         <d-col>1</d-col>
