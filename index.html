@@ -18,7 +18,7 @@
     }
 
     .demo-box {
-      height: 100px;
+      min-height: 100px;
       background: grey;
       border: 1px solid red;
     }
@@ -37,7 +37,14 @@
   <div id="app">
     <div>
       <h2>Layout</h2>
-
+      <d-layout style="height: 100vh">
+        <d-header class="demo-box">header</d-header>
+        <d-layout>
+          <d-sider class="demo-box">sider</d-sider>
+          <d-content class="demo-box">content</d-content>
+        </d-layout>
+        <d-footer class="demo-box">footer</d-footer>
+      </d-layout>
     </div>
     <div>
       <h2>Response Grid</h2>
