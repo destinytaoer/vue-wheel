@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import Icon from "./Icon";
+import Icon from "../Common/Icon";
 export default {
   name: "DInput",
   components: {
@@ -100,7 +100,7 @@ $font-size: 12px;
     color: $error-color;
   }
   > *:not(:last-child) {
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
 }
 </style>

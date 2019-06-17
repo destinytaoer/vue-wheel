@@ -14,7 +14,7 @@
   </button>
 </template>
 <script>
-import Icon from './Icon'
+import Icon from '../Common/Icon'
 export default {
   name: 'DButton',
   components: {

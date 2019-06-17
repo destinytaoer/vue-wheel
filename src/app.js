@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Icon from './Icon'
-import Button from './Button'
-import ButtonGroup from './ButtonGroup'
-import Input from './Input'
-import Row from './Row'
-import Col from './Col'
+import Icon from './Common/Icon'
+import Button from './Button/Button'
+import ButtonGroup from './Button/ButtonGroup'
+import Input from './Input/Input'
+import Row from './Grid/Row'
+import Col from './Grid/Col'
 
 Vue.component('d-icon', Icon)
 Vue.component('d-button', Button)
