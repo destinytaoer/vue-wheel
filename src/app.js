@@ -5,11 +5,13 @@ import ButtonGroup from './Button/ButtonGroup'
 import Input from './Input/Input'
 import Row from './Grid/Row'
 import Col from './Grid/Col'
-import Layout from './Layout/Layout.vue'
-import Header from './Layout/Header.vue'
-import Content from './Layout/Content.vue'
-import Sider from './Layout/Sider.vue'
-import Footer from './Layout/Footer.vue'
+import Layout from './Layout/Layout'
+import Header from './Layout/Header'
+import Content from './Layout/Content'
+import Sider from './Layout/Sider'
+import Footer from './Layout/Footer'
+import Toast from './Toast/Toast'
+import toast from './Toast/plugin'
 
 Vue.component('d-icon', Icon)
 Vue.component('d-button', Button)
@@ -22,6 +24,8 @@ Vue.component('d-header', Header)
 Vue.component('d-content', Content)
 Vue.component('d-sider', Sider)
 Vue.component('d-footer', Footer)
+Vue.component('d-toast', Toast)
+Vue.use(toast)
 
 new Vue({
   el: '#app',
@@ -35,5 +39,8 @@ new Vue({
     inputChange(e) {
       console.log(e)
     }
+  },
+  mounted() {
+    this.$toast('sdf');
   },
 })
