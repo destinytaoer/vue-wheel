@@ -1,12 +1,13 @@
-import Toast from "./Toast";
+import Toast from './Toast';
 
-function createToast({ Vue, msg, propsData }) {
+function createToast({ Vue, msg, propsData, onClose }) {
   let Constructor = Vue.extend(Toast);
   let toast = new Constructor({
     propsData
   });
   toast.$slots.default = [msg];
   toast.$mount();
+  toast.$on('close', onClose);
   document.body.appendChild(toast.$el);
   return toast;
 }
@@ -20,7 +21,14 @@ export default {
       if (curToast) {
         curToast.close();
       }
-      curToast = createToast({ Vue, msg, propsData });
+      curToast = createToast({
+        Vue,
+        msg,
+        propsData,
+        onClose: () => {
+          curToast = null;
+        }
+      });
     };
   }
 };
