@@ -36,11 +36,20 @@ new Vue({
     message: ''
   },
   methods: {
-    inputChange(e) {
-      console.log(e)
+    inputChange(e) {},
+    showToast() {
+      this.$toast('<p>我是 p</p><strong>我是加粗</strong>', {
+        autoClose: false,
+        closeButton: {
+          text: '知道了',
+          callback: () => {
+            console.log('你点我干啥')
+          }
+        }
+      });
     }
   },
   mounted() {
-    this.$toast('sdf');
+
   },
 })
