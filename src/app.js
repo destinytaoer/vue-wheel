@@ -40,6 +40,7 @@ new Vue({
     showToast() {
       this.$toast('<p>我是 p</p><strong>我是加粗</strong>', {
         autoClose: false,
+        position: 'bottom',
         closeButton: {
           text: '知道了',
           callback: () => {
