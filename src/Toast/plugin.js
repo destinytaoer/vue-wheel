@@ -1,15 +1,26 @@
-import Toast from './Toast'
+import Toast from "./Toast";
+
+function createToast({ Vue, msg, propsData }) {
+  let Constructor = Vue.extend(Toast);
+  let toast = new Constructor({
+    propsData
+  });
+  toast.$slots.default = [msg];
+  toast.$mount();
+  document.body.appendChild(toast.$el);
+  return toast;
+}
+
+let curToast;
+
 export default {
   install(Vue, options) {
     // 让用户自己选择是否使用，避免了覆盖的问题
-    Vue.prototype.$toast = function (msg, props) {
-      let Constructor = Vue.extend(Toast)
-      let toast = new Constructor({
-        propsData: props
-      })
-      toast.$slots.default = [msg]
-      toast.$mount()
-      document.body.appendChild(toast.$el)
-    }
+    Vue.prototype.$toast = function(msg, propsData) {
+      if (curToast) {
+        curToast.close();
+      }
+      curToast = createToast({ Vue, msg, propsData });
+    };
   }
-}
+};

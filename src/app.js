@@ -38,9 +38,9 @@ new Vue({
   methods: {
     inputChange(e) {},
     showToast() {
-      this.$toast('<p>我是 p</p><strong>我是加粗</strong>', {
+      this.$toast(`随机数：${Math.random()}`, {
         autoClose: false,
-        position: 'bottom',
+        position: 'top',
         closeButton: {
           text: '知道了',
           callback: () => {
