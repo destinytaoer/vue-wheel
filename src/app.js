@@ -12,6 +12,11 @@ import Sider from './Layout/Sider';
 import Footer from './Layout/Footer';
 import Toast from './Toast/Toast';
 import toast from './Toast/plugin';
+import Tabs from './Tabs/Tabs.vue';
+import TabsContent from './Tabs/TabsContent';
+import TabsBody from './Tabs/TabsBody';
+import TabsHead from './Tabs/TabsHead';
+import TabsItem from './Tabs/TabsItem';
 
 Vue.component('d-icon', Icon);
 Vue.component('d-button', Button);
@@ -26,6 +31,11 @@ Vue.component('d-sider', Sider);
 Vue.component('d-footer', Footer);
 Vue.component('d-toast', Toast);
 Vue.use(toast);
+Vue.component('d-tabs', Tabs);
+Vue.component('d-tabs-head', TabsHead);
+Vue.component('d-tabs-body', TabsBody);
+Vue.component('d-tabs-item', TabsItem);
+Vue.component('d-tabs-content', TabsContent);
 
 new Vue({
   el: '#app',
@@ -33,7 +43,8 @@ new Vue({
     loading1: false,
     loading2: false,
     loading3: false,
-    message: ''
+    message: '',
+    selectedTab: 'woman'
   },
   methods: {
     inputChange(e) {},
