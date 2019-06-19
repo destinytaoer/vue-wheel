@@ -65,11 +65,22 @@ export defult {
 - Button
 - Icon
 - ButtonGroup
+- Input
+- Row/Col
+- Layout
+- Toast
 
 计划中：
 
-- Input
 - InputGroup
+- Tab
+- Popover
+- Switch
+- Selector
+- Nav
+- Table
+- Uploader
+- Sticky
 
 ## Issues
 
