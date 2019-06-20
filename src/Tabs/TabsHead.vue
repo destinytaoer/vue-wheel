@@ -15,7 +15,6 @@ export default {
 <style lang="scss" scoped>
 .tabs-head {
   display: flex;
-  align-items: center;
   border: 1px solid #ff0000;
   > .actions-wrapper {
     margin-left: auto;
