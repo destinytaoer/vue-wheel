@@ -19,7 +19,8 @@ export default {
   computed: {
     itemClasses() {
       return {
-        active: this.active
+        active: this.active,
+        disabled: this.disabled
       };
     }
   },
@@ -35,6 +36,7 @@ export default {
   },
   methods: {
     selected() {
+      if (this.disabled) return;
       this.eventBus.$emit("update:selected", this.name, this);
     }
   },
@@ -46,16 +48,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+$active-color: #1890ff;
+$disabled-color: #ddd;
 .tabs-item {
   display: flex;
   align-items: center;
   padding: 0 1em;
   cursor: pointer;
   &.active {
-    color: #1890ff;
+    color: $active-color;
     .icon {
-      fill: #1890ff;
+      fill: $active-color;
     }
+  }
+  &.disabled {
+    color: $disabled-color;
   }
 }
 </style>

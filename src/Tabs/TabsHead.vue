@@ -25,14 +25,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+$border-color: #ddd;
+$active-border-color: #1890ff;
 .tabs-head {
   display: flex;
   position: relative;
-  border: 1px solid #ff0000;
+  border-bottom: 1px solid $border-color;
   > .line {
     position: absolute;
-    bottom: 0;
-    border-bottom: 1px solid #1890ff;
+    bottom: -1px;
+    border-bottom: 1px solid $active-border-color;
     transition: all 350ms;
   }
   > .actions-wrapper {
