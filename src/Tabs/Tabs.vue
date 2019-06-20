@@ -34,8 +34,15 @@ export default {
     this.eventBus.$on("update:selected", name => {
       this.$emit("update:selected", name);
     });
+  },
+  mounted() {
+    this.eventBus.$emit("update:selected", this.selected);
   }
 };
 </script>
 <style lang="scss" scoped>
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
 </style>

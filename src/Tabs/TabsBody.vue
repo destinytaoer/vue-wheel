@@ -6,10 +6,7 @@
 <script>
 export default {
   name: "DTabsBody",
-  inject: ["eventBus"],
-  created() {
-    console.log("tb eventBus", this.eventBus);
-  }
+  inject: ["eventBus"]
 };
 </script>
 <style lang="scss" scoped>
