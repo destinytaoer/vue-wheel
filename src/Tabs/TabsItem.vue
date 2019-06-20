@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     selected() {
-      this.eventBus.$emit("update:selected", this.name);
+      this.eventBus.$emit("update:selected", this.name, this);
     }
   },
   created() {
@@ -52,7 +52,10 @@ export default {
   padding: 0 1em;
   cursor: pointer;
   &.active {
-    background: red;
+    color: #1890ff;
+    .icon {
+      fill: #1890ff;
+    }
   }
 }
 </style>

@@ -36,7 +36,16 @@ export default {
     });
   },
   mounted() {
-    this.eventBus.$emit("update:selected", this.selected);
+    for (const children of this.$children) {
+      if (children.$options.name === "DTabsHead") {
+        for (const item of children.$children) {
+          if (item.$options.name === "DTabsItem") {
+            item.name === this.selected &&
+              this.eventBus.$emit("update:selected", this.selected, item);
+          }
+        }
+      }
+    }
   }
 };
 </script>
