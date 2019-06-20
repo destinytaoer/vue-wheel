@@ -5,7 +5,11 @@
 </template>
 <script>
 export default {
-  name: "DTabsBody"
+  name: "DTabsBody",
+  inject: ["eventBus"],
+  created() {
+    console.log("tb eventBus", this.eventBus);
+  }
 };
 </script>
 <style lang="scss" scoped>

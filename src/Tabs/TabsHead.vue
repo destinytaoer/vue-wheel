@@ -6,7 +6,11 @@
 </template>
 <script>
 export default {
-  name: "DTabsHead"
+  name: "DTabsHead",
+  inject: ["eventBus"],
+  created() {
+    console.log("th eventBus:", this.eventBus);
+  }
 };
 </script>
 <style lang="scss" scoped>
