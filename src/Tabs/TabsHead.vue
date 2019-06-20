@@ -15,12 +15,14 @@ export default {
   name: "DTabsHead",
   inject: ["eventBus"],
   created() {
-    this.eventBus.$on("update:selected", (name, vm) => {
-      let { left: parentLeft } = this.$el.getBoundingClientRect();
-      let { width, height, top, left } = vm.$el.getBoundingClientRect();
-      this.$refs.line.style.width = `${width}px`;
-      this.$refs.line.style.left = `${left - parentLeft}px`;
-    });
+    if (this.eventBus) {
+      this.eventBus.$on("update:selected", (name, vm) => {
+        let { left: parentLeft } = this.$el.getBoundingClientRect();
+        let { width, height, top, left } = vm.$el.getBoundingClientRect();
+        this.$refs.line.style.width = `${width}px`;
+        this.$refs.line.style.left = `${left - parentLeft}px`;
+      });
+    }
   }
 };
 </script>

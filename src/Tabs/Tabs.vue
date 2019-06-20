@@ -31,9 +31,11 @@ export default {
     }
   },
   created() {
-    this.eventBus.$on("update:selected", name => {
-      this.$emit("update:selected", name);
-    });
+    if (this.eventBus) {
+      this.eventBus.$on("update:selected", name => {
+        this.$emit("update:selected", name);
+      });
+    }
   },
   mounted() {
     if (!this.$children.length) {

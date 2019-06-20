@@ -3,6 +3,7 @@
     class="tabs-item"
     :class="itemClasses"
     @click="selected"
+    :data-name="name"
   >
     <slot></slot>
   </div>
@@ -37,13 +38,18 @@ export default {
   methods: {
     selected() {
       if (this.disabled) return;
-      this.eventBus.$emit("update:selected", this.name, this);
+      if (this.eventBus) {
+        this.eventBus.$emit("update:selected", this.name, this);
+      }
+      this.$emit("click", this);
     }
   },
   created() {
-    this.eventBus.$on("update:selected", name => {
-      this.active = name === this.name;
-    });
+    if (this.eventBus) {
+      this.eventBus.$on("update:selected", name => {
+        this.active = name === this.name;
+      });
+    }
   }
 };
 </script>
