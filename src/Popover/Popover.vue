@@ -32,8 +32,8 @@ export default {
       this.visible = !this.visible;
       this.$nextTick(() => {
         let { top, left } = this.$refs.trigger.getBoundingClientRect();
-        this.$refs.content.style.left = left + "px";
-        this.$refs.content.style.top = top + "px";
+        this.$refs.content.style.left = left + window.scrollX + "px";
+        this.$refs.content.style.top = top + window.scrollY + "px";
       });
     }
   },
