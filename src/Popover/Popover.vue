@@ -5,12 +5,18 @@
   >
     <div
       class="content-wrapper"
+      ref="content"
       v-show="visible"
       @click.stop
     >
       <slot name="content"></slot>
     </div>
-    <slot></slot>
+    <div
+      class="trigger-wrapper"
+      ref="trigger"
+    >
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -24,25 +30,32 @@ export default {
   methods: {
     onClick() {
       this.visible = !this.visible;
+      this.$nextTick(() => {
+        let { top, left } = this.$refs.trigger.getBoundingClientRect();
+        this.$refs.content.style.left = left + "px";
+        this.$refs.content.style.top = top + "px";
+      });
     }
   },
   created() {
     document.addEventListener("click", () => {
       if (this && this.visible) this.visible = false;
     });
+  },
+  mounted() {
+    document.body.appendChild(this.$refs.content);
   }
 };
 </script>
 <style lang="scss" scoped>
 .popover {
   display: inline-block;
-  position: relative;
-  > .content-wrapper {
-    position: absolute;
-    bottom: 100%;
-    background: #fff;
-    border: 1px solid red;
-    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
-  }
+}
+.content-wrapper {
+  position: absolute;
+  background: #fff;
+  border: 1px solid red;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-100%);
 }
 </style>
