@@ -2,6 +2,7 @@
   <div
     class="popover"
     @click="onClick"
+    ref="popover"
   >
     <div
       class="content-wrapper"
@@ -27,32 +28,28 @@ export default {
     };
   },
   methods: {
-    onClick(e) {
-      const trigger = this.$refs.trigger;
-      const content = this.$refs.content;
-      if (trigger && trigger.contains(e.target)) {
+    onClick(event) {
+      if (this.$refs.trigger.contains(event.target)) {
         this.visible = !this.visible;
         if (this.visible) {
-          this.$nextTick(() => {
-            let { top, left } = trigger.getBoundingClientRect();
-            content.style.left = left + window.scrollX + "px";
-            content.style.top = top + window.scrollY + "px";
+          setTimeout(() => {
+            let { top, left } = this.$refs.trigger.getBoundingClientRect();
+            this.$refs.content.style.left = left + window.scrollX + "px";
+            this.$refs.content.style.top = top + window.scrollY + "px";
+            let eventHandler = e => {
+              if (this.$refs.content && this.$refs.content.contains(e.target)) {
+              } else {
+                console.log("hide");
+                this.visible = false;
+                console.log("close eventHandler");
+                document.removeEventListener("click", eventHandler);
+              }
+            };
+            document.addEventListener("click", eventHandler);
           });
         }
       }
     }
-  },
-  created() {
-    document.addEventListener("click", e => {
-      const trigger = this.$refs.trigger;
-      const content = this.$refs.content;
-      if (
-        (content && content.contains(e.target)) ||
-        (trigger && trigger.contains(e.target))
-      )
-        return;
-      if (this && this.visible) this.visible = false;
-    });
   },
   mounted() {
     document.body.appendChild(this.$refs.content);
