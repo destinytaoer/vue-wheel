@@ -6,19 +6,26 @@
     :class="{'icon-right': iconPos === 'right'}"
     @click='$emit("click")'
   >
-    <d-icon v-if="loading" class="loading" name="loading"></d-icon>
-    <d-icon v-if="icon && !loading" :name="icon"></d-icon>
+    <d-icon
+      v-if="loading"
+      class="loading"
+      name="loading"
+    ></d-icon>
+    <d-icon
+      v-if="icon && !loading"
+      :name="icon"
+    ></d-icon>
     <div class="content">
-      <slot/>
+      <slot />
     </div>
   </button>
 </template>
 <script>
-import Icon from '../Common/Icon'
+import Icon from "../Common/Icon";
 export default {
-  name: 'DButton',
+  name: "DButton",
   components: {
-    'd-icon': Icon
+    "d-icon": Icon
   },
   props: {
     icon: {
@@ -26,10 +33,10 @@ export default {
     },
     iconPos: {
       type: String,
-      default: 'left',
+      default: "left",
       validator(value) {
-         // 校验属性 left right
-        return value === 'left' || value === 'right'
+        // 校验属性 left right
+        return value === "left" || value === "right";
       }
     },
     loading: {
@@ -51,10 +58,10 @@ $btn-active-bg: #eee;
 $color: #333;
 @keyframes spin {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }
 .d-button {
@@ -69,6 +76,7 @@ $color: #333;
   color: $color;
   background: $btn-bg;
   vertical-align: middle;
+  cursor: pointer;
   &:hover {
     background: $btn-hover-bg;
     border-color: $border-color-hover;
@@ -81,7 +89,7 @@ $color: #333;
   }
   > .icon {
     order: 1;
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
   > .content {
     order: 2;
@@ -90,7 +98,7 @@ $color: #333;
     > .icon {
       order: 2;
       margin-right: 0;
-      margin-left: .3em;
+      margin-left: 0.3em;
     }
     > .content {
       order: 1;
