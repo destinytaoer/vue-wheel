@@ -1,13 +1,12 @@
 <template>
   <div
     class="popover"
-    @click.stop="onClick"
+    @click="onClick"
   >
     <div
       class="content-wrapper"
       ref="content"
       v-show="visible"
-      @click.stop
     >
       <slot name="content"></slot>
     </div>
@@ -28,17 +27,30 @@ export default {
     };
   },
   methods: {
-    onClick() {
-      this.visible = !this.visible;
-      this.$nextTick(() => {
-        let { top, left } = this.$refs.trigger.getBoundingClientRect();
-        this.$refs.content.style.left = left + window.scrollX + "px";
-        this.$refs.content.style.top = top + window.scrollY + "px";
-      });
+    onClick(e) {
+      const trigger = this.$refs.trigger;
+      const content = this.$refs.content;
+      if (trigger && trigger.contains(e.target)) {
+        this.visible = !this.visible;
+        if (this.visible) {
+          this.$nextTick(() => {
+            let { top, left } = trigger.getBoundingClientRect();
+            content.style.left = left + window.scrollX + "px";
+            content.style.top = top + window.scrollY + "px";
+          });
+        }
+      }
     }
   },
   created() {
-    document.addEventListener("click", () => {
+    document.addEventListener("click", e => {
+      const trigger = this.$refs.trigger;
+      const content = this.$refs.content;
+      if (
+        (content && content.contains(e.target)) ||
+        (trigger && trigger.contains(e.target))
+      )
+        return;
       if (this && this.visible) this.visible = false;
     });
   },
