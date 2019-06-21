@@ -36,6 +36,17 @@
 <body>
   <div id="app">
     <div>
+      <h2>Popover</h2>
+      <d-popover>
+        <template slot="content">
+          <div>
+            popover 内容
+          </div>
+        </template>
+        <d-button>点我</d-button>
+      </d-popover>
+    </div>
+    <div>
       <h2>Tabs</h2>
       <d-tabs :selected.sync="selectedTab">
         <d-tabs-head>
@@ -48,7 +59,7 @@
         </d-tabs-head>
         <d-tabs-body>
           <d-tabs-content name="woman">美女</d-tabs-content>
-          <d-tabs-content name="woman">体育</d-tabs-content>
+          <d-tabs-content name="sports">体育</d-tabs-content>
           <d-tabs-content name="it">IT</d-tabs-content>
         </d-tabs-body>
       </d-tabs>
