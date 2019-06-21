@@ -11,10 +11,7 @@
     >
       <slot name="content"></slot>
     </div>
-    <div
-      class="trigger-wrapper"
-      ref="trigger"
-    >
+    <div class="trigger-wrapper">
       <slot></slot>
     </div>
   </div>
@@ -28,25 +25,40 @@ export default {
     };
   },
   methods: {
-    onClick(event) {
-      if (this.$refs.trigger.contains(event.target)) {
-        this.visible = !this.visible;
+    eventHandler(e) {
+      const { popover, content } = this.$refs;
+      if (popover && (popover === e.target || popover.contains(e.target))) {
+        return;
+      }
+      if (content && (content === e.target || content.contains(e.target))) {
+        return;
+      }
+      this.hide();
+    },
+    positionContent() {
+      const { popover, content } = this.$refs;
+      let { top, left } = popover.getBoundingClientRect();
+      content.style.left = left + window.scrollX + "px";
+      content.style.top = top + window.scrollY + "px";
+    },
+    hide() {
+      this.visible = false;
+      document.removeEventListener("click", this.eventHandler);
+    },
+    show() {
+      this.visible = true;
+      this.$nextTick(() => {
+        this.positionContent();
+        document.addEventListener("click", this.eventHandler);
+      });
+    },
+    onClick(e) {
+      const { popover } = this.$refs;
+      if (popover && (popover === e.target || popover.contains(e.target))) {
         if (this.visible) {
-          setTimeout(() => {
-            let { top, left } = this.$refs.trigger.getBoundingClientRect();
-            this.$refs.content.style.left = left + window.scrollX + "px";
-            this.$refs.content.style.top = top + window.scrollY + "px";
-            let eventHandler = e => {
-              if (this.$refs.content && this.$refs.content.contains(e.target)) {
-              } else {
-                console.log("hide");
-                this.visible = false;
-                console.log("close eventHandler");
-                document.removeEventListener("click", eventHandler);
-              }
-            };
-            document.addEventListener("click", eventHandler);
-          });
+          this.hide();
+        } else {
+          this.show();
         }
       }
     }
