@@ -1,7 +1,6 @@
 <template>
   <div
     class="popover"
-    @click="onClick"
     ref="popover"
   >
     <div
@@ -12,7 +11,10 @@
     >
       <slot name="content"></slot>
     </div>
-    <div class="trigger-wrapper">
+    <div
+      class="trigger-wrapper"
+      ref="triggerWrapper"
+    >
       <slot></slot>
     </div>
   </div>
@@ -26,6 +28,13 @@ export default {
       default: "top",
       validator(val) {
         return ["top", "bottom", "left", "right"].includes(val);
+      }
+    },
+    trigger: {
+      type: String,
+      default: "click",
+      validator(val) {
+        return ["click", "hover"].includes(val);
       }
     }
   },
@@ -73,13 +82,17 @@ export default {
     },
     hide() {
       this.visible = false;
-      document.removeEventListener("click", this.eventHandler);
+      if (this.trigger === "click") {
+        document.removeEventListener("click", this.eventHandler);
+      }
     },
     show() {
       this.visible = true;
       this.$nextTick(() => {
         this.positionContent();
-        document.addEventListener("click", this.eventHandler);
+        if (this.trigger === "click") {
+          document.addEventListener("click", this.eventHandler);
+        }
       });
     },
     onClick(e) {
@@ -91,16 +104,45 @@ export default {
           this.show();
         }
       }
+    },
+    addPopoverListeners() {
+      const { popover } = this.$refs;
+      if (this.trigger === "click") {
+        popover.addEventListener("click", this.onClick);
+      } else {
+        popover.addEventListener("mouseenter", this.show);
+        document.addEventListener("mouseover", this.eventHandler);
+      }
+    },
+    removePopoverListeners() {
+      const { popover } = this.$refs;
+      if (this.trigger === "click") {
+        popover.removeEventListener("click", this.onClick);
+      } else {
+        popover.removeEventListener("mouseenter", this.show);
+        document.removeEventListener("mouseleave", this.eventHandler);
+      }
+    },
+    putBackContent() {
+      const { content, popover } = this.$refs;
+      if (!content) return;
+      popover.appendChild(content);
     }
   },
   mounted() {
     document.body.appendChild(this.$refs.content);
+    this.addPopoverListeners();
+  },
+  beforeDestroy() {
+    this.putBackContent();
+    this.removePopoverListeners();
   }
 };
 </script>
 <style lang="scss" scoped>
 $border-color: #333;
 $border-radius: 4px;
+$margin: 13px;
 .popover {
   display: inline-block;
 }
@@ -124,12 +166,12 @@ $border-radius: 4px;
     border: 10px solid transparent;
   }
   &.position-top {
-    margin-top: -10px;
+    margin-top: -$margin;
     transform: translateY(-100%);
     &::before,
     &::after {
       left: 10px;
-      border-bottom: none;
+      border-bottom-width: 4px;
     }
     &::before {
       border-top-color: $border-color;
@@ -141,11 +183,11 @@ $border-radius: 4px;
     }
   }
   &.position-bottom {
-    margin-top: 10px;
+    margin-top: $margin;
     &::before,
     &:after {
       left: 10px;
-      border-top: none;
+      border-top-width: 4px;
     }
     &::before {
       border-bottom-color: $border-color;
@@ -157,10 +199,10 @@ $border-radius: 4px;
     }
   }
   &.position-right {
-    margin-left: 10px;
+    margin-left: $margin;
     &::before,
     &::after {
-      border-left: none;
+      border-left-width: 4px;
       top: 50%;
       transform: translateY(-50%);
     }
@@ -174,12 +216,12 @@ $border-radius: 4px;
     }
   }
   &.position-left {
-    margin-left: -10px;
+    margin-left: -$margin;
     transform: translateX(-100%);
     &::before,
     &::after {
+      border-right-width: 4px;
       top: 50%;
-      border-right: none;
       transform: translateY(-50%);
     }
     &::before {

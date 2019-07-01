@@ -37,6 +37,7 @@
   <div id="app">
     <div>
       <h2>Popover</h2>
+      <h3>click</h3>
       <d-popover>
         <template slot="content">
           <div>
@@ -62,6 +63,39 @@
         <d-button>左</d-button>
       </d-popover>
       <d-popover position="right">
+        <template slot="content">
+          <div>
+            popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容
+          </div>
+        </template>
+        <d-button>右</d-button>
+      </d-popover>
+      <h3>hover</h3>
+      <d-popover trigger="hover">
+        <template slot="content">
+          <div>
+            popover 内容
+          </div>
+        </template>
+        <d-button>上</d-button>
+      </d-popover>
+      <d-popover position="bottom" trigger="hover">
+        <template slot="content">
+          <div>
+            popover 内容
+          </div>
+        </template>
+        <d-button>下</d-button>
+      </d-popover>
+      <d-popover position="left" trigger="hover">
+        <template slot="content">
+          <div>
+            popover 内容
+          </div>
+        </template>
+        <d-button>左</d-button>
+      </d-popover>
+      <d-popover position="right" trigger="hover">
         <template slot="content">
           <div>
             popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容
