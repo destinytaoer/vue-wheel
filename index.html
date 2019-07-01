@@ -72,12 +72,15 @@
       </d-popover>
       <h3>hover</h3>
       <d-popover trigger="hover">
-        <template slot="content">
+        <template v-slot:content="{hide}">
           <div>
             popover 内容
+            <d-button @click="hide">关闭</d-button>
           </div>
         </template>
-        <d-button>上</d-button>
+        <template v-slot:default>
+          <d-button>上</d-button>
+        </template>
       </d-popover>
       <d-popover position="bottom" trigger="hover">
         <template slot="content">

@@ -9,7 +9,10 @@
       :class="{[`position-${position}`]: true}"
       v-show="visible"
     >
-      <slot name="content"></slot>
+      <slot
+        name="content"
+        :hide='hide'
+      ></slot>
     </div>
     <div
       class="trigger-wrapper"
@@ -82,12 +85,14 @@ export default {
     },
     hide() {
       this.visible = false;
+      this.$emit("hide");
       if (this.trigger === "click") {
         document.removeEventListener("click", this.eventHandler);
       }
     },
     show() {
       this.visible = true;
+      this.$emit("show");
       this.$nextTick(() => {
         this.positionContent();
         if (this.trigger === "click") {
