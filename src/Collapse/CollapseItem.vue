@@ -5,7 +5,7 @@
   >
     <div
       class="title"
-      @click="open"
+      @click="toggle"
     >
       {{title}}
     </div>
@@ -17,8 +17,13 @@
 <script>
 export default {
   name: "DCollapseItem",
+  inject: ["eventBus"],
   props: {
     title: {
+      type: String,
+      required: true
+    },
+    name: {
       type: String,
       required: true
     }
@@ -36,9 +41,30 @@ export default {
     }
   },
   methods: {
+    toggle() {
+      // 只通知父组件
+      if (this.collapse) {
+        this.eventBus.$emit("add", this.name);
+      } else {
+        this.eventBus.$emit("remove", this.name);
+      }
+    },
+    close() {
+      this.collapse = true;
+    },
     open() {
-      this.collapse = !this.collapse;
+      this.collapse = false;
     }
+  },
+  mounted() {
+    // 接受父组件的通知进行状态更新
+    this.eventBus.$on("selected", names => {
+      if (names.includes(this.name)) {
+        this.open();
+      } else {
+        this.close();
+      }
+    });
   }
 };
 </script>
