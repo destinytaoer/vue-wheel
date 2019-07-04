@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/destinytaoer/vue-wheel" target="_blank" rel="noopener noreferrer">
-    <img width="100" src="https://lccdn.phphub.org/assets/images/twemoji/snowflake.png" alt="Vue Wheel logo">
+    <img width="100" src="./img/logo.png" alt="Vue Wheel logo">
   </a>
 </p>
 
