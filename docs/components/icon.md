@@ -33,6 +33,10 @@ title: Icon
   width: 40px;
   height: 40px;
 }
+/* 由于内部使用 1em 作为默认大小，也可以通过设置 font-size 来控制大小。 */
+.personalClass {
+  font-size: 40px;
+}
 ```
 
 ## 字体图标列表
