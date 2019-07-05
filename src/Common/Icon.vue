@@ -4,9 +4,9 @@
   </svg>
 </template>
 <script>
-import './svg'
+import("./svg").then(module => {});
 export default {
-  name: 'DIcon',
+  name: "DIcon",
   props: ["name"]
 };
 </script>
