@@ -1,7 +1,9 @@
 module.exports = {
-  title: 'Hello VuePress',
-  description: 'Just playing around',
+  title: 'Vue Wheel',
+  description: '基于 Vue 开发的 UI 组件库',
+  base: '/vue-wheel/',
   dest: './dist',
+  head: [['link', { rel: 'icon', href: '/logo.png', type: 'image/png' }]],
   themeConfig: {
     nav: [{ text: '开始', link: '/getStart/' }],
     sidebar: [
