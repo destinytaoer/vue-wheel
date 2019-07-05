@@ -21,7 +21,7 @@
 
 <h2 align="center">Vue Wheel -- 一个用 Vue 写的 UI 组件库</h2>
 
-这是学习 Vue 时，通过一个[视频教程](https://xiedaimala.com/courses/6d63da67-6eea-4711-aeb4-0c3a949341dc#/common)构建的，对自己帮助非常大，也希望对你有所帮助。
+这是学习 Vue 时，通过一个[视频教程](https://xiedaimala.com/courses/6d63da67-6eea-4711-aeb4-0c3a949341dc#/common)构建的，收获非常大，也希望对你有所帮助。详情可[查看官网](https://destinytaoer.github.io/vue-wheel/)
 
 ## 开始使用
 
@@ -62,19 +62,23 @@ export defult {
 
 ## 组件进度
 
-- Button
+已完成：
+
 - Icon
+- Button
 - ButtonGroup
 - Input
 - Row/Col
 - Layout
 - Toast
+- Tabs
+- Popover
+- Collapse
 
 计划中：
 
+- Cascader
 - InputGroup
-- Tab
-- Popover
 - Switch
 - Selector
 - Nav
@@ -85,40 +89,6 @@ export defult {
 ## Issues
 
 欢迎提[Issue](https://github.com/destinytaoer/vue-wheel/issues)
-
-## 参与开发
-
-### 项目启动
-
-clone 下本项目之后，你可以运行一下命令：
-
-启动项目：
-```bash
-npm run start
-```
-
-运行测试：
-```bash
-npm run test
-```
-
-打包项目：
-```bash
-npm run build
-```
-
-> 注意：package.json 中持续测试的脚本 test:dev，但是在 windows 中不能同时运行脚本中的两个命令，需要自行分开运行
-
-### 开发规范
-
-- 每个组件的修改需要提交到相应的分支中
-- 细化 commit，形成 commit 即开发过程的核心思想
-- 每次修改完成需要本地测试通过
-- 进行特定文档的更新
-
-### 本地测试
-
-在本项目中使用 `yarn link`，然后在测试项目中使用 `yarn link vue-wheel-1`，之后即可直接测试使用，上述命令只需要初始化一次即可。每次更新本项目中的代码，只需要重新 build 即可。
 
 ## 代码贡献
 
