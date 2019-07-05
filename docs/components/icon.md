@@ -1,7 +1,7 @@
 ---
-title: Icon
+title: Icon - 图标
 ---
-# Icon
+# 图标
 
 本 UI 组件库带有默认的字体图标，通过 svg 来展示字体图标，并封装了 Icon 组件。
 

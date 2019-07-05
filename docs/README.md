@@ -2,7 +2,7 @@
 home: true
 heroImage: /logo.png
 heroText: Vue Wheel
-tagline: Vue UI 组件库
+tagline: 基于 Vue 开发的 UI 组件库
 actionText: 快速上手 →
 actionLink: /getStart/
 features:

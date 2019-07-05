@@ -19,6 +19,7 @@ import TabsItem from '../../src/Tabs/TabsItem';
 import Popover from '../../src/Popover/Popover';
 import Collapse from '../../src/Collapse/Collapse';
 import CollapseItem from '../../src/Collapse/CollapseItem';
+import Cascader from '../../src/Cascader/Cascader';
 export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-icon', Icon);
   Vue.component('d-button', Button);
@@ -41,4 +42,5 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-popover', Popover);
   Vue.component('d-collapse', Collapse);
   Vue.component('d-collapse-item', CollapseItem);
+  Vue.component('d-cascader', Cascader);
 };
