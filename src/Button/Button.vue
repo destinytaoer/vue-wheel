@@ -4,6 +4,8 @@
   <button
     class="d-button"
     :class="{'icon-right': iconPos === 'right'}"
+    :disabled="disabled"
+    :readonly="readonly"
     @click='$emit("click")'
   >
     <d-icon
@@ -42,6 +44,14 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -53,6 +63,7 @@ $border-radius: 4px;
 $border-color: #ccc;
 $border-color-hover: #666;
 $btn-bg: #fff;
+$btn-disabled-bg: #ccc;
 $btn-hover-bg: #fff;
 $btn-active-bg: #eee;
 $color: #333;
@@ -106,6 +117,11 @@ $color: #333;
   }
   .loading {
     animation: spin 1s linear infinite;
+  }
+  &:disabled,
+  &[readonly] {
+    cursor: not-allowed;
+    background: $btn-disabled-bg;
   }
 }
 </style>
