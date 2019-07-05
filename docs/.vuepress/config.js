@@ -24,7 +24,8 @@ module.exports = {
           '/components/collapse',
           '/components/collapse'
         ]
-      }
+      },
+      '/join/'
     ],
     sidebarDepth: 2,
     repo: 'destinytaoer/vue-wheel',
