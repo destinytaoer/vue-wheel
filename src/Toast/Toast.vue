@@ -88,7 +88,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$font-size: 14px;
+@import "../_var";
 $bg: rgba(0, 0, 0, 0.75);
 $animte-delay: 500ms;
 @keyframes fadeIn {

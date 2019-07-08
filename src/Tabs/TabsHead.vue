@@ -27,8 +27,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$border-color: #ddd;
-$active-border-color: #1890ff;
+@import "../_var";
+
 .tabs-head {
   display: flex;
   position: relative;
@@ -36,7 +36,7 @@ $active-border-color: #1890ff;
   > .line {
     position: absolute;
     bottom: -1px;
-    border-bottom: 1px solid $active-border-color;
+    border-bottom: 1px solid $border-color-active;
     transition: all 350ms;
   }
   > .actions-wrapper {

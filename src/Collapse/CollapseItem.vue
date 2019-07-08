@@ -69,9 +69,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$border-color: #ddd;
-$title-bg: #eee;
-$border-radius: 4px;
+@import "../_var";
 .collapse-item {
   > .title {
     display: flex;
@@ -80,7 +78,7 @@ $border-radius: 4px;
     padding: 0 8px;
     margin: -1px;
     border: 1px solid $border-color;
-    background: $title-bg;
+    background: $bg-title;
   }
   &:first-child {
     > .title {

@@ -54,21 +54,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$active-color: #1890ff;
-$disabled-color: #ddd;
+@import "../_var";
+
 .tabs-item {
   display: flex;
   align-items: center;
   padding: 0 1em;
   cursor: pointer;
   &.active {
-    color: $active-color;
+    color: $color-active;
     .icon {
-      fill: $active-color;
+      fill: $color-active;
     }
   }
   &.disabled {
-    color: $disabled-color;
+    color: $color-disabled;
     cursor: not-allowed;
   }
 }

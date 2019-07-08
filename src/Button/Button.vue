@@ -57,16 +57,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$font-size: 14px;
-$btn-height: 32px;
-$border-radius: 4px;
-$border-color: #ccc;
-$border-color-hover: #666;
-$btn-bg: #fff;
-$btn-disabled-bg: #ccc;
-$btn-hover-bg: #fff;
-$btn-active-bg: #eee;
-$color: #333;
+@import "../_var";
+$btn-height: $height;
 @keyframes spin {
   0% {
     transform: rotate(0deg);

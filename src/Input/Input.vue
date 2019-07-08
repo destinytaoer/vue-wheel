@@ -48,16 +48,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$height: 32px;
-$border-color: #999;
-$border-radius: 4px;
-$border-color-hover: #666;
-$box-shadow-color: rgba(0, 0, 0, 0.5);
-$box-shadow-color-error: rgba(255, 0, 0, 0.5);
-$border-color-disabled: #666;
-$bg-color-disabled: #eee;
-$error-color: #f1453d;
-$font-size: 12px;
+@import "../_var";
 
 .g-input {
   font-size: $font-size;
@@ -80,13 +71,13 @@ $font-size: 12px;
     &[readonly] {
       border-color: $border-color-disabled;
       color: $border-color-disabled;
-      background: $bg-color-disabled;
+      background: $bg-disabled;
       cursor: not-allowed;
     }
   }
   &.error {
     > input {
-      border-color: $error-color;
+      border-color: $color-error;
       &:focus {
         outline: none;
         box-shadow: inset 0 0 3px $box-shadow-color-error;
@@ -94,10 +85,10 @@ $font-size: 12px;
     }
   }
   .icon-error {
-    fill: $error-color;
+    fill: $color-error;
   }
   .errMsg {
-    color: $error-color;
+    color: $color-error;
   }
   > *:not(:last-child) {
     margin-right: 0.5em;
