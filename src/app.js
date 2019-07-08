@@ -20,6 +20,7 @@ import TabsItem from './Tabs/TabsItem';
 import Popover from './Popover/Popover';
 import Collapse from './Collapse/Collapse';
 import CollapseItem from './Collapse/CollapseItem';
+import Cascader from './Cascader/Cascader';
 
 Vue.component('d-icon', Icon);
 Vue.component('d-button', Button);
@@ -42,6 +43,7 @@ Vue.component('d-tabs-content', TabsContent);
 Vue.component('d-popover', Popover);
 Vue.component('d-collapse', Collapse);
 Vue.component('d-collapse-item', CollapseItem);
+Vue.component('d-cascader', Cascader);
 
 new Vue({
   el: '#app',
@@ -51,10 +53,90 @@ new Vue({
     loading3: false,
     message: '',
     selectedTab: 'sports',
-    selected: ['2', '1']
+    selected: ['2', '1'],
+    dataSource: [
+      {
+        name: '广东',
+        children: [
+          {
+            name: '广州',
+            children: [
+              { name: '天河' },
+              { name: '越秀' },
+              { name: '黄埔' },
+              { name: '花都' },
+              { name: '白云' },
+              { name: '番禺' }
+            ]
+          },
+          {
+            name: '深圳',
+            children: [
+              { name: '南山' },
+              { name: '罗湖' },
+              { name: '福田' },
+              { name: '龙华' },
+              { name: '龙岗' },
+              { name: '光明' },
+              { name: '大鹏' },
+              { name: '宝安' },
+            ]
+          },
+          {
+            name: '梅州',
+            children: [
+              { name: '兴宁' },
+              { name: '梅县' },
+              { name: '平远' },
+              { name: '五华' },
+              { name: '大浦' },
+            ]
+          },
+        ]
+      },
+      {
+        name: '广东',
+        children: [
+          {
+            name: '广州',
+            children: [
+              { name: '天河' },
+              { name: '越秀' },
+              { name: '黄埔' },
+              { name: '花都' },
+              { name: '白云' },
+              { name: '番禺' }
+            ]
+          },
+          {
+            name: '深圳',
+            children: [
+              { name: '南山' },
+              { name: '罗湖' },
+              { name: '福田' },
+              { name: '龙华' },
+              { name: '龙岗' },
+              { name: '光明' },
+              { name: '大鹏' },
+              { name: '宝安' },
+            ]
+          },
+          {
+            name: '梅州',
+            children: [
+              { name: '兴宁' },
+              { name: '梅县' },
+              { name: '平远' },
+              { name: '五华' },
+              { name: '大浦' },
+            ]
+          },
+        ]
+      },
+    ]
   },
   methods: {
-    inputChange(e) {},
+    inputChange(e) { },
     showToast(position) {
       this.$toast(`随机数：${Math.random()}`, {
         autoClose: 1,
@@ -63,5 +145,5 @@ new Vue({
       });
     }
   },
-  mounted() {}
+  mounted() { }
 });

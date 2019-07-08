@@ -36,6 +36,10 @@
 <body>
   <div id="app">
     <div>
+      <h2>Cascader</h2>
+      <d-cascader :source="dataSource"></d-cascader>
+    </div>
+    <div>
       <h2>Collapse</h2>
       <d-collapse :selected.sync="selected" single>
         <d-collapse-item title="标题1" name="1">内容1</d-collapse-item>
@@ -74,7 +78,8 @@
       <d-popover position="right">
         <template slot="content">
           <div>
-            popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容
+            popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover
+            内容内容内容内容popover 内容内容内容内容
           </div>
         </template>
         <d-button>右</d-button>
@@ -110,7 +115,8 @@
       <d-popover position="right" trigger="hover">
         <template slot="content">
           <div>
-            popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容
+            popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover 内容内容内容内容popover
+            内容内容内容内容popover 内容内容内容内容
           </div>
         </template>
         <d-button>右</d-button>
@@ -120,7 +126,9 @@
       <h2>Tabs</h2>
       <d-tabs :selected.sync="selectedTab">
         <d-tabs-head>
-          <d-tabs-item name="woman"><d-icon name="settings"></d-icon>美女</d-tabs-item>
+          <d-tabs-item name="woman">
+            <d-icon name="settings"></d-icon>美女
+          </d-tabs-item>
           <d-tabs-item name="sports">体育</d-tabs-item>
           <d-tabs-item name="it">IT</d-tabs-item>
           <template slot="actions">
@@ -138,7 +146,7 @@
       <h2>Toast</h2>
       <d-button @click="showToast('top')">show toast top</d-button>
       <d-button @click="showToast('bottom')">show toast bottom</d-button>
-      <d-button @click="showToast('middle')">show toast mioddle</d-button>
+      <d-button @click="showToast('middle')">show toast middle</d-button>
     </div>
     <div>
       <h2>Layout</h2>
