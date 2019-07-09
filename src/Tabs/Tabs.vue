@@ -23,20 +23,6 @@ export default {
     selected: {
       types: String,
       required: true
-    },
-    direction: {
-      type: String,
-      default: "horizontal",
-      validator(val) {
-        return ["horizontal", "vertical"].includes(val);
-      }
-    }
-  },
-  created() {
-    if (this.eventBus) {
-      this.eventBus.$on("update:selected", name => {
-        this.$emit("update:selected", name);
-      });
     }
   },
   methods: {
@@ -102,6 +88,13 @@ export default {
           contentNames.push(children.name);
         }
       }
+    }
+  },
+  created() {
+    if (this.eventBus) {
+      this.eventBus.$on("update:selected", name => {
+        this.$emit("update:selected", name);
+      });
     }
   },
   mounted() {

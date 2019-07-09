@@ -60,7 +60,14 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 1em;
+  line-height: 35px;
   cursor: pointer;
+  .icon:first-child {
+    margin-right: 5px;
+  }
+  .icon:last-child {
+    margin-left: 5px;
+  }
   &.active {
     color: $color-active;
     .icon {

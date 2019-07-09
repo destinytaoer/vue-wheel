@@ -33,6 +33,7 @@ export default {
   display: flex;
   position: relative;
   border-bottom: 1px solid $border-color;
+  align-items: center;
   > .line {
     position: absolute;
     bottom: -1px;
