@@ -124,6 +124,7 @@ $animte-delay: 500ms;
   transform: translateX(-50%);
   left: 50%;
   width: fit-content;
+  z-index: 1000;
   &.position-top {
     top: 0;
     .toast {
