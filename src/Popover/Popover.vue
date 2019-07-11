@@ -43,11 +43,13 @@ export default {
   },
   data() {
     return {
-      visible: false
+      visible: false,
+      timer: null
     };
   },
   methods: {
     eventHandler(e) {
+      this.timer && window.clearTimeout(this.timer);
       const { popover, content } = this.$refs;
       if (popover && (popover === e.target || popover.contains(e.target))) {
         return;
@@ -55,7 +57,13 @@ export default {
       if (content && (content === e.target || content.contains(e.target))) {
         return;
       }
-      this.hide();
+      if (this.trigger === "click") {
+        this.hide();
+      } else {
+        this.timer = window.setTimeout(() => {
+          this.hide();
+        }, 200);
+      }
     },
     positionContent() {
       const { popover, content } = this.$refs;
@@ -84,6 +92,7 @@ export default {
       content.style.top = positions[position].top + "px";
     },
     hide() {
+      if (!this.visible) return;
       this.visible = false;
       this.$emit("hide");
       if (this.trigger === "click") {
@@ -91,6 +100,7 @@ export default {
       }
     },
     show() {
+      if (this.visible) return;
       this.visible = true;
       this.$emit("show");
       this.$nextTick(() => {
