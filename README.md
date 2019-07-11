@@ -5,6 +5,9 @@
 </p>
 
 <p align="center">
+  <a href="https://996.icu" target="_blank">
+    <img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu">
+  </a>
   <a href="https://www.travis-ci.org/destinytaoer/vue-wheel" target="_blank">
     <img src="https://www.travis-ci.org/destinytaoer/vue-wheel.svg?branch=master" alt="Build Status">
   </a>
