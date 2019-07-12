@@ -150,12 +150,13 @@ describe('Popover', () => {
         expect(content.style.display).to.eq('');
         let event = new Event('mouseover');
         document.dispatchEvent(event);
-        expect(callback2).to.have.been.called;
-
-        popover.$nextTick(() => {
-          expect(content.style.display).to.eq('none');
-          done();
-        });
+        setTimeout(() => {
+          expect(callback2).to.have.been.called;
+          popover.$nextTick(() => {
+            expect(content.style.display).to.eq('none');
+            done();
+          });
+        }, 300);
       });
     });
   });
