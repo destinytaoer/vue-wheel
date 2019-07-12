@@ -15,7 +15,7 @@ title: 参与开发
 npm run start
 ```
 
-
+项目将运行在 localhost:8000
 
 运行测试：
 ```bash
@@ -60,6 +60,8 @@ commit 规范：
 ```bash
 npm run docs:dev
 ```
+
+项目将运行在 localhost:8080
 
 以新增组件为例：
 
