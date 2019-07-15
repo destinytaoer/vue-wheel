@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/destinytaoer/vue-wheel" target="_blank" rel="noopener noreferrer">
-    <img width="100" src="./img/logo.png" alt="Vue Wheel logo">
+    <img width="100" src="./public/logo.png" alt="Vue Wheel logo">
   </a>
 </p>
 
@@ -37,6 +37,7 @@ npm install vue-wheel-1
 ### 样式设置
 
 使用本 UI 组件库前，你需要在 CSS 中开启 border-box：
+
 ```css
 *,
 *::after,
@@ -44,9 +45,11 @@ npm install vue-wheel-1
   box-sizing: border-box;
 }
 ```
+
 IE8 及以上浏览器支持此样式。
 
 ### 引入 UI 组件库
+
 ```javascript
 import { Button } from 'vue-wheel-1'
 import 'vue-wheel-1/dist/index.css'
@@ -59,8 +62,9 @@ export defult {
 ```
 
 ### 使用组件
+
 ```html
-<d-buttton>按钮<d-button>
+<d-buttton>按钮<d-button></d-button></d-buttton>
 ```
 
 ## 组件进度
@@ -95,7 +99,7 @@ export defult {
 
 ## 代码贡献
 
-感谢以下代码贡献者🤝：
+感谢以下代码贡献者 🤝：
 
 <a href="https://github.com/destinytaoer/vue-wheel/graphs/contributors">
   <img src="https://avatars3.githubusercontent.com/u/27852774?s=460&v=4" width="40" />
