@@ -1,6 +1,6 @@
 const expect = chai.expect;
 import Vue from 'vue';
-import Toast from '../src/Toast/Toast';
+import Toast from '../../src/Toast/Toast';
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
