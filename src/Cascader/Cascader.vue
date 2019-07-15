@@ -37,19 +37,21 @@ export default {
 <style lang="scss" scoped>
 @import "../var";
 .cascader {
+  position: relative;
   .trigger {
-    border: 1px solid red;
+    border: 1px solid $border-color;
     height: $height;
     width: 100px;
+    &:focus {
+      border-color: $border-color-active;
+    }
   }
   .popover {
-    border: 1px solid red;
-    height: 200px;
     display: flex;
-    .level1 {
-    }
-    .level2 {
-    }
+    position: absolute;
+    background: $bg;
+    height: 200px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   }
 }
 </style>
