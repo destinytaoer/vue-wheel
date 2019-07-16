@@ -2,7 +2,10 @@
   <div class="demo">
     <div>
       <h2>Cascader</h2>
-      <d-cascader :source="dataSource"></d-cascader>
+      <d-cascader
+        :source="dataSource"
+        :selected.sync="selected1"
+      ></d-cascader>
     </div>
     <div>
       <h2>Collapse</h2>
@@ -355,6 +358,7 @@ export default {
       message: "",
       selectedTab: "sports",
       selected: ["2", "1"],
+      selected1: [],
       dataSource: [
         {
           name: "广东",
@@ -396,10 +400,10 @@ export default {
           ]
         },
         {
-          name: "广东",
+          name: "安徽",
           children: [
             {
-              name: "广州",
+              name: "合肥",
               children: [
                 { name: "天河" },
                 { name: "越秀" },
@@ -410,7 +414,7 @@ export default {
               ]
             },
             {
-              name: "深圳",
+              name: "芜湖",
               children: [
                 { name: "南山" },
                 { name: "罗湖" },
@@ -420,16 +424,6 @@ export default {
                 { name: "光明" },
                 { name: "大鹏" },
                 { name: "宝安" }
-              ]
-            },
-            {
-              name: "梅州",
-              children: [
-                { name: "兴宁" },
-                { name: "梅县" },
-                { name: "平远" },
-                { name: "五华" },
-                { name: "大浦" }
               ]
             }
           ]

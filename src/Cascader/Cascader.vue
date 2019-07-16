@@ -10,7 +10,11 @@
       class="popover"
       v-if="popoverVisible"
     >
-      <cascader-items :items="source"></cascader-items>
+      <cascader-items
+        :selected="selected"
+        :items="source"
+        @selected="onUpdateSelected"
+      ></cascader-items>
     </div>
   </div>
 </template>
@@ -22,12 +26,23 @@ export default {
     source: {
       type: Array,
       required: true
+    },
+    selected: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   data() {
     return {
       popoverVisible: false
     };
+  },
+  methods: {
+    onUpdateSelected(newSelected) {
+      this.$emit("update:selected", newSelected);
+    }
   },
   components: {
     "cascader-items": CascaderItems
@@ -49,6 +64,7 @@ export default {
   .popover {
     display: flex;
     position: absolute;
+    z-index: 1000;
     background: $bg;
     height: 200px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
