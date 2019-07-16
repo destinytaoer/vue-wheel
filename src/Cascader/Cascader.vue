@@ -1,14 +1,16 @@
 <template>
   <div class="cascader">
     <div
+      ref="trigger"
       class="trigger"
       @click="popoverVisible = !popoverVisible"
     >
       {{result}}
     </div>
     <div
+      ref="popover"
       class="popover"
-      v-if="popoverVisible"
+      v-show="popoverVisible"
     >
       <cascader-items
         :selected="selected"
@@ -55,6 +57,14 @@ export default {
   },
   components: {
     "cascader-items": CascaderItems
+  },
+  mounted() {
+    window.document.addEventListener("click", e => {
+      const { trigger, popover } = this.$refs;
+      if (e.target === trigger || trigger.contains(e.target)) return;
+      if (e.target === popover || popover.contains(e.target)) return;
+      this.popoverVisible = false;
+    });
   }
 };
 </script>
