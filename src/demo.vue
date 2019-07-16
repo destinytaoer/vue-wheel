@@ -5,6 +5,7 @@
       <d-cascader
         :source="dataSource"
         :selected.sync="selected1"
+        split="-"
       ></d-cascader>
     </div>
     <div>
