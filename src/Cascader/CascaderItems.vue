@@ -24,6 +24,7 @@
         :level="level+1"
         :selected="selected"
         @selected="onUpdateSelected"
+        @hide="notifyHide"
       ></d-cascader-items>
     </div>
   </div>
@@ -62,17 +63,23 @@ export default {
   },
   methods: {
     onClickLabel(item) {
+      if (!item.children) {
+        this.notifyHide();
+      }
       if (this.selected[this.level] === item.name) return;
       var copy = JSON.parse(JSON.stringify(this.selected));
       copy.splice(this.level);
       copy[this.level] = item.name;
-      this.notify(copy);
+      this.notifySelected(copy);
     },
     onUpdateSelected(newSelected) {
-      this.notify(newSelected);
+      this.notifySelected(newSelected);
     },
-    notify(item) {
+    notifySelected(item) {
       this.$emit("selected", item);
+    },
+    notifyHide() {
+      this.$emit("hide");
     }
   },
   components: {

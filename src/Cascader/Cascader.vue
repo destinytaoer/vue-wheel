@@ -16,6 +16,7 @@
         :selected="selected"
         :items="source"
         @selected="onUpdateSelected"
+        @hide="hidePopover"
       ></cascader-items>
     </div>
   </div>
@@ -53,6 +54,9 @@ export default {
   methods: {
     onUpdateSelected(newSelected) {
       this.$emit("update:selected", newSelected);
+    },
+    hidePopover() {
+      this.popoverVisible = false;
     }
   },
   components: {
@@ -63,7 +67,7 @@ export default {
       const { trigger, popover } = this.$refs;
       if (e.target === trigger || trigger.contains(e.target)) return;
       if (e.target === popover || popover.contains(e.target)) return;
-      this.popoverVisible = false;
+      this.hidePopover();
     });
   }
 };
