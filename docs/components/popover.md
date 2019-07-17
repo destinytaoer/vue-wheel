@@ -6,6 +6,7 @@ title: Popover - 弹出框
 
 ## 基本用法
 
+### 默认 click 触发
 <wrapper>
   <d-popover>
     <template slot="content">
@@ -56,7 +57,7 @@ Popover 提供了两个插槽，默认插槽是触发器，而 content 插槽是
 
 通过 position 可以控制弹窗出现的位置，默认为 top。
 
-## hover 触发显示内容
+### hover 触发显示内容
 
 Popover 默认是通过 click 事件来控制内容的显示隐藏，通过 trigger 属性可以修改为 hover，通过鼠标移动来可控制。
 

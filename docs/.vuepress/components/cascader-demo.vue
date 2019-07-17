@@ -1,13 +1,17 @@
 <template>
   <div class="cascader-demo">
-    <d-cascader :source="dataSource"></d-cascader>
+    <d-cascader
+      :source="source"
+      placeholder="请选择省市区"
+      :selected.sync="selected"
+    ></d-cascader>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      dataSource: [
+      source: [
         {
           name: "广东",
           children: [
@@ -76,10 +80,14 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      selected: []
     };
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+.cascader-demo .cascader .popover {
+  height: 300px;
+}
 </style>
