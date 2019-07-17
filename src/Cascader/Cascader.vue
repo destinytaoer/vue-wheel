@@ -34,9 +34,7 @@ export default {
     },
     selected: {
       type: Array,
-      default() {
-        return [];
-      }
+      required: true
     },
     split: {
       type: String,
