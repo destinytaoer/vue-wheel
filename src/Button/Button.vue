@@ -57,6 +57,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "../_var.scss";
 $btn-height: $height;
 @keyframes spin {
   0% {

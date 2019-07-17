@@ -27,8 +27,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
-
+@import "../_var";
 .tabs-head {
   display: flex;
   position: relative;

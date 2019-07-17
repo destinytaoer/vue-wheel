@@ -54,8 +54,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
-
+@import "../_var";
 .tabs-item {
   display: flex;
   align-items: center;

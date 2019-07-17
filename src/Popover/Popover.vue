@@ -155,7 +155,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
+@import "../_var";
 $margin: 13px;
 .popover {
   display: inline-block;
