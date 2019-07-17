@@ -39,6 +39,9 @@ export default {
     split: {
       type: String,
       default: "/"
+    },
+    loadData: {
+      type: Function
     }
   },
   data() {
@@ -48,12 +51,36 @@ export default {
   },
   computed: {
     result() {
-      return this.selected.join(` ${this.split} `);
+      return this.selected.map(item => item.name).join(` ${this.split} `);
     }
   },
   methods: {
     onUpdateSelected(newSelected) {
       this.$emit("update:selected", newSelected);
+      let lastItem = newSelected[newSelected.length - 1];
+      let complex = function fn(children, id) {
+        let result = children.filter(item => item.id === id);
+        if (result.length) {
+          return result[0];
+        }
+        for (let i = 0; i < children.length; i++) {
+          let item = children[i];
+          if (item.children) {
+            let result = fn(item.children, id);
+            if (result) return result;
+          }
+        }
+        return null;
+      };
+      let updateSource = result => {
+        let copy = JSON.parse(JSON.stringify(this.source));
+        let toUpdate = complex(copy, lastItem.id);
+        if (result.length) {
+          toUpdate.children = result;
+          this.$emit("update:source", copy);
+        }
+      };
+      this.loadData(lastItem, updateSource);
     },
     hidePopover() {
       this.popoverVisible = false;

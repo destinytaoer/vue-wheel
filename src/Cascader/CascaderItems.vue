@@ -6,7 +6,7 @@
         v-for="(item, index) in items"
         :key="index"
         @click="onClickLabel(item)"
-        :class="{active: item.name === selected[level]}"
+        :class="{active: selected[level] && item.name === selected[level].name}"
       >
         {{item.name}}
         <d-icon
@@ -50,14 +50,17 @@ export default {
   },
   computed: {
     rightItems() {
-      let selectedName = this.selected[this.level];
-      let selectedItem = this.items.find(item => {
-        return item.name === selectedName;
-      });
-      if (selectedItem) {
-        return selectedItem.children;
-      } else {
-        return null;
+      if (this.selected[this.level]) {
+        let selectedItem = this.items.filter(item => {
+          return item.name === this.selected[this.level].name;
+        })[0];
+        if (
+          selectedItem &&
+          selectedItem.children &&
+          selectedItem.children.length > 0
+        ) {
+          return selectedItem.children;
+        }
       }
     }
   },
@@ -66,10 +69,11 @@ export default {
       if (!item.children) {
         this.notifyHide();
       }
-      if (this.selected[this.level] === item.name) return;
+      let selectedItem = this.selected[this.level];
+      if (selectedItem && selectedItem.name === item.name) return;
       var copy = JSON.parse(JSON.stringify(this.selected));
       copy.splice(this.level);
-      copy[this.level] = item.name;
+      copy[this.level] = item;
       this.notifySelected(copy);
     },
     onUpdateSelected(newSelected) {
@@ -94,9 +98,9 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
   height: 200px;
-  overflow: auto;
   .left {
     height: 100%;
+    overflow: auto;
   }
   .label {
     display: flex;

@@ -3,9 +3,10 @@
     <div>
       <h2>Cascader</h2>
       <d-cascader
-        :source="dataSource"
+        :source.sync="dataSource"
         :selected.sync="selected1"
         split="-"
+        :load-data="loadData"
       ></d-cascader>
     </div>
     <div>
@@ -327,6 +328,15 @@ import Cascader from "./Cascader/Cascader";
 
 Vue.use(toast);
 
+import db from "./db";
+
+function ajax(parentId = 0) {
+  return new Promise((success, fail) => {
+    let result = db.filter(item => item.parent_id === parentId);
+    success(result);
+  });
+}
+
 export default {
   components: {
     "d-icon": Icon,
@@ -440,7 +450,17 @@ export default {
         position,
         enableButton: true
       });
+    },
+    loadData(item, updateSource) {
+      ajax(item.id).then(result => {
+        updateSource(result);
+      });
     }
+  },
+  created() {
+    ajax(0).then(result => {
+      this.dataSource = result;
+    });
   }
 };
 </script>
