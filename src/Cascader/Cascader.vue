@@ -2,6 +2,7 @@
   <div
     class="cascader"
     ref="cascader"
+    v-click-outside="'popoverVisible'"
   >
     <div
       class="trigger"
@@ -25,8 +26,10 @@
 </template>
 <script>
 import CascaderItems from "./CascaderItems";
+import ClickOutside from "../click-outside";
 export default {
   name: "DCascader",
+  directives: { ClickOutside },
   props: {
     source: {
       type: Array,
@@ -86,24 +89,13 @@ export default {
         }
       }
     },
-    onDocumentClick(e) {
-      const { cascader } = this.$refs;
-      if (e.target === cascader || cascader.contains(e.target)) return;
-      this.hide();
-    },
     show() {
       this.popoverVisible = true;
-      console.log("show");
       this.$emit("show");
-      this.$nextTick(() => {
-        document.addEventListener("click", this.onDocumentClick);
-      });
     },
     hide() {
       this.popoverVisible = false;
-      console.log("hide");
       this.$emit("hide");
-      document.removeEventListener("click", this.onDocumentClick);
     },
     toggle() {
       if (this.popoverVisible) {
