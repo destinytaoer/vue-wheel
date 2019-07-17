@@ -106,7 +106,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 200px;
+  height: 100%;
   .left {
     height: 100%;
     overflow: auto;
@@ -115,8 +115,9 @@ export default {
     display: flex;
     align-items: center;
     padding: 5px 12px;
-    cursor: pointer;
     min-width: 100px;
+    white-space: nowrap;
+    cursor: pointer;
     &:hover {
       background: $bg-active-light;
     }
@@ -134,6 +135,7 @@ export default {
     }
   }
   .right {
+    height: 100%;
     border-left: 1px solid $border-color-light;
   }
 }

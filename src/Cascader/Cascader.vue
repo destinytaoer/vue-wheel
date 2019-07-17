@@ -1,14 +1,15 @@
 <template>
-  <div class="cascader">
+  <div
+    class="cascader"
+    ref="cascader"
+  >
     <div
-      ref="trigger"
       class="trigger"
-      @click="popoverVisible = !popoverVisible"
+      @click="toggle"
     >
       {{result}}
     </div>
     <div
-      ref="popover"
       class="popover"
       v-show="popoverVisible"
     >
@@ -17,7 +18,7 @@
         :items="source"
         :load-data="loadData"
         @selected="onUpdateSelected"
-        @hide="hidePopover"
+        @hide="hide"
       ></cascader-items>
     </div>
   </div>
@@ -87,20 +88,35 @@ export default {
         }
       }
     },
-    hidePopover() {
+    onDocumentClick(e) {
+      const { cascader } = this.$refs;
+      if (e.target === cascader || cascader.contains(e.target)) return;
+      this.hide();
+    },
+    show() {
+      this.popoverVisible = true;
+      console.log("show");
+      this.$emit("show");
+      this.$nextTick(() => {
+        document.addEventListener("click", this.onDocumentClick);
+      });
+    },
+    hide() {
       this.popoverVisible = false;
+      console.log("hide");
+      this.$emit("hide");
+      document.removeEventListener("click", this.onDocumentClick);
+    },
+    toggle() {
+      if (this.popoverVisible) {
+        this.hide();
+      } else {
+        this.show();
+      }
     }
   },
   components: {
     "cascader-items": CascaderItems
-  },
-  mounted() {
-    window.document.addEventListener("click", e => {
-      const { trigger, popover } = this.$refs;
-      if (e.target === trigger || trigger.contains(e.target)) return;
-      if (e.target === popover || popover.contains(e.target)) return;
-      this.hidePopover();
-    });
   }
 };
 </script>
@@ -108,8 +124,9 @@ export default {
 @import "../_var";
 .cascader {
   position: relative;
+  display: inline-block;
   .trigger {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     min-width: 10em;
     height: $height;
