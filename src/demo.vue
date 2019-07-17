@@ -6,6 +6,7 @@
         :source.sync="dataSource"
         :selected.sync="selected1"
         split="-"
+        placeholder="请选择省市区"
       ></d-cascader>
       <d-cascader
         :source.sync="source"

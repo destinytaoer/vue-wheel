@@ -9,6 +9,10 @@
       @click="toggle"
     >
       {{result}}
+      <span
+        class="placeholder"
+        v-if="!result"
+      >{{placeholder}}</span>
     </div>
     <div
       class="popover"
@@ -46,6 +50,10 @@ export default {
     },
     loadData: {
       type: Function
+    },
+    placeholder: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -129,6 +137,9 @@ export default {
     border: 1px solid $border-color;
     &:focus {
       border-color: $border-color-active;
+    }
+    .placeholder {
+      color: $border-color;
     }
   }
   .popover {
