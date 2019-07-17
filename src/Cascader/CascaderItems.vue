@@ -10,7 +10,7 @@
       >
         <span class="name">{{item.name}}</span>
         <d-icon
-          v-if="!item.isLeaf"
+          v-if="rightArrowVisible(item)"
           name="right"
         ></d-icon>
       </div>
@@ -23,6 +23,7 @@
         :items="rightItems"
         :level="level+1"
         :selected="selected"
+        :load-data="loadData"
         @selected="onUpdateSelected"
         @hide="notifyHide"
       ></d-cascader-items>
@@ -46,6 +47,9 @@ export default {
     level: {
       type: Number,
       default: 0
+    },
+    loadData: {
+      type: Function
     }
   },
   computed: {
@@ -65,8 +69,13 @@ export default {
     }
   },
   methods: {
+    rightArrowVisible(item) {
+      return this.loadData
+        ? !item.isLeaf
+        : item.children && item.children.length > 0;
+    },
     onClickLabel(item) {
-      if (item.isLeaf) {
+      if (!this.rightArrowVisible(item)) {
         this.notifyHide();
       }
       let selectedItem = this.selected[this.level];

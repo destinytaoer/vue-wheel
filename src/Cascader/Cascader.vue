@@ -15,6 +15,7 @@
       <cascader-items
         :selected="selected"
         :items="source"
+        :load-data="loadData"
         @selected="onUpdateSelected"
         @hide="hidePopover"
       ></cascader-items>

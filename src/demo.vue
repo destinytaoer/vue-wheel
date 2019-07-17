@@ -6,7 +6,6 @@
         :source.sync="dataSource"
         :selected.sync="selected1"
         split="-"
-        :load-data="loadData"
       ></d-cascader>
     </div>
     <div>
@@ -459,12 +458,12 @@ export default {
         updateSource(result);
       });
     }
-  },
-  created() {
-    ajax(0).then(result => {
-      this.dataSource = result;
-    });
   }
+  // created() {
+  //   ajax(0).then(result => {
+  //     this.dataSource = result;
+  //   });
+  // }
 };
 </script>
 <style lang="scss">
