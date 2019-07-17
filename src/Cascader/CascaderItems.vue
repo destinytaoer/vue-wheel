@@ -8,9 +8,9 @@
         @click="onClickLabel(item)"
         :class="{active: selected[level] && item.name === selected[level].name}"
       >
-        {{item.name}}
+        <span class="name">{{item.name}}</span>
         <d-icon
-          v-if="item.children"
+          v-if="!item.isLeaf"
           name="right"
         ></d-icon>
       </div>
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     onClickLabel(item) {
-      if (!item.children) {
+      if (item.isLeaf) {
         this.notifyHide();
       }
       let selectedItem = this.selected[this.level];
@@ -113,9 +113,14 @@ export default {
     }
     &.active {
       background: $bg-active-light;
+      font-weight: 700;
     }
-    .icon {
-      margin-left: 1em;
+    > .name {
+      margin-right: 1em;
+      user-select: none;
+    }
+    > .icon {
+      margin-left: auto;
       font-size: 0.5em;
     }
   }

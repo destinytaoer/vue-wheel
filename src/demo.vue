@@ -333,6 +333,9 @@ import db from "./db";
 function ajax(parentId = 0) {
   return new Promise((success, fail) => {
     let result = db.filter(item => item.parent_id === parentId);
+    result.map(node => {
+      node.isLeaf = db.filter(item => item.parent_id === node.id).length === 0;
+    });
     success(result);
   });
 }
