@@ -57,16 +57,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var.scss";
+@import "../_var";
+@import "../animate";
 $btn-height: $height;
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .d-button {
   display: inline-flex;
   justify-content: center;

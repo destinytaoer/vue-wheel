@@ -18,6 +18,7 @@
         :selected="selected"
         :items="source"
         :load-data="loadData"
+        :loading-item="loadingItem"
         @selected="onUpdateSelected"
         @hide="hide"
       ></cascader-items>
@@ -49,7 +50,8 @@ export default {
   },
   data() {
     return {
-      popoverVisible: false
+      popoverVisible: false,
+      loadingItem: null
     };
   },
   computed: {
@@ -82,10 +84,12 @@ export default {
           if (result.length) {
             toUpdate.children = result;
             this.$emit("update:source", copy);
+            this.loadingItem = null;
           }
         };
         if (!lastItem.isLeaf) {
           this.loadData(lastItem, updateSource);
+          this.loadingItem = lastItem;
         }
       }
     },
@@ -115,6 +119,7 @@ export default {
 .cascader {
   position: relative;
   display: inline-block;
+  vertical-align: top;
   .trigger {
     display: flex;
     align-items: center;

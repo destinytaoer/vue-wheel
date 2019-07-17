@@ -9,10 +9,18 @@
         :class="{active: selected[level] && item.name === selected[level].name}"
       >
         <span class="name">{{item.name}}</span>
-        <d-icon
-          v-if="rightArrowVisible(item)"
-          name="right"
-        ></d-icon>
+        <template v-if="loadingItem && item.name === loadingItem.name">
+          <d-icon
+            class="loading"
+            name="loading"
+          ></d-icon>
+        </template>
+        <template v-else>
+          <d-icon
+            v-if="rightArrowVisible(item)"
+            name="right"
+          ></d-icon>
+        </template>
       </div>
     </div>
     <div
@@ -24,6 +32,7 @@
         :level="level+1"
         :selected="selected"
         :load-data="loadData"
+        :loading-item="loadingItem"
         @selected="onUpdateSelected"
         @hide="notifyHide"
       ></d-cascader-items>
@@ -50,7 +59,15 @@ export default {
     },
     loadData: {
       type: Function
+    },
+    loadingItem: {
+      type: Object
     }
+  },
+  data() {
+    return {
+      loading: false
+    };
   },
   computed: {
     rightItems() {
@@ -102,6 +119,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../_var";
+@import "../animate";
+
 .cascader-items {
   display: flex;
   justify-content: flex-start;
@@ -132,6 +151,9 @@ export default {
     > .icon {
       margin-left: auto;
       font-size: 0.5em;
+      &.loading {
+        animation: spin 2s infinite linear;
+      }
     }
   }
   .right {

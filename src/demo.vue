@@ -7,6 +7,12 @@
         :selected.sync="selected1"
         split="-"
       ></d-cascader>
+      <d-cascader
+        :source.sync="source"
+        :selected.sync="selected2"
+        :load-data="loadData"
+        split="-"
+      ></d-cascader>
     </div>
     <div>
       <h2>Collapse</h2>
@@ -372,6 +378,8 @@ export default {
       selectedTab: "sports",
       selected: ["2", "1"],
       selected1: [],
+      selected2: [],
+      source: [],
       dataSource: [
         {
           name: "广东",
@@ -455,15 +463,17 @@ export default {
     },
     loadData(item, updateSource) {
       ajax(item.id).then(result => {
-        updateSource(result);
+        setTimeout(() => {
+          updateSource(result);
+        }, 2000);
       });
     }
+  },
+  created() {
+    ajax(0).then(result => {
+      this.source = result;
+    });
   }
-  // created() {
-  //   ajax(0).then(result => {
-  //     this.dataSource = result;
-  //   });
-  // }
 };
 </script>
 <style lang="scss">
