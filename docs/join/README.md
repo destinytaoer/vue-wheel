@@ -12,22 +12,23 @@ title: 参与开发
 
 启动项目：
 ```bash
-npm run start
+yarn serve
 ```
 
-项目将运行在 localhost:8000
+项目将运行在 localhost:8080，如果 8080 被占用，将运行在 8081 上
 
 运行测试：
 ```bash
-npm run test
+yarn test:unit
+
+# 持续测试
+yarn test:unit --watch
 ```
 
 打包项目：
 ```bash
-npm run build
+yarn build
 ```
-
-> 注意：package.json 中持续测试的脚本 test:dev，但是在 windows 中不能同时运行脚本中的两个命令，需要自行分开运行
 
 ## 进行开发
 
@@ -58,7 +59,7 @@ commit 规范：
 开启官网文档：
 
 ```bash
-npm run docs:dev
+yarn docs:dev
 ```
 
 项目将运行在 localhost:8080
