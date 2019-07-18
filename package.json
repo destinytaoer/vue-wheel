@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test": "vue-cli-service test:unit",
     "test:dev": "vue-cli-service test:unit --watch",
     "docs:dev": "vuepress dev docs --no-cache",
     "docs:build": "vuepress build docs"
