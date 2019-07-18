@@ -1,10 +1,10 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+chai.use(sinonChai);
 import { shallowMount, mount } from '@vue/test-utils';
 import Button from '@/Button/Button';
 import Icon from '@/Common/Icon';
-chai.use(sinonChai);
 // describe 和 it 是 mocha 的 API
 describe('Button', () => {
   let wrapper;
@@ -15,7 +15,7 @@ describe('Button', () => {
     expect(Button).to.be.ok;
   });
   describe('props', () => {
-    it('可以设置icon.', () => {
+    it('可以设置 icon.', () => {
       wrapper = shallowMount(Button, {
         propsData: {
           icon: 'settings'
@@ -24,7 +24,7 @@ describe('Button', () => {
       const icon = wrapper.find(Icon);
       expect(icon.props('name')).to.eq('settings');
     });
-    it('可以设置loading.', () => {
+    it('可以设置 loading.', () => {
       wrapper = shallowMount(Button, {
         propsData: {
           icon: 'settings',
@@ -35,25 +35,14 @@ describe('Button', () => {
       expect(icons.length).to.equal(1);
       expect(icons.at(0).props('name')).to.eq('loading');
     });
-    xit('icon 默认的 order 是 1', () => {
-      wrapper = mount(Button, {
-        propsData: {
-          icon: 'settings'
-        }
-      });
-      const icon = wrapper.find(Icon);
-      const style = getComputedStyle(icon.find('svg').element);
-      expect(style.order).to.eq('1');
-    });
-    xit('设置 iconPosition 可以改变 order', () => {
+    it('可以设置 iconPosition', () => {
       wrapper = mount(Button, {
         propsData: {
           icon: 'settings',
           iconPos: 'right'
         }
       });
-      const icon = wrapper.find(Icon);
-      expect(getComputedStyle(icon.element).order).to.eq('2');
+      expect(wrapper.classes()).to.contain('icon-right');
     });
   });
   describe('events', () => {
