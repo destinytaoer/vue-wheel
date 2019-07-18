@@ -79,6 +79,8 @@ describe('Collapse', () => {
         .find('.title')
         .trigger('click');
       wrapper.vm.$nextTick(() => {
+        expect(wrapper.vm.selectedArr).to.contain('2');
+        expect(wrapper.vm.selectedArr).to.not.contain('1');
         expect(items.at(0).classes()).to.contain('close');
         expect(items.at(1).classes()).to.not.contain('close');
         expect(items.at(2).classes()).to.contain('close');
@@ -152,6 +154,7 @@ describe('Collapse', () => {
           .find('.title')
           .trigger('click');
         wrapper.vm.$nextTick(() => {
+          expect(wrapper.vm.selectedArr).to.contain('2');
           expect(items.at(0).classes()).to.not.contain('close');
           expect(items.at(1).classes()).to.not.contain('close');
           expect(items.at(2).classes()).to.contain('close');
