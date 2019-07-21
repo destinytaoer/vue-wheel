@@ -1,10 +1,24 @@
 <template>
   <div class="demo">
     <div>
+      <h2>Slides</h2>
+      <d-slides>
+        <d-slides-item name="1">
+          <div class="box">1</div>
+        </d-slides-item>
+        <d-slides-item name="2">
+          <div class="box">2</div>
+        </d-slides-item>
+        <d-slides-item name="3">
+          <div class="box">3</div>
+        </d-slides-item>
+      </d-slides>
+    </div>
+    <div>
       <h2>Cascader</h2>
       <d-cascader
         :source.sync="dataSource"
-        :selected.sync="selected1"
+        :selected="[]"
         split="-"
         placeholder="请选择省市区"
       ></d-cascader>
@@ -18,7 +32,7 @@
     <div>
       <h2>Collapse</h2>
       <d-collapse
-        :selected.sync="selected"
+        :selected="['1']"
         single
       >
         <d-collapse-item
@@ -331,6 +345,8 @@ import Popover from "./Popover/Popover";
 import Collapse from "./Collapse/Collapse";
 import CollapseItem from "./Collapse/CollapseItem";
 import Cascader from "./Cascader/Cascader";
+import Slides from "./Slides/Slides";
+import SlidesItem from "./Slides/SlidesItem";
 
 Vue.use(toast);
 
@@ -368,7 +384,9 @@ export default {
     "d-popover": Popover,
     "d-collapse": Collapse,
     "d-collapse-item": CollapseItem,
-    "d-cascader": Cascader
+    "d-cascader": Cascader,
+    "d-slides": Slides,
+    "d-slides-item": SlidesItem
   },
   data() {
     return {
@@ -380,6 +398,7 @@ export default {
       selected: ["2", "1"],
       selected1: [],
       selected2: [],
+      selected3: "2",
       source: [],
       dataSource: [
         {
@@ -474,7 +493,8 @@ export default {
     ajax(0).then(result => {
       this.source = result;
     });
-  }
+  },
+  mounted() {}
 };
 </script>
 <style lang="scss">
@@ -500,5 +520,11 @@ img {
 
 .logo-wrapper {
   padding: 10px;
+}
+.box {
+  // width: 300px;
+  min-height: 300px;
+  background: grey;
+  border: 1px solid red;
 }
 </style>
