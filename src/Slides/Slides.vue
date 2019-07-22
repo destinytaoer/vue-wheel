@@ -35,7 +35,7 @@ export default {
     },
     duration: {
       type: Number || String,
-      default: 2000
+      default: 1000
     },
     transition: {
       type: String,
@@ -68,8 +68,9 @@ export default {
       this.selectedIndex = this.names.indexOf(this.selectedName) || 0;
     },
     playAutomatically() {
-      if (this.autoPlay)
-        this.autoTimer = window.setTimeout(this.play, this.durTime);
+      if (!this.autoPlay) return;
+      if (this.autoTimer) return;
+      this.autoTimer = window.setTimeout(this.play, this.duration);
     },
     play() {
       const { names } = this;
@@ -82,6 +83,7 @@ export default {
     pause() {
       if (!this.autoPlay) return;
       this.autoTimer && window.clearTimeout(this.autoTimer);
+      this.autoTimer = null;
     },
     select(index) {
       if (!this.clickTimer) {
@@ -95,16 +97,16 @@ export default {
     },
     diff(oldIndex, newIndex) {
       if (oldIndex == null) return false;
-      let diff = newIndex - oldIndex;
       let len = this.names.length;
-
-      if (diff === len - 1) {
-        return true;
-      } else if (diff === 1 - len) {
-        return false;
-      } else {
-        return diff < 0;
+      if (this.autoTimer) {
+        if (oldIndex === len - 1 && newIndex === 0) {
+          return false;
+        }
+        if (newIndex === len - 1 && oldIndex === 0) {
+          return true;
+        }
       }
+      return newIndex < oldIndex;
     },
     notify(selected) {
       this.notifyParent(selected);
