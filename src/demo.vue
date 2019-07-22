@@ -2,10 +2,7 @@
   <div class="demo">
     <div>
       <h2>Slides</h2>
-      <d-slides
-        :selected.sync="selected3"
-        :auto-play="false"
-      >
+      <d-slides :selected.sync="selected3">
         <d-slides-item name="1">
           <div class="box">1</div>
         </d-slides-item>

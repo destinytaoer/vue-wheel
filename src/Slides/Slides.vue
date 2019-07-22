@@ -1,5 +1,9 @@
 <template>
-  <div class="slides">
+  <div
+    class="slides"
+    @mouseenter="pause"
+    @mouseleave="playAutomatically"
+  >
     <div
       class="slides-window"
       ref="window"
@@ -18,6 +22,7 @@
   </div>
 </template>
 <script>
+import { clearTimeout } from "timers";
 export default {
   name: "DSlides",
   props: {
@@ -44,7 +49,8 @@ export default {
       selectedIndex: 0,
       childrenLength: 0,
       autoTimer: null,
-      clickTimer: null
+      clickTimer: null,
+      animateTime: 1000
     };
   },
   computed: {
@@ -52,7 +58,7 @@ export default {
       return this.names && this.names[this.selectedIndex];
     },
     durTime() {
-      return Number(this.duration) + 1000;
+      return Number(this.duration) + this.animateTime;
     }
   },
   methods: {
@@ -62,7 +68,8 @@ export default {
       this.selectedIndex = this.names.indexOf(this.selectedName) || 0;
     },
     playAutomatically() {
-      this.autoTimer = setTimeout(this.play, this.durTime);
+      if (this.autoPlay)
+        this.autoTimer = window.setTimeout(this.play, this.durTime);
     },
     play() {
       const { names } = this;
@@ -70,18 +77,21 @@ export default {
       if (index === names.length) index = 0;
       if (index === -1) index = names.length - 1;
       this.select(index);
+      this.autoTimer = window.setTimeout(this.play, this.durTime);
+    },
+    pause() {
+      if (!this.autoPlay) return;
+      this.autoTimer && window.clearTimeout(this.autoTimer);
     },
     select(index) {
-      this.autoTimer && window.clearTimeout(this.autoTimer);
       if (!this.clickTimer) {
         this.lastIndex = this.selectedIndex;
         this.selectedIndex = index;
         this.notify(this.names[index]);
-        this.clickTimer = setTimeout(() => {
+        this.clickTimer = window.setTimeout(() => {
           this.clickTimer = null;
-        }, 1000);
+        }, this.animateTime);
       }
-      if (this.autoPlay) this.autoTimer = setTimeout(this.play, this.durTime);
     },
     diff(oldIndex, newIndex) {
       if (oldIndex == null) return false;
@@ -115,7 +125,7 @@ export default {
   mounted() {
     this.initData();
     this.notifyChild(this.selectedName);
-    if (this.autoPlay) this.playAutomatically();
+    this.playAutomatically();
   }
 };
 </script>
