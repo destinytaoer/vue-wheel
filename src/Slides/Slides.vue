@@ -42,7 +42,9 @@ export default {
       names: null,
       lastIndex: null,
       selectedIndex: 0,
-      childrenLength: 0
+      childrenLength: 0,
+      autoTimer: null,
+      clickTimer: null
     };
   },
   computed: {
@@ -60,7 +62,7 @@ export default {
       this.selectedIndex = this.names.indexOf(this.selectedName) || 0;
     },
     playAutomatically() {
-      this.timer = setTimeout(this.play, this.durTime);
+      this.autoTimer = setTimeout(this.play, this.durTime);
     },
     play() {
       const { names } = this;
@@ -70,11 +72,16 @@ export default {
       this.select(index);
     },
     select(index) {
-      this.timer && window.clearTimeout(this.timer);
-      this.lastIndex = this.selectedIndex;
-      this.selectedIndex = index;
-      this.notify(this.names[index]);
-      if (this.autoPlay) this.timer = setTimeout(this.play, this.durTime);
+      this.autoTimer && window.clearTimeout(this.autoTimer);
+      if (!this.clickTimer) {
+        this.lastIndex = this.selectedIndex;
+        this.selectedIndex = index;
+        this.notify(this.names[index]);
+        this.clickTimer = setTimeout(() => {
+          this.clickTimer = null;
+        }, 1000);
+      }
+      if (this.autoPlay) this.autoTimer = setTimeout(this.play, this.durTime);
     },
     diff(oldIndex, newIndex) {
       if (oldIndex == null) return false;
