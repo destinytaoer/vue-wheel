@@ -10,7 +10,9 @@
           v-for="n in childrenLength"
           :key="n"
           :class="{active: selectedIndex === n - 1}"
+          @click="select(n - 1)"
         > {{n}} </span>
+        {{selectedName}}
       </div>
     </div>
   </div>
@@ -24,7 +26,7 @@ export default {
     },
     autoPlay: {
       type: Boolean,
-      deafult: true
+      default: true
     },
     duration: {
       type: Number || String,
@@ -38,52 +40,75 @@ export default {
   data() {
     return {
       names: null,
+      lastIndex: null,
+      selectedIndex: 0,
       childrenLength: 0
     };
   },
   computed: {
-    selectedIndex() {
-      return this.names.indexOf(this.selected) || 0;
-    },
     selectedName() {
-      return this.selected || this.$children[0].name;
+      return this.names && this.names[this.selectedIndex];
+    },
+    durTime() {
+      return Number(this.duration) + 1000;
     }
   },
   methods: {
     initData() {
       this.childrenLength = this.$children.length;
       this.names = this.$children.map(child => child.name);
+      this.selectedIndex = this.names.indexOf(this.selectedName) || 0;
     },
     playAutomatically() {
+      this.timer = setTimeout(this.play, this.durTime);
+    },
+    play() {
       const { names } = this;
-      let index = names.indexOf(this.selectedName);
-      let run = () => {
-        index--;
-        if (index === names.length) index = 0;
-        if (index === -1) index = names.length - 1;
-        this.notifyParent(names[index]);
-        setTimeout(run, this.duration);
-      };
-      setTimeout(run, this.duration);
+      let index = this.selectedIndex + 1;
+      if (index === names.length) index = 0;
+      if (index === -1) index = names.length - 1;
+      this.select(index);
+    },
+    select(index) {
+      this.timer && window.clearTimeout(this.timer);
+      this.lastIndex = this.selectedIndex;
+      this.selectedIndex = index;
+      this.notify(this.names[index]);
+      if (this.autoPlay) this.timer = setTimeout(this.play, this.durTime);
+    },
+    diff(oldIndex, newIndex) {
+      if (oldIndex == null) return false;
+      let diff = newIndex - oldIndex;
+      let len = this.names.length;
+
+      if (diff === len - 1) {
+        return true;
+      } else if (diff === 1 - len) {
+        return false;
+      } else {
+        return diff < 0;
+      }
+    },
+    notify(selected) {
+      this.notifyParent(selected);
+      this.notifyChild(selected);
     },
     notifyParent(selected) {
       this.$emit("update:selected", selected);
-      this.notifyChild(selected);
     },
     notifyChild(selected) {
       const { names } = this;
+      let reverse = this.diff(this.lastIndex, this.selectedIndex);
       this.$children.forEach(child => {
+        child.reverse = reverse;
         child.selected = selected;
-        let newIndex = names.indexOf(selected);
-        let curIndex = names.indexOf(child.name);
-        child.reverse = newIndex > curIndex ? false : true;
       });
     }
   },
   mounted() {
     this.initData();
     this.notifyChild(this.selectedName);
-    this.playAutomatically();
+    if (this.autoPlay) this.playAutomatically();
   }
 };
 </script>

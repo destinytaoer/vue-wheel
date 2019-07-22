@@ -2,7 +2,7 @@
   <transition name="slide">
     <div
       class="slides-item"
-      v-if="show"
+      v-show="show"
       :class="{reverse}"
     >
       <slot></slot>
