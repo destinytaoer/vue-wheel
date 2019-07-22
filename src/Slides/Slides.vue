@@ -3,6 +3,8 @@
     class="slides"
     @mouseenter="pause"
     @mouseleave="playAutomatically"
+    @touchstart="onTouchStart"
+    @touchend="onTouchEnd"
   >
     <div
       class="slides-window"
@@ -10,20 +12,29 @@
     >
       <slot></slot>
       <div class="slides-dots">
+        <span @click="prev">
+          <d-icon name="left"></d-icon>
+        </span>
         <span
           v-for="n in childrenLength"
           :key="n"
           :class="{active: selectedIndex === n - 1}"
-          @click="select(n - 1)"
+          @click="onClick(n - 1)"
         > {{n}} </span>
+        <span @click="next">
+          <d-icon name="right"></d-icon>
+        </span>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { clearTimeout } from "timers";
+import DIcon from "../Common/Icon";
 export default {
   name: "DSlides",
+  components: {
+    DIcon
+  },
   props: {
     selected: {
       type: String
@@ -48,8 +59,11 @@ export default {
       selectedIndex: 0,
       childrenLength: 0,
       autoTimer: null,
-      clickTimer: null,
-      animateTime: 1000
+      selectTimer: null,
+      animateTime: 1000,
+      startTouch: null,
+      endTouch: null,
+      isClick: false
     };
   },
   computed: {
@@ -62,8 +76,11 @@ export default {
   },
   methods: {
     initData() {
-      this.childrenLength = this.$children.length;
-      this.names = this.$children.map(child => child.name);
+      let children = this.$children.filter(child => {
+        return child.$options.name === "DSlidesItem";
+      });
+      this.childrenLength = children.length;
+      this.names = children.map(child => child.name);
       this.selectedIndex = this.names.indexOf(this.selectedName) || 0;
     },
     playAutomatically() {
@@ -72,10 +89,7 @@ export default {
       this.autoTimer = window.setTimeout(this.play, this.duration);
     },
     play() {
-      const { names } = this;
-      let index = this.selectedIndex + 1;
-      if (index === names.length) index = 0;
-      if (index === -1) index = names.length - 1;
+      let index = this.processIndex(this.selectedIndex + 1);
       this.select(index);
       this.autoTimer = window.setTimeout(this.play, this.durTime);
     },
@@ -86,19 +100,61 @@ export default {
     },
     select(index) {
       if (this.selectedIndex === index) return;
-      if (!this.clickTimer) {
+      if (!this.selectTimer) {
         this.lastIndex = this.selectedIndex;
         this.selectedIndex = index;
         this.notify(this.names[index]);
-        this.clickTimer = window.setTimeout(() => {
-          this.clickTimer = null;
+        this.selectTimer = window.setTimeout(() => {
+          this.selectTimer = null;
         }, this.animateTime);
       }
+    },
+    onClick(index) {
+      this.isClick = true;
+      this.select(index);
+      this.isClick = false;
+    },
+    prev() {
+      let index = this.processIndex(this.selectedIndex - 1);
+      this.select(index);
+    },
+    next() {
+      let index = this.processIndex(this.selectedIndex + 1);
+      this.select(index);
+    },
+    onTouchStart(e) {
+      this.pause();
+      // 触控点有多个，则不认为其在滑动
+      if (e.touches.length > 1) return;
+      this.startTouch = e.touches[0];
+    },
+    onTouchEnd(e) {
+      this.endTouch = e.changedTouches[0];
+      let { clientX: x1, clientY: y1 } = this.startTouch;
+      let { clientX: x2, clientY: y2 } = this.endTouch;
+      let deltaX = Math.abs(x2 - x1);
+      // x 距离小于 10，则不认为滑动
+      if (deltaX < 10) return;
+      let deltaY = Math.abs(y2 - y1);
+      let distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+      // 判断滑动角度是否大于 30 度，不大于则说明用户在上下滑动而不是左右滑动
+      // 斜率 > 2 则小于 30 度
+      let slope = distance / deltaY;
+      if (slope < 2) return;
+      if (x2 > x1) {
+        this.prev();
+      } else {
+        this.next();
+      }
+      setTimeout(() => {
+        this.playAutomatically();
+      }, this.animateTime);
     },
     diff(oldIndex, newIndex) {
       if (oldIndex == null) return false;
       let len = this.names.length;
-      if (this.autoTimer) {
+      if (!this.isClick) {
+        // 无缝轮播，只有 dots click 时，才不是无缝轮播
         if (oldIndex === len - 1 && newIndex === 0) {
           return false;
         }
@@ -107,6 +163,12 @@ export default {
         }
       }
       return newIndex < oldIndex;
+    },
+    processIndex(index) {
+      const { names } = this;
+      if (index === names.length) return 0;
+      if (index === -1) return names.length - 1;
+      return index;
     },
     notify(selected) {
       this.notifyParent(selected);
@@ -119,8 +181,10 @@ export default {
       const { names } = this;
       let reverse = this.diff(this.lastIndex, this.selectedIndex);
       this.$children.forEach(child => {
-        child.reverse = reverse;
-        child.selected = selected;
+        if (child.$options.name === "DSlidesItem") {
+          child.reverse = reverse;
+          child.selected = selected;
+        }
       });
     }
   },
@@ -153,6 +217,7 @@ export default {
       background: #ddd;
       &:hover {
         cursor: pointer;
+        background: #bbb;
       }
       &.active {
         background: black;
@@ -160,6 +225,9 @@ export default {
         &:hover {
           cursor: default;
         }
+      }
+      > .icon {
+        transform: scale(0.8);
       }
     }
   }
