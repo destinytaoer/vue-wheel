@@ -35,11 +35,11 @@ export default {
 .slides-item {
   width: 100%;
   height: 100%;
-  &.slide-leave-active {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+}
+.slide-leave-active {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .slide-enter-active,
 .slide-leave-active {

@@ -16,7 +16,6 @@
           :class="{active: selectedIndex === n - 1}"
           @click="select(n - 1)"
         > {{n}} </span>
-        {{selectedName}}
       </div>
     </div>
   </div>
@@ -86,6 +85,7 @@ export default {
       this.autoTimer = null;
     },
     select(index) {
+      if (this.selectedIndex === index) return;
       if (!this.clickTimer) {
         this.lastIndex = this.selectedIndex;
         this.selectedIndex = index;
@@ -138,13 +138,28 @@ export default {
     overflow: hidden;
   }
   &-dots {
+    padding: 4px 0;
+    display: flex;
+    justify-content: center;
     > span {
-      width: 10px;
-      height: 10px;
+      display: inline-flex;
+      width: 1.2em;
+      height: 1.2em;
+      justify-content: center;
+      align-items: center;
       border-radius: 50%;
       border: 1px solid #ddd;
+      margin: 0 0.2em;
+      background: #ddd;
+      &:hover {
+        cursor: pointer;
+      }
       &.active {
-        background: red;
+        background: black;
+        color: #fff;
+        &:hover {
+          cursor: default;
+        }
       }
     }
   }

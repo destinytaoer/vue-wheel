@@ -523,8 +523,10 @@ img {
 }
 .box {
   // width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 300px;
-  background: grey;
-  border: 1px solid red;
+  background: #ddd;
 }
 </style>
