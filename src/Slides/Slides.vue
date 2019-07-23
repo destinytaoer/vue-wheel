@@ -81,7 +81,8 @@ export default {
       });
       this.childrenLength = children.length;
       this.names = children.map(child => child.name);
-      this.selectedIndex = this.names.indexOf(this.selectedName) || 0;
+      let index = this.names.indexOf(this.selected);
+      this.selectedIndex = index > -1 ? index : 0;
     },
     playAutomatically() {
       if (!this.autoPlay) return;
