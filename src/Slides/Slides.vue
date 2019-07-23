@@ -50,7 +50,7 @@ export default {
       type: Boolean,
       default: true
     },
-    duration: {
+    delay: {
       type: Number || String,
       default: 1000
     },
@@ -78,7 +78,7 @@ export default {
       return this.names && this.names[this.selectedIndex];
     },
     durTime() {
-      return Number(this.duration) + this.animateTime;
+      return Number(this.delay) + this.animateTime;
     }
   },
   methods: {
@@ -94,7 +94,7 @@ export default {
     playAutomatically() {
       if (!this.autoPlay) return;
       if (this.autoTimer) return;
-      this.autoTimer = window.setTimeout(this.play, this.duration);
+      this.autoTimer = window.setTimeout(this.play, this.delay);
     },
     play() {
       let index = this.processIndex(this.selectedIndex + 1);
