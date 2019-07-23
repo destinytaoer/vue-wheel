@@ -11,23 +11,34 @@
       ref="window"
     >
       <slot></slot>
-      <div class="slides-dots">
+      <div
+        class="slides-dots"
+        v-if="enabledDots"
+      >
+        <span
+          v-for="n in childrenLength"
+          :key="n"
+          class="dot"
+          :data-index="n - 1"
+          :class="{active: selectedIndex === n - 1}"
+          @click="onClick(n - 1)"
+        > {{showDotsNum ? n : ''}} </span>
+      </div>
+      <div
+        class="slides-arrows"
+        v-if="enabledArrows"
+      >
         <span
           @click="prev"
+          class="arrow"
           data-index="prev"
         >
           <d-icon name="left"></d-icon>
         </span>
         <span
-          v-for="n in childrenLength"
-          :key="n"
-          :data-index="n - 1"
-          :class="{active: selectedIndex === n - 1}"
-          @click="onClick(n - 1)"
-        > {{n}} </span>
-        <span
           @click="next"
-          data-index="prev"
+          class="arrow"
+          data-index="next"
         >
           <d-icon name="right"></d-icon>
         </span>
@@ -57,6 +68,18 @@ export default {
     animateTime: {
       type: String | Number,
       default: 1000
+    },
+    enabledDots: {
+      type: Boolean,
+      default: true
+    },
+    showDotsNum: {
+      type: Boolean,
+      default: true
+    },
+    enabledArrows: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -207,21 +230,29 @@ export default {
   &-window {
     position: relative;
     overflow: hidden;
+    &:hover {
+      .slides-arrows {
+        display: block;
+      }
+    }
   }
   &-dots {
-    padding: 4px 0;
-    display: flex;
-    justify-content: center;
-    > span {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    padding: 5px 0;
+    > .dot {
       display: inline-flex;
       width: 1.2em;
       height: 1.2em;
       justify-content: center;
       align-items: center;
+      vertical-align: top;
       border-radius: 50%;
       border: 1px solid #ddd;
       margin: 0 0.2em;
-      background: #ddd;
+      background: #eee;
       &:hover {
         cursor: pointer;
         background: #bbb;
@@ -235,6 +266,29 @@ export default {
       }
       > .icon {
         transform: scale(0.8);
+      }
+    }
+  }
+  &-arrows {
+    display: none;
+    > .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1em;
+      height: 1.2em;
+      font-size: 40px;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      cursor: pointer;
+      .icon {
+        fill: #eee;
+      }
+      &:first-child {
+        left: 0;
+      }
+      &:last-child {
+        right: 0;
       }
     }
   }
