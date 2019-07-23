@@ -53,6 +53,10 @@ export default {
     delay: {
       type: Number || String,
       default: 1000
+    },
+    animateTime: {
+      type: String | Number,
+      default: 1000
     }
   },
   data() {
@@ -63,7 +67,6 @@ export default {
       childrenLength: 0,
       autoTimer: null,
       selectTimer: null,
-      animateTime: 1000,
       startTouch: null,
       endTouch: null,
       isClick: false
@@ -74,7 +77,7 @@ export default {
       return this.names && this.names[this.selectedIndex];
     },
     durTime() {
-      return Number(this.delay) + this.animateTime;
+      return Number(this.delay) + Number(this.animateTime);
     }
   },
   methods: {
@@ -110,7 +113,7 @@ export default {
         this.notify(this.names[index]);
         this.selectTimer = window.setTimeout(() => {
           this.selectTimer = null;
-        }, this.animateTime);
+        }, Number(this.animateTime));
       }
     },
     onClick(index) {
@@ -152,7 +155,7 @@ export default {
       }
       setTimeout(() => {
         this.playAutomatically();
-      }, this.animateTime);
+      }, Number(this.animateTime));
     },
     diff(oldIndex, newIndex) {
       if (oldIndex == null) return false;
