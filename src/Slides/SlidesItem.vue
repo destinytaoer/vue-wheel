@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="animationEnabled">
-      <transition name="slide">
+      <transition name="slides">
         <div
           class="slides-item"
           v-show="show"
@@ -54,27 +54,27 @@ export default {
   width: 100%;
   height: 100%;
 }
-.slide-leave-active {
+.slides-leave-active {
   position: absolute;
   top: 0;
   left: 0;
 }
-.slide-enter-active,
-.slide-leave-active {
+.slides-enter-active,
+.slides-leave-active {
   transition: all 1s linear;
 }
-.slide-enter {
+.slides-enter {
   transform: translateX(100%) scale(0);
 }
-.slide-enter.reverse {
+.slides-enter.reverse {
   transform: translateX(-100%) scale(0);
   opacity: 0;
 }
-.slide-leave-to {
+.slides-leave-to {
   transform: translateX(-100%) scale(0);
   opacity: 0;
 }
-.slide-leave-to.reverse {
+.slides-leave-to.reverse {
   transform: translateX(100%) scale(0);
   opacity: 0;
 }
