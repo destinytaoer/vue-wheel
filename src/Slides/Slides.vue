@@ -12,7 +12,10 @@
     >
       <slot></slot>
       <div class="slides-dots">
-        <span @click="prev">
+        <span
+          @click="prev"
+          data-index="prev"
+        >
           <d-icon name="left"></d-icon>
         </span>
         <span
@@ -22,7 +25,10 @@
           :class="{active: selectedIndex === n - 1}"
           @click="onClick(n - 1)"
         > {{n}} </span>
-        <span @click="next">
+        <span
+          @click="next"
+          data-index="prev"
+        >
           <d-icon name="right"></d-icon>
         </span>
       </div>
