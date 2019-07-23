@@ -53,10 +53,6 @@ export default {
     delay: {
       type: Number || String,
       default: 1000
-    },
-    transition: {
-      type: String,
-      default: "slide"
     }
   },
   data() {
