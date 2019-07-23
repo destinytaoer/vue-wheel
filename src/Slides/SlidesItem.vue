@@ -1,13 +1,27 @@
 <template>
-  <transition name="slide">
-    <div
-      class="slides-item"
-      v-show="show"
-      :class="{reverse}"
-    >
-      <slot></slot>
-    </div>
-  </transition>
+  <div>
+    <template v-if="animationEnabled">
+      <transition name="slide">
+        <div
+          class="slides-item"
+          v-show="show"
+          :class="{reverse}"
+        >
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template v-else>
+      <div
+        class="slides-item"
+        v-show="show"
+        :class="{reverse}"
+      >
+        <slot></slot>
+      </div>
+    </template>
+  </div>
+
 </template>
 <script>
 export default {
@@ -21,8 +35,12 @@ export default {
   data() {
     return {
       selected: null,
-      reverse: false
+      reverse: false,
+      animationEnabled: false
     };
+  },
+  updated() {
+    this.animationEnabled = true;
   },
   computed: {
     show() {
