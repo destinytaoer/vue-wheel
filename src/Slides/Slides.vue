@@ -51,7 +51,7 @@ export default {
       default: true
     },
     delay: {
-      type: Number || String,
+      type: Number | String,
       default: 1000
     },
     animateTime: {
