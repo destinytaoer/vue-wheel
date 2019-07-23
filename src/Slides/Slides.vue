@@ -248,7 +248,6 @@ export default {
       height: 1.2em;
       justify-content: center;
       align-items: center;
-      vertical-align: top;
       border-radius: 50%;
       border: 1px solid #ddd;
       margin: 0 0.2em;
@@ -264,9 +263,6 @@ export default {
           cursor: default;
         }
       }
-      > .icon {
-        transform: scale(0.8);
-      }
     }
   }
   &-arrows {
@@ -275,11 +271,13 @@ export default {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 1em;
       height: 1.2em;
       font-size: 40px;
       background: rgba(0, 0, 0, 0.2);
-      z-index: 1000;
       cursor: pointer;
       .icon {
         fill: #eee;
