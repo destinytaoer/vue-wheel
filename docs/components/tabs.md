@@ -94,6 +94,6 @@ TabsItem props:
 
 TabsContent props:
 
-| 名称 |  类型  | 描述                                       |
-| ---- | :----: | :----------------------------------------- |
-| name | String | TabsContent 的唯一标记，与 TabsItem 相对应 |
+| 名称 | 描述                                       |
+| ---- | :----------------------------------------- |
+| name | TabsContent 的唯一标记，与 TabsItem 相对应 |

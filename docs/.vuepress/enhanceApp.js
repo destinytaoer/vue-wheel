@@ -20,6 +20,8 @@ import Popover from '../../src/Popover/Popover';
 import Collapse from '../../src/Collapse/Collapse';
 import CollapseItem from '../../src/Collapse/CollapseItem';
 import Cascader from '../../src/Cascader/Cascader';
+import Slides from '../../src/Slides/Slides';
+import SlidesItem from '../../src/Slides/SlidesItem';
 export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-icon', Icon);
   Vue.component('d-button', Button);
@@ -43,4 +45,6 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-collapse', Collapse);
   Vue.component('d-collapse-item', CollapseItem);
   Vue.component('d-cascader', Cascader);
+  Vue.component('d-slides', Slides);
+  Vue.component('d-slides-item', SlidesItem);
 };
