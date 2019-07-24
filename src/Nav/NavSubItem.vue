@@ -2,12 +2,10 @@
   <div
     class="nav-sub-item"
     :class="{active}"
-    v-click-outside="'open'"
+    @mouseenter="show"
+    @mouseleave="hide"
   >
-    <span
-      class="nav-sub-item-title"
-      @click="onClick"
-    >{{title}}</span>
+    <span class="nav-sub-item-title">{{title}}</span>
     <div
       class="nav-sub-item-popover"
       v-show="open"
@@ -17,10 +15,8 @@
   </div>
 </template>
 <script>
-import ClickOutside from "../click-outside";
 export default {
   name: "DNavSubItem",
-  directives: { ClickOutside },
   inject: ["eventBus"],
   props: {
     title: {
@@ -35,8 +31,11 @@ export default {
     };
   },
   methods: {
-    onClick() {
-      this.open = !this.open;
+    show() {
+      this.open = true;
+    },
+    hide() {
+      this.open = false;
     },
     searchChildren(children, selected) {
       return children.some(child => {
@@ -64,9 +63,7 @@ export default {
   > .nav-sub-item-title {
     display: block;
     padding: 0.5em 1em;
-    &:hover {
-      color: $color-active;
-    }
+    white-space: nowrap;
   }
   > .nav-sub-item-popover {
     position: absolute;
@@ -74,10 +71,10 @@ export default {
     left: 0;
     z-index: 1000;
     background: #fff;
-    white-space: nowrap;
     border: 1px solid #ddd;
   }
-  &.active {
+  &.active,
+  &:hover {
     > .nav-sub-item-title {
       color: $color-active;
       .icon {

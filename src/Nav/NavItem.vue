@@ -43,6 +43,8 @@ export default {
   padding: 0.5em 1em;
   user-select: none;
   cursor: pointer;
+  background: $bg;
+  white-space: nowrap;
   &.active {
     color: $color-active;
     .icon {
