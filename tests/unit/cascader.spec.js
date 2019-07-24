@@ -117,7 +117,7 @@ describe('Cascader', () => {
           ]
         }
       });
-      let trigger = wrapper.find('.trigger');
+      let trigger = wrapper.find('.cascader-trigger');
       expect(trigger.text()).to.eq('广东');
     });
     it('可以设置 split', () => {
@@ -174,7 +174,7 @@ describe('Cascader', () => {
           ]
         }
       });
-      let trigger = wrapper.find('.trigger');
+      let trigger = wrapper.find('.cascader-trigger');
       expect(trigger.text()).to.eq('广东 / 广州');
       wrapper = mount(Cascader, {
         propsData: {
@@ -230,7 +230,7 @@ describe('Cascader', () => {
           split: '-'
         }
       });
-      trigger = wrapper.find('.trigger');
+      trigger = wrapper.find('.cascader-trigger');
       expect(trigger.text()).to.eq('广东 - 广州');
     });
     it('可以设置 placeholder', () => {
@@ -404,8 +404,8 @@ describe('Cascader', () => {
         }
       });
       let cascader = wrapper.vm;
-      let trigger = wrapper.find('.trigger');
-      let popover = wrapper.find('.popover');
+      let trigger = wrapper.find('.cascader-trigger');
+      let popover = wrapper.find('.cascader-popover');
       expect(popover.element.style.display).to.eq('none');
       let callback1 = sinon.fake();
       let callback2 = sinon.fake();
@@ -473,7 +473,7 @@ describe('Cascader', () => {
         }
       });
       let cascader = wrapper.vm;
-      let trigger = wrapper.find('.trigger');
+      let trigger = wrapper.find('.cascader-trigger');
       let items = wrapper.findAll(CascaderItems);
       expect(items.length).to.eq(1);
       trigger.trigger('click');
