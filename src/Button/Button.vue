@@ -57,8 +57,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var";
-@import "../animate";
+@import "_var";
+@import "animate";
 $btn-height: $height;
 .d-button {
   display: inline-flex;

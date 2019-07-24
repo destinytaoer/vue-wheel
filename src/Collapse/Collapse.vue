@@ -62,7 +62,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var";
+@import "_var";
 .collapse {
   border: 1px solid $border-color;
   border-radius: $border-radius;

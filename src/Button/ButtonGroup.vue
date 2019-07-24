@@ -22,7 +22,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../_var.scss";
+@import "_var.scss";
 .d-button-group {
   display: inline-flex;
   vertical-align: middle;

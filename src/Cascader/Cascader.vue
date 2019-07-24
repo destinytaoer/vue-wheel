@@ -5,7 +5,7 @@
     v-click-outside="'popoverVisible'"
   >
     <div
-      class="trigger"
+      class="cascader-trigger"
       @click="toggle"
     >
       {{result}}
@@ -15,7 +15,7 @@
       >{{placeholder}}</span>
     </div>
     <div
-      class="popover"
+      class="cascader-popover"
       v-show="popoverVisible"
     >
       <cascader-items
@@ -123,12 +123,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var";
+@import "_var";
 .cascader {
   position: relative;
   display: inline-block;
   vertical-align: top;
-  .trigger {
+  &-trigger {
     display: flex;
     align-items: center;
     min-width: 10em;
@@ -142,7 +142,7 @@ export default {
       color: $border-color;
     }
   }
-  .popover {
+  &-popover {
     display: flex;
     position: absolute;
     z-index: 1000;

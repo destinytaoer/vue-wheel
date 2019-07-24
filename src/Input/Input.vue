@@ -48,7 +48,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var";
+@import "_var";
 .g-input {
   font-size: $font-size;
   display: inline-flex;

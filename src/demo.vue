@@ -350,7 +350,7 @@ import SlidesItem from "./Slides/SlidesItem";
 
 Vue.use(toast);
 
-import db from "./db";
+import db from "../tests/fixtures/db";
 
 function ajax(parentId = 0) {
   return new Promise((success, fail) => {

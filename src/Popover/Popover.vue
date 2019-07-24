@@ -155,7 +155,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var";
+@import "_var";
 $margin: 13px;
 .popover {
   display: inline-block;
@@ -168,6 +168,7 @@ $margin: 13px;
   border: 1px solid $border-color;
   border-radius: $border-radius;
   background: #fff;
+  z-index: 1000;
   // box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
   &::before,

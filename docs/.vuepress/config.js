@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
   title: 'Vue Wheel',
   description: '基于 Vue 开发的 UI 组件库',
@@ -40,5 +41,8 @@ module.exports = {
     '/': {
       lang: 'zh-CN'
     }
+  },
+  scss: {
+    includePaths: [path.resolve('styles')]
   }
 };

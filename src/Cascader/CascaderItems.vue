@@ -118,8 +118,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../_var";
-@import "../animate";
+@import "_var";
+@import "animate";
 
 .cascader-items {
   display: flex;
