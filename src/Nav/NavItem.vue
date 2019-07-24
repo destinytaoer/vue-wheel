@@ -37,12 +37,29 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "_var";
 .nav-item {
+  position: relative;
   padding: 0.5em 1em;
   user-select: none;
   cursor: pointer;
   &.active {
-    background: red;
+    color: $color-active;
+    .icon {
+      fill: $color-active;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      border-bottom: 2px solid $border-color-active;
+    }
+  }
+  &:hover {
+    color: $color-active;
   }
 }
 </style>
