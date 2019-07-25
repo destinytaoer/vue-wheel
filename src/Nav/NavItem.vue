@@ -2,7 +2,7 @@
   <div
     class="nav-item"
     @click="onClick"
-    :class="{active: isSelected}"
+    :class="{active: isSelected, vertical}"
   >
     <slot></slot>
   </div>
@@ -16,7 +16,7 @@ export default {
       required: true
     }
   },
-  inject: ["eventBus"],
+  inject: ["eventBus", "vertical"],
   data() {
     return {
       isSelected: false
@@ -41,7 +41,6 @@ export default {
 .nav-item {
   position: relative;
   padding: 0.5em 1em;
-  user-select: none;
   cursor: pointer;
   background: $bg;
   white-space: nowrap;
@@ -53,11 +52,22 @@ export default {
     &::after {
       content: "";
       position: absolute;
-      bottom: 0;
+      bottom: -1px;
       left: 0;
+      z-index: 500;
       width: 100%;
-      height: 1px;
+      height: 0;
       border-bottom: 2px solid $border-color-active;
+    }
+    &.vertical::after {
+      top: 0;
+      right: -1px;
+      left: auto;
+      bottom: auto;
+      width: 0;
+      height: 100%;
+      border-right: 2px solid $border-color-active;
+      border-bottom: none;
     }
   }
   &:hover {

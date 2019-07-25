@@ -1,44 +1,64 @@
 <template>
   <div
     class="nav-sub-item"
-    :class="{active: active || hover}"
+    :class="{active: active, vertical}"
     @mouseenter="show"
     @mouseleave="hide"
   >
-    <span class="nav-sub-item-title">
+    <span
+      class="nav-sub-item-title"
+      @click="toggle"
+    >
       <span class="title">
         {{title}}
       </span>
-      <template v-if="isFirstSub">
+      <template v-if="vertical || isFirstSub">
         <d-icon
           class="down"
-          :class="{active: hover}"
+          :class="{active: open}"
           name="down"
         ></d-icon>
       </template>
       <template v-else>
         <d-icon
           class="right"
-          :class="{active: hover}"
+          :class="{active: open}"
           name="right"
         ></d-icon>
       </template>
     </span>
-    <transition name="zoom">
+    <template v-if="vertical">
+      <transition
+        name="zoom"
+        @enter="enter"
+        @after-enter="afterEnter"
+        @after-leave="afterLeave"
+        @leave="leave"
+      >
+        <div
+          class="nav-sub-item-popover"
+          v-show="open"
+        >
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template v-else>
       <div
         class="nav-sub-item-popover"
         v-show="open"
       >
         <slot></slot>
       </div>
-    </transition>
+    </template>
+
   </div>
 </template>
 <script>
 import Icon from "../Common/Icon";
 export default {
   name: "DNavSubItem",
-  inject: ["eventBus"],
+  inject: ["eventBus", "vertical"],
   components: {
     "d-icon": Icon
   },
@@ -57,15 +77,18 @@ export default {
     };
   },
   methods: {
+    toggle() {
+      if (this.vertical) this.open = !this.open;
+    },
     show() {
+      if (this.vertical) return;
       this.hideTimer && window.clearTimeout(this.hideTimer);
       this.open = true;
-      this.hover = true;
     },
     hide() {
+      if (this.vertical) return;
       this.hideTimer = window.setTimeout(() => {
         this.open = false;
-        this.hover = false;
       }, 300);
     },
     searchChildren(children, selected) {
@@ -76,6 +99,32 @@ export default {
             this.searchChildren(child.$children, selected))
         );
       });
+    },
+    enter(el, done) {
+      el.style.height = "auto";
+      let { height } = el.getBoundingClientRect();
+      el.style.height = "0";
+      el.getBoundingClientRect();
+      el.style.height = `${height}px`;
+      el.addEventListener("transitionend", () => {
+        done();
+      });
+    },
+    afterEnter(el) {
+      el.style.height = "auto";
+    },
+    leave(el, done) {
+      let { height } = el.getBoundingClientRect();
+      console.log(height);
+      el.style.height = `${height}px`;
+      el.getBoundingClientRect();
+      el.style.height = "0";
+      el.addEventListener("transitionend", () => {
+        done();
+      });
+    },
+    afterLeave(el) {
+      el.style.height = "auto";
     }
   },
   computed: {
@@ -86,7 +135,6 @@ export default {
   mounted() {
     this.eventBus.$on("change", selected => {
       this.active = this.searchChildren(this.$children, selected);
-      if (this.active) this.hover = false;
     });
   }
 };
@@ -98,6 +146,7 @@ export default {
   user-select: none;
   cursor: pointer;
   > .nav-sub-item-title {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 0.5em 1em;
@@ -135,18 +184,18 @@ export default {
     min-width: 8em;
     margin-top: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    &.zoom-enter-active,
-    &.zoom-leave-active {
-      transform-origin: 0 0;
-      transition: all 0.5s ease;
-    }
-    &.zoom-enter,
-    &.zoom-leave-to {
-      transform: scale(0);
+    transition: all 250ms linear;
+  }
+  &.vertical {
+    > .nav-sub-item-popover {
+      position: static;
+      box-shadow: none;
+      margin-top: 0;
+      padding-left: 10px;
+      overflow: hidden;
     }
   }
-  &.active,
-  &:hover {
+  &.active {
     > .nav-sub-item-title {
       color: $color-active;
       .icon {
@@ -155,23 +204,34 @@ export default {
       &::after {
         content: "";
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
         left: 0;
+        z-index: 500;
         width: 100%;
-        height: 1px;
+        height: 0;
         border-bottom: 2px solid $border-color-active;
+      }
+    }
+    &.vertical {
+      > .nav-sub-item-title {
+        &::after {
+          top: 0;
+          right: -1px;
+          left: auto;
+          bottom: 0;
+          height: 100%;
+          width: 0;
+          border-right: 2px solid $border-color-active;
+          border-bottom: none;
+        }
       }
     }
   }
   &:hover {
     > .nav-sub-item-title {
+      color: $color-active;
       .icon {
-        &.down {
-          transform: rotate(-180deg) translateY(0);
-        }
-        &.right {
-          transform: rotate(-180deg) translateX(0);
-        }
+        fill: $color-active;
       }
     }
   }
@@ -185,13 +245,37 @@ export default {
     &.active,
     &:hover {
       > .nav-sub-item-title {
-        background: $border-color-active-light;
         color: $color-active;
         .icon {
           fill: $color-active;
         }
         &::after {
           content: none;
+        }
+      }
+    }
+    &.active {
+      > .nav-sub-item-title {
+        background: $border-color-active-light;
+      }
+    }
+    &.vertical {
+      > .nav-sub-item-popover {
+        margin-left: 0;
+      }
+      &.active {
+        > .nav-sub-item-title {
+          background: #fff;
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -1px;
+            z-index: 500;
+            height: 100%;
+            width: 0;
+            border-right: 2px solid $border-color-active;
+          }
         }
       }
     }

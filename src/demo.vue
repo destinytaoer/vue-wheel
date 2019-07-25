@@ -2,9 +2,11 @@
   <div class="demo">
     <div>
       <h2>Nav</h2>
-      <d-nav :selected="selected4">
+      <d-nav
+        :selected="selected4"
+        vertical
+      >
         <d-nav-item name="home">首页</d-nav-item>
-        <d-nav-item name="start">开始</d-nav-item>
         <d-nav-sub-item title="关于">
           <d-nav-item name="culture">企业文化</d-nav-item>
           <d-nav-item name="developers">开发团队</d-nav-item>
@@ -18,6 +20,24 @@
             </d-nav-sub-item>
           </d-nav-sub-item>
         </d-nav-sub-item>
+        <d-nav-item name="start">开始</d-nav-item>
+      </d-nav>
+      <d-nav>
+        <d-nav-item name="home">首页</d-nav-item>
+        <d-nav-sub-item title="关于">
+          <d-nav-item name="culture">企业文化</d-nav-item>
+          <d-nav-item name="developers">开发团队</d-nav-item>
+          <d-nav-sub-item title="联系电话">
+            <d-nav-item name="wechat">微信</d-nav-item>
+            <d-nav-item name="qq">qq</d-nav-item>
+            <d-nav-sub-item title="手机">
+              <d-nav-item name="cm">移动</d-nav-item>
+              <d-nav-item name="cu">联通</d-nav-item>
+              <d-nav-item name="cn">电信</d-nav-item>
+            </d-nav-sub-item>
+          </d-nav-sub-item>
+        </d-nav-sub-item>
+        <d-nav-item name="start">开始</d-nav-item>
       </d-nav>
     </div>
     <div>
