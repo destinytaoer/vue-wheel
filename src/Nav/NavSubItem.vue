@@ -1,7 +1,7 @@
 <template>
   <div
     class="nav-sub-item"
-    :class="{active}"
+    :class="{active: active || hover}"
     @mouseenter="show"
     @mouseleave="hide"
   >
@@ -27,15 +27,22 @@ export default {
   data() {
     return {
       open: false,
-      active: false
+      active: false,
+      hideTimer: null,
+      hover: false
     };
   },
   methods: {
     show() {
+      this.hideTimer && window.clearTimeout(this.hideTimer);
       this.open = true;
+      this.hover = true;
     },
     hide() {
-      this.open = false;
+      this.hideTimer = window.setTimeout(() => {
+        this.open = false;
+        this.hover = false;
+      }, 300);
     },
     searchChildren(children, selected) {
       return children.some(child => {
@@ -50,6 +57,7 @@ export default {
   mounted() {
     this.eventBus.$on("change", selected => {
       this.active = this.searchChildren(this.$children, selected);
+      if (this.active) this.hover = false;
     });
   }
 };
@@ -71,7 +79,10 @@ export default {
     left: 0;
     z-index: 1000;
     background: #fff;
-    border: 1px solid #ddd;
+    font-size: $font-size;
+    min-width: 8em;
+    margin-top: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   }
   &.active,
   &:hover {
@@ -95,6 +106,21 @@ export default {
     > .nav-sub-item-popover {
       top: 0;
       left: 100%;
+      margin-left: 5px;
+      margin-top: 0;
+    }
+    &.active,
+    &:hover {
+      > .nav-sub-item-title {
+        background: $border-color-active-light;
+        color: $color-active;
+        .icon {
+          fill: $color-active;
+        }
+        &::after {
+          content: none;
+        }
+      }
     }
   }
   & .nav-item {
