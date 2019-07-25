@@ -135,7 +135,7 @@ export default {
         popover.removeEventListener("click", this.onClick);
       } else {
         popover.removeEventListener("mouseenter", this.show);
-        document.removeEventListener("mouseleave", this.eventHandler);
+        document.removeEventListener("mouseover", this.eventHandler);
       }
     },
     putBackContent() {
