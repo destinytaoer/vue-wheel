@@ -64,4 +64,12 @@ export default {
     color: $color-active;
   }
 }
+.nav-sub-item .nav-item {
+  &.active {
+    background: $border-color-active-light;
+    &::after {
+      content: none;
+    }
+  }
+}
 </style>

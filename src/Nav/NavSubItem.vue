@@ -24,12 +24,14 @@
         ></d-icon>
       </template>
     </span>
-    <div
-      class="nav-sub-item-popover"
-      v-show="open"
-    >
-      <slot></slot>
-    </div>
+    <transition name="zoom">
+      <div
+        class="nav-sub-item-popover"
+        v-show="open"
+      >
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -133,6 +135,15 @@ export default {
     min-width: 8em;
     margin-top: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    &.zoom-enter-active,
+    &.zoom-leave-active {
+      transform-origin: 0 0;
+      transition: all 0.5s ease;
+    }
+    &.zoom-enter,
+    &.zoom-leave-to {
+      transform: scale(0);
+    }
   }
   &.active,
   &:hover {
@@ -182,14 +193,6 @@ export default {
         &::after {
           content: none;
         }
-      }
-    }
-  }
-  & .nav-item {
-    &.active {
-      background: $border-color-active-light;
-      &::after {
-        content: none;
       }
     }
   }
