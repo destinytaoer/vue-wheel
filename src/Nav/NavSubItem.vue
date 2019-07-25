@@ -8,6 +8,7 @@
     <span
       class="nav-sub-item-title"
       @click="toggle"
+      ref="title"
     >
       <span class="title">
         {{title}}
@@ -70,6 +71,7 @@ export default {
   },
   data() {
     return {
+      index: 0,
       open: false,
       active: false,
       hideTimer: null,
@@ -136,6 +138,10 @@ export default {
     this.eventBus.$on("change", selected => {
       this.active = this.searchChildren(this.$children, selected);
     });
+    this.$nextTick(() => {
+      if (this.vertical)
+        this.$refs.title.style.paddingLeft = `${(this.index + 1) * 0.5}em`;
+    });
   }
 };
 </script>
@@ -191,7 +197,6 @@ export default {
       position: static;
       box-shadow: none;
       margin-top: 0;
-      padding-left: 10px;
       overflow: hidden;
     }
   }

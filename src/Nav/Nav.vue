@@ -53,6 +53,18 @@ export default {
     },
     notifyChild(selected) {
       this.eventBus.$emit("change", selected);
+    },
+    setIndex(children, index) {
+      if (!children.length > 0) return;
+      children.forEach(child => {
+        if (child.$options.name === "DNavSubItem") {
+          child.index = index;
+          this.setIndex(child.$children, index + 1);
+        }
+        if (child.$options.name === "DNavItem") {
+          child.index = index;
+        }
+      });
     }
   },
   mounted() {
@@ -65,6 +77,7 @@ export default {
       }
       this.notify(this.selectedArr);
     });
+    this.setIndex(this.$children, 1);
   }
 };
 </script>
@@ -76,7 +89,7 @@ export default {
   user-select: none;
   border-bottom: 1px solid $border-color-light;
   &.vertical {
-    width: 200px;
+    width: fit-content;
     flex-direction: column;
     border: 1px solid $border-color-light;
   }

@@ -19,7 +19,8 @@ export default {
   inject: ["eventBus", "vertical"],
   data() {
     return {
-      isSelected: false
+      isSelected: false,
+      index: 0
     };
   },
   methods: {
@@ -34,6 +35,10 @@ export default {
   mounted() {
     this.eventBus.$on("change", selected => {
       this.isSelected = selected.includes(this.name);
+    });
+    this.$nextTick(() => {
+      if (this.vertical)
+        this.$el.style.paddingLeft = `${(this.index + 1) * 0.5}em`;
     });
   }
 };
