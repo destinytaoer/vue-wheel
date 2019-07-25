@@ -5,7 +5,25 @@
     @mouseenter="show"
     @mouseleave="hide"
   >
-    <span class="nav-sub-item-title">{{title}}</span>
+    <span class="nav-sub-item-title">
+      <span class="title">
+        {{title}}
+      </span>
+      <template v-if="isFirstSub">
+        <d-icon
+          class="down"
+          :class="{active: hover}"
+          name="down"
+        ></d-icon>
+      </template>
+      <template v-else>
+        <d-icon
+          class="right"
+          :class="{active: hover}"
+          name="right"
+        ></d-icon>
+      </template>
+    </span>
     <div
       class="nav-sub-item-popover"
       v-show="open"
@@ -15,9 +33,13 @@
   </div>
 </template>
 <script>
+import Icon from "../Common/Icon";
 export default {
   name: "DNavSubItem",
   inject: ["eventBus"],
+  components: {
+    "d-icon": Icon
+  },
   props: {
     title: {
       type: String,
@@ -54,6 +76,11 @@ export default {
       });
     }
   },
+  computed: {
+    isFirstSub() {
+      return this.$parent.$options.name === "DNav";
+    }
+  },
   mounted() {
     this.eventBus.$on("change", selected => {
       this.active = this.searchChildren(this.$children, selected);
@@ -69,9 +96,32 @@ export default {
   user-select: none;
   cursor: pointer;
   > .nav-sub-item-title {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.5em 1em;
     white-space: nowrap;
+    .title {
+      margin-right: 10px;
+    }
+    .icon {
+      transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      margin-left: auto;
+      font-size: 10px;
+      &.down {
+        transform: translateY(2px);
+      }
+      &.right {
+        transform: translateX(-2px);
+      }
+      &.active {
+        &.down {
+          transform: rotate(-180deg) translateY(0);
+        }
+        &.right {
+          transform: rotate(-180deg) translateX(0);
+        }
+      }
+    }
   }
   > .nav-sub-item-popover {
     position: absolute;
@@ -99,6 +149,18 @@ export default {
         width: 100%;
         height: 1px;
         border-bottom: 2px solid $border-color-active;
+      }
+    }
+  }
+  &:hover {
+    > .nav-sub-item-title {
+      .icon {
+        &.down {
+          transform: rotate(-180deg) translateY(0);
+        }
+        &.right {
+          transform: rotate(-180deg) translateX(0);
+        }
       }
     }
   }
