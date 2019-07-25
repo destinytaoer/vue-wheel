@@ -16,7 +16,10 @@
             <d-nav-sub-item title="手机">
               <d-nav-item name="cm">移动</d-nav-item>
               <d-nav-item name="cu">联通</d-nav-item>
-              <d-nav-item name="cn">电信</d-nav-item>
+              <d-nav-item name="cn"><a
+                  href="www.baidu.com"
+                  target="_blank"
+                >电信</a></d-nav-item>
             </d-nav-sub-item>
           </d-nav-sub-item>
         </d-nav-sub-item>

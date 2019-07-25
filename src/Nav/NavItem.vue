@@ -24,6 +24,8 @@ export default {
   },
   methods: {
     onClick() {
+      let a = this.$el.getElementsByTagName("a");
+      if (a.length > 0) a[0].click();
       if (!this.isSelected) {
         this.eventBus.$emit("select", this.name);
       }
@@ -44,6 +46,10 @@ export default {
   cursor: pointer;
   background: $bg;
   white-space: nowrap;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
   &.active {
     color: $color-active;
     .icon {
