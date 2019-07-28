@@ -24,7 +24,8 @@ module.exports = {
           '/components/popover',
           '/components/collapse',
           '/components/cascader',
-          '/components/slides'
+          '/components/slides',
+          '/components/nav'
         ]
       },
       '/join/'

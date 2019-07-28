@@ -22,6 +22,9 @@ import CollapseItem from '../../src/Collapse/CollapseItem';
 import Cascader from '../../src/Cascader/Cascader';
 import Slides from '../../src/Slides/Slides';
 import SlidesItem from '../../src/Slides/SlidesItem';
+import Nav from '../../src/Nav/Nav';
+import NavItem from '../../src/Nav/NavItem';
+import NavSubItem from '../../src/Nav/NavSubItem';
 export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-icon', Icon);
   Vue.component('d-button', Button);
@@ -47,4 +50,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-cascader', Cascader);
   Vue.component('d-slides', Slides);
   Vue.component('d-slides-item', SlidesItem);
+  Vue.component('d-nav', Nav);
+  Vue.component('d-nav-item', NavItem);
+  Vue.component('d-nav-sub-item', NavSubItem);
 };
