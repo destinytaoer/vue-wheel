@@ -481,7 +481,6 @@ describe('Cascader', () => {
         let label = popover.find('.label');
         label.trigger('click');
         cascader.$nextTick(() => {
-          console.log(trigger.text());
           expect(trigger.text()).to.eq('广东');
           expect(label.classes()).to.contain('active');
           items = wrapper.findAll(CascaderItems);

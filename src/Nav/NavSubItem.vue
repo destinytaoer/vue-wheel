@@ -31,6 +31,7 @@
     <template v-if="vertical">
       <transition
         name="zoom"
+        :css="false"
         @enter="enter"
         @after-enter="afterEnter"
         @after-leave="afterLeave"
@@ -146,7 +147,6 @@ export default {
   mounted() {
     this.eventBus.$on("change", selected => {
       this.active = this.searchChildren(this.$children, selected);
-      console.log(this.active);
     });
     this.$nextTick(() => {
       if (this.vertical)

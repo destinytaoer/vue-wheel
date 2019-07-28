@@ -3,6 +3,7 @@
     class="nav-item"
     @click="onClick"
     :class="{active: isSelected, vertical}"
+    :data-name="name"
   >
     <slot></slot>
   </div>
