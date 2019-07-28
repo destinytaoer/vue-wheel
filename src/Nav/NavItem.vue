@@ -48,6 +48,8 @@ export default {
 @import "_var";
 .nav-item {
   position: relative;
+  display: flex;
+  align-items: center;
   padding: 0.5em 1em;
   cursor: pointer;
   background: $bg;
@@ -84,6 +86,9 @@ export default {
   }
   &:hover {
     color: $color-active;
+    .icon {
+      fill: $color-active;
+    }
   }
 }
 .nav-sub-item .nav-item {
