@@ -52,14 +52,13 @@
         <slot></slot>
       </div>
     </template>
-
   </div>
 </template>
 <script>
 import Icon from "../Common/Icon";
 export default {
   name: "DNavSubItem",
-  inject: ["eventBus", "vertical"],
+  inject: ["eventBus", "vertical", "multiple"],
   components: {
     "d-icon": Icon
   },
@@ -74,13 +73,24 @@ export default {
       index: 0,
       open: false,
       active: false,
-      hideTimer: null,
-      hover: false
+      hideTimer: null
     };
   },
   methods: {
     toggle() {
-      if (this.vertical) this.open = !this.open;
+      if (!this.vertical) return;
+      if (this.open) {
+        this.open = false;
+      } else {
+        this.open = true;
+        if (!this.multiple) {
+          this.$parent.$children.forEach(child => {
+            if (child.$options.name === "DNavSubItem" && child !== this) {
+              child.open = false;
+            }
+          });
+        }
+      }
     },
     show() {
       if (this.vertical) return;
@@ -96,7 +106,7 @@ export default {
     searchChildren(children, selected) {
       return children.some(child => {
         return (
-          selected.includes(child.name) ||
+          (selected && selected === child.name) ||
           (child.$children.length &&
             this.searchChildren(child.$children, selected))
         );
@@ -117,7 +127,6 @@ export default {
     },
     leave(el, done) {
       let { height } = el.getBoundingClientRect();
-      console.log(height);
       el.style.height = `${height}px`;
       el.getBoundingClientRect();
       el.style.height = "0";
@@ -137,6 +146,7 @@ export default {
   mounted() {
     this.eventBus.$on("change", selected => {
       this.active = this.searchChildren(this.$children, selected);
+      console.log(this.active);
     });
     this.$nextTick(() => {
       if (this.vertical)

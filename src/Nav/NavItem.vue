@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     this.eventBus.$on("change", selected => {
-      this.isSelected = selected.includes(this.name);
+      this.isSelected = selected === this.name;
     });
     this.$nextTick(() => {
       if (this.vertical)

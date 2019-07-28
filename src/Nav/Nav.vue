@@ -12,10 +12,7 @@ export default {
   name: "DNav",
   props: {
     selected: {
-      type: Array,
-      default() {
-        return [];
-      }
+      type: String
     },
     multiple: {
       type: Boolean,
@@ -28,14 +25,14 @@ export default {
   },
   data() {
     return {
-      eventBus: new Vue(),
-      selectedArr: JSON.parse(JSON.stringify(this.selected))
+      eventBus: new Vue()
     };
   },
   provide() {
     return {
       eventBus: this.eventBus,
-      vertical: this.vertical
+      vertical: this.vertical,
+      multiple: this.multiple
     };
   },
   computed: {
@@ -68,14 +65,9 @@ export default {
     }
   },
   mounted() {
-    this.notifyChild(this.selectedArr);
+    this.notifyChild(this.selected);
     this.eventBus.$on("select", name => {
-      if (this.multiple) {
-        this.selectedArr.push(name);
-      } else {
-        this.selectedArr = [name];
-      }
-      this.notify(this.selectedArr);
+      this.notify(name);
     });
     this.setIndex(this.$children, 1);
   }

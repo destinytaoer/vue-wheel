@@ -23,7 +23,13 @@
             </d-nav-sub-item>
           </d-nav-sub-item>
         </d-nav-sub-item>
-        <d-nav-item name="start">开始</d-nav-item>
+        <d-nav-sub-item title="开始">
+          <d-nav-item name="components">组件</d-nav-item>
+          <d-nav-sub-item title="安装">
+            <d-nav-item name="Windows">Windows</d-nav-item>
+            <d-nav-item name="Mac">Mac</d-nav-item>
+          </d-nav-sub-item>
+        </d-nav-sub-item>
       </d-nav>
       <d-nav>
         <d-nav-item name="home">首页</d-nav-item>
@@ -453,7 +459,7 @@ export default {
       selected1: [],
       selected2: [],
       selected3: "2",
-      selected4: ["home"],
+      selected4: "home",
       source: [],
       dataSource: [
         {
