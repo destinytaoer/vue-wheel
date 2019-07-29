@@ -6,9 +6,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "karma start --single-run",
-    "test:unit": "vue-cli-service test:unit --watch",
-    "test:dev": "karma start",
+    "test": "vue-cli-service test:unit",
+    "test:dev": "vue-cli-service test:unit --watch",
+    "test:karma": "karma start",
     "docs:dev": "vuepress dev docs --no-cache",
     "docs:build": "vuepress build docs"
   },

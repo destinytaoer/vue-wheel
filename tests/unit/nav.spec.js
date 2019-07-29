@@ -76,7 +76,6 @@ describe('Nav', () => {
         subTitle2.trigger('click');
         vm.$nextTick(() => {
           setTimeout(() => {
-            console.log(subPopover1.classes());
             expect(subPopover1.element.style.display).to.eq('none');
             expect(subPopover2.element.style.display).to.eq('');
             done();
