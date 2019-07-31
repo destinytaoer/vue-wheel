@@ -6,6 +6,7 @@
     <span
       class="pagination-nav"
       :class="{disabled: current === 1}"
+      data-index="prev"
       @click="changePage(current - 1)"
     >
       <d-icon name="left"></d-icon>
@@ -19,6 +20,7 @@
         :class="{active: current === index}"
         v-for="index in totalPage"
         :key="index"
+        :data-index="index"
         @click="changePage(index)"
       >{{index}}</li>
     </ul>
@@ -29,6 +31,7 @@
       <li
         v-if="numArr[0] > 1"
         class="pagination-list-item"
+        :data-index="1"
         @click="changePage(1)"
       >1</li>
       <li
@@ -42,6 +45,7 @@
         :class="{active: current === index}"
         v-for="index in numArr"
         :key="index"
+        :data-index="index"
         @click="changePage(index)"
       >{{index}}</li>
       <li
@@ -53,6 +57,7 @@
       <li
         v-if="numArr[numArr.length - 1] < totalPage"
         class="pagination-list-item"
+        :data-index="totalPage"
         @click="changePage(totalPage)"
       >{{totalPage}}</li>
     </ul>
@@ -60,6 +65,7 @@
       class="pagination-nav"
       :class="{disabled: current === totalPage}"
       @click="changePage(current + 1)"
+      data-index="next"
     >
       <d-icon name="right"></d-icon>
     </span>
@@ -79,7 +85,7 @@ export default {
     },
     currentPage: {
       type: Number,
-      required: true
+      default: 1
     },
     hideIfOnePage: {
       type: Boolean,
