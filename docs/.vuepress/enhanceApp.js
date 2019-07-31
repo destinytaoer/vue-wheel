@@ -25,6 +25,7 @@ import SlidesItem from '../../src/Slides/SlidesItem';
 import Nav from '../../src/Nav/Nav';
 import NavItem from '../../src/Nav/NavItem';
 import NavSubItem from '../../src/Nav/NavSubItem';
+import Pagination from '../../src/Pagination/Pagination';
 export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-icon', Icon);
   Vue.component('d-button', Button);
@@ -53,4 +54,5 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component('d-nav', Nav);
   Vue.component('d-nav-item', NavItem);
   Vue.component('d-nav-sub-item', NavSubItem);
+  Vue.component('d-pagination', Pagination);
 };
