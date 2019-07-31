@@ -1,55 +1,62 @@
 <template>
   <div class="demo">
     <div>
-      <h2>Nav</h2>
-      <d-nav
-        :selected="selected4"
-        vertical
-      >
-        <d-nav-item name="home">首页</d-nav-item>
-        <d-nav-sub-item title="关于">
-          <d-nav-item name="culture">企业文化</d-nav-item>
-          <d-nav-item name="developers">开发团队</d-nav-item>
-          <d-nav-sub-item title="联系电话">
-            <d-nav-item name="wechat">微信</d-nav-item>
-            <d-nav-item name="qq">qq</d-nav-item>
-            <d-nav-sub-item title="手机">
-              <d-nav-item name="cm">移动</d-nav-item>
-              <d-nav-item name="cu">联通</d-nav-item>
-              <d-nav-item name="cn"><a
-                  href="www.baidu.com"
-                  target="_blank"
-                >电信</a></d-nav-item>
-            </d-nav-sub-item>
-          </d-nav-sub-item>
-        </d-nav-sub-item>
-        <d-nav-sub-item title="开始">
-          <d-nav-item name="components">组件</d-nav-item>
-          <d-nav-sub-item title="安装">
-            <d-nav-item name="Windows">Windows</d-nav-item>
-            <d-nav-item name="Mac">Mac</d-nav-item>
-          </d-nav-sub-item>
-        </d-nav-sub-item>
-      </d-nav>
-      <d-nav>
-        <d-nav-item name="home">首页</d-nav-item>
-        <d-nav-sub-item title="关于">
-          <d-nav-item name="culture">企业文化</d-nav-item>
-          <d-nav-item name="developers">开发团队</d-nav-item>
-          <d-nav-sub-item title="联系电话">
-            <d-nav-item name="wechat">微信</d-nav-item>
-            <d-nav-item name="qq">qq</d-nav-item>
-            <d-nav-sub-item title="手机">
-              <d-nav-item name="cm">移动</d-nav-item>
-              <d-nav-item name="cu">联通</d-nav-item>
-              <d-nav-item name="cn">电信</d-nav-item>
-            </d-nav-sub-item>
-          </d-nav-sub-item>
-        </d-nav-sub-item>
-        <d-nav-item name="start">开始</d-nav-item>
-      </d-nav>
+      <h2>Pagination</h2>
+      <d-pagination
+        :total-page='20'
+        :current="1"
+      ></d-pagination>
     </div>
     <div>
+      <div>
+        <h2>Nav</h2>
+        <d-nav
+          :selected="selected4"
+          vertical
+        >
+          <d-nav-item name="home">首页</d-nav-item>
+          <d-nav-sub-item title="关于">
+            <d-nav-item name="culture">企业文化</d-nav-item>
+            <d-nav-item name="developers">开发团队</d-nav-item>
+            <d-nav-sub-item title="联系电话">
+              <d-nav-item name="wechat">微信</d-nav-item>
+              <d-nav-item name="qq">qq</d-nav-item>
+              <d-nav-sub-item title="手机">
+                <d-nav-item name="cm">移动</d-nav-item>
+                <d-nav-item name="cu">联通</d-nav-item>
+                <d-nav-item name="cn"><a
+                    href="www.baidu.com"
+                    target="_blank"
+                  >电信</a></d-nav-item>
+              </d-nav-sub-item>
+            </d-nav-sub-item>
+          </d-nav-sub-item>
+          <d-nav-sub-item title="开始">
+            <d-nav-item name="components">组件</d-nav-item>
+            <d-nav-sub-item title="安装">
+              <d-nav-item name="Windows">Windows</d-nav-item>
+              <d-nav-item name="Mac">Mac</d-nav-item>
+            </d-nav-sub-item>
+          </d-nav-sub-item>
+        </d-nav>
+        <d-nav>
+          <d-nav-item name="home">首页</d-nav-item>
+          <d-nav-sub-item title="关于">
+            <d-nav-item name="culture">企业文化</d-nav-item>
+            <d-nav-item name="developers">开发团队</d-nav-item>
+            <d-nav-sub-item title="联系电话">
+              <d-nav-item name="wechat">微信</d-nav-item>
+              <d-nav-item name="qq">qq</d-nav-item>
+              <d-nav-sub-item title="手机">
+                <d-nav-item name="cm">移动</d-nav-item>
+                <d-nav-item name="cu">联通</d-nav-item>
+                <d-nav-item name="cn">电信</d-nav-item>
+              </d-nav-sub-item>
+            </d-nav-sub-item>
+          </d-nav-sub-item>
+          <d-nav-item name="start">开始</d-nav-item>
+        </d-nav>
+      </div>
       <div>
         <h2>Slides</h2>
         <d-slides
@@ -404,6 +411,7 @@ import SlidesItem from "./Slides/SlidesItem";
 import Nav from "./Nav/Nav";
 import NavItem from "./Nav/NavItem";
 import NavSubItem from "./Nav/NavSubItem";
+import Pagination from "./Pagination/Pagination";
 
 Vue.use(toast);
 
@@ -446,7 +454,8 @@ export default {
     "d-slides-item": SlidesItem,
     "d-nav": Nav,
     "d-nav-item": NavItem,
-    "d-nav-sub-item": NavSubItem
+    "d-nav-sub-item": NavSubItem,
+    "d-pagination": Pagination
   },
   data() {
     return {
