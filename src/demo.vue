@@ -3,9 +3,10 @@
     <div>
       <h2>Pagination</h2>
       <d-pagination
-        :total-page='20'
-        :current="1"
+        :total-page='7'
+        :current-page.sync="current"
       ></d-pagination>
+      {{current}}
     </div>
     <div>
       <div>
@@ -469,6 +470,7 @@ export default {
       selected2: [],
       selected3: "2",
       selected4: "home",
+      current: 2,
       source: [],
       dataSource: [
         {

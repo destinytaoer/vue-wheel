@@ -1,34 +1,68 @@
 <template>
-  <div class="pagination">
-    <d-icon
-      class="pagination-item"
-      name="left"
-    ></d-icon>
-    <template v-for="(page, index) in pages">
-      <template v-if="current === page">
-        <span
-          class="pagination-item active"
-          :key="index"
-        >{{page}}</span>
-      </template>
-      <template v-else-if="page === '...'">
-        <d-icon
-          name="left"
-          :key="index"
-        ></d-icon>
-      </template>
-      <template v-else>
-        <a
-          href="javascript:;"
-          class="pagination-item"
-          :key="index"
-        >{{page}}</a>
-      </template>
-    </template>
-    <d-icon
-      class="pagination-item"
-      name="right"
-    ></d-icon>
+  <div
+    class="pagination"
+    :class="{hide: hideIfOnePage && totalPage === 1}"
+  >
+    <span
+      class="pagination-nav"
+      :class="{disabled: current === 1}"
+      @click="changePage(current - 1)"
+    >
+      <d-icon name="left"></d-icon>
+    </span>
+    <ul
+      class="pagination-list"
+      v-if="totalPage <= pageRange"
+    >
+      <li
+        class="pagination-list-item"
+        :class="{active: current === index}"
+        v-for="index in totalPage"
+        :key="index"
+        @click="changePage(index)"
+      >{{index}}</li>
+    </ul>
+    <ul
+      class="pagination-list"
+      v-else
+    >
+      <li
+        v-if="numArr[0] > 1"
+        class="pagination-list-item"
+        @click="changePage(1)"
+      >1</li>
+      <li
+        v-if="numArr[0] > 2"
+        class="pagination-list-separator"
+      >
+        <d-icon name="dots"></d-icon>
+      </li>
+      <li
+        class="pagination-list-item"
+        :class="{active: current === index}"
+        v-for="index in numArr"
+        :key="index"
+        @click="changePage(index)"
+      >{{index}}</li>
+      <li
+        v-if="numArr[numArr.length - 1] < totalPage - 1"
+        class="pagination-list-separator"
+      >
+        <d-icon name="dots"></d-icon>
+      </li>
+      <li
+        v-if="numArr[numArr.length - 1] < totalPage"
+        class="pagination-list-item"
+        @click="changePage(totalPage)"
+      >{{totalPage}}</li>
+    </ul>
+    <span
+      class="pagination-nav"
+      :class="{disabled: current === totalPage}"
+      @click="changePage(current + 1)"
+    >
+      <d-icon name="right"></d-icon>
+    </span>
   </div>
 </template>
 <script>
@@ -43,36 +77,53 @@ export default {
       type: Number,
       required: true
     },
-    current: {
+    currentPage: {
       type: Number,
       required: true
     },
     hideIfOnePage: {
       type: Boolean,
       default: false
+    },
+    pageRange: {
+      type: Number,
+      default: 5
     }
   },
   data() {
-    let pages = [
-      1,
-      this.totalPage,
-      this.current - 1,
-      this.current - 2,
-      this.current + 1,
-      this.current + 2
-    ];
-    pages = unique(pages);
-    pages.sort((a, b) => a - b);
-    pages = pages.reduce((prev, cur, index) => {
-      prev.push(cur);
-      pages[index + 1] !== undefined &&
-        pages[index + 1] - prev[index] > 1 &&
-        prev.push("...");
-      return prev;
-    }, []);
     return {
-      pages: pages
+      current: this.currentPage,
+      l: Math.ceil((this.pageRange - 1) / 2),
+      r: Math.floor((this.pageRange - 1) / 2)
     };
+  },
+  computed: {
+    numArr() {
+      const { current, totalPage, l, r, pageRange, range } = this;
+      let start = current - l;
+      let end = current + r;
+      if (start < 1) {
+        start = 1;
+        end = start + pageRange - 1;
+      }
+      if (end > totalPage) {
+        end = totalPage;
+        start = totalPage - pageRange + 1;
+      }
+      return range(start, end);
+    }
+  },
+  methods: {
+    range(min, max) {
+      return Array.apply(null, { length: max - min + 1 }).map(
+        (v, i) => min + i
+      );
+    },
+    changePage(index) {
+      if (index < 1 || index > this.totalPage) return;
+      this.current = index;
+      this.$emit("update:currentPage", index);
+    }
   }
 };
 function unique(arr) {
@@ -85,31 +136,66 @@ function unique(arr) {
 </script>
 <style lang="scss" scoped>
 @import "_var";
+$width: 28px;
+$height: 28px;
 .pagination {
-  a {
-    text-decoration: none;
+  display: flex;
+  font-size: $font-size;
+  user-select: none;
+  &.hide {
+    display: none;
   }
-  &-item {
+  &-list .pagination-list-item,
+  &-list .pagination-list-separator,
+  &-nav {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     vertical-align: top;
-    height: 20px;
-    min-width: 20px;
-    padding: 0 4px;
+    height: $height;
+    min-width: $width;
+    padding: 0 8px;
     margin: 0 4px;
-    color: $color;
-    font-size: $font-size;
-    border: 1px solid $border-color;
     border-radius: $border-radius;
+    color: $color;
+    .icon {
+      fill: $color;
+    }
+  }
+  &-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    &-item {
+      border: 1px solid $border-color;
+      cursor: pointer;
+      &.active,
+      &:hover {
+        border-color: $border-color-active;
+        color: $color-active;
+      }
+      &.active {
+        cursor: default;
+      }
+    }
+  }
+  &-nav {
+    border: 1px solid $border-color;
     cursor: pointer;
-    &.active,
     &:hover {
       border-color: $border-color-active;
       color: $color-active;
+      .icon {
+        fill: $color-active;
+      }
     }
-    &.active {
-      cursor: default;
+    &.disabled {
+      border-color: lighten($border-color, 30%);
+      color: $color;
+      cursor: not-allowed;
+      .icon {
+        fill: darken($bg-disabled, 30%);
+      }
     }
   }
 }
