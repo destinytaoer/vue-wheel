@@ -1,14 +1,47 @@
 <template>
   <div class="demo">
     <div>
-      <h2>Pagination</h2>
-      <d-pagination
-        :total-page='7'
-        :current-page.sync="current"
-      ></d-pagination>
-      {{current}}
+      <h2>Table</h2>
+      <h3>normal</h3>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+      ></d-table>
+      <h4>no striped</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        :striped="false"
+      ></d-table>
+      <h4>bordered</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        bordered
+      ></d-table>
+      <h4>hasOrder</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        has-order
+      ></d-table>
+      <h4>hasCheckbox</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        has-checkbox
+        :checked-items="checkedItems"
+      ></d-table>
     </div>
     <div>
+      <div>
+        <h2>Pagination</h2>
+        <d-pagination
+          :total-page='7'
+          :current-page.sync="current"
+        ></d-pagination>
+        {{current}}
+      </div>
       <div>
         <h2>Nav</h2>
         <d-nav
@@ -413,6 +446,7 @@ import Nav from "./Nav/Nav";
 import NavItem from "./Nav/NavItem";
 import NavSubItem from "./Nav/NavSubItem";
 import Pagination from "./Pagination/Pagination";
+import Table from "./Table/Table";
 
 Vue.use(toast);
 
@@ -456,7 +490,8 @@ export default {
     "d-nav": Nav,
     "d-nav-item": NavItem,
     "d-nav-sub-item": NavSubItem,
-    "d-pagination": Pagination
+    "d-pagination": Pagination,
+    "d-table": Table
   },
   data() {
     return {
@@ -541,7 +576,18 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      columns: [
+        { text: "姓名", field: "name" },
+        { text: "分数", field: "score" }
+      ],
+      dataSource2: [
+        { id: 1, name: "xx", score: 10 },
+        { id: 2, name: "xx", score: 10 },
+        { id: 3, name: "xx", score: 10 },
+        { id: 4, name: "xx", score: 10 }
+      ],
+      checkedItems: []
     };
   },
   methods: {
