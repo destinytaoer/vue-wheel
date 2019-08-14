@@ -33,7 +33,7 @@
           </th>
           <td v-if="hasOrder">{{index}}</td>
           <td
-            v-for="(column, index) in columns"
+            v-for="column in columns"
             :key="column.field"
           >{{item[column.field]}}</td>
         </tr>
@@ -107,8 +107,7 @@ export default {
       if (selected) {
         this.checkedArr.push(item);
       } else {
-        let index = this.checkedArr.findIndex(i => i.id === item.id);
-        this.checkedArr.splice(index, 1);
+        this.checkedArr = this.checkedArr.filter(i => i.id !== item.id);
       }
       this.$emit("update:checkedItems", this.checkedArr);
     },
