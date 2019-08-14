@@ -8,6 +8,8 @@
         :data-source="dataSource2"
         has-checkbox
         :checked-items="checkedItems"
+        :loading="loading"
+        @sort="sort"
       ></d-table>
       <h4>hasOrder</h4>
       <d-table
@@ -582,11 +584,12 @@ export default {
         { text: "分数", field: "score", sort: true }
       ],
       dataSource2: [
-        { id: 1, name: "xx", score: 10 },
-        { id: 2, name: "xx", score: 10 },
-        { id: 3, name: "xx", score: 10 },
-        { id: 4, name: "xx", score: 10 }
+        { id: 1, name: "xx", score: 40 },
+        { id: 2, name: "xx", score: 20 },
+        { id: 3, name: "xx", score: 15 },
+        { id: 4, name: "xx", score: 30 }
       ],
+      loading: false,
       checkedItems: []
     };
   },
@@ -605,6 +608,22 @@ export default {
           updateSource(result);
         }, 2000);
       });
+    },
+    sort(key, direction) {
+      this.loading = true;
+      setTimeout(() => {
+        switch (direction) {
+          case null:
+            break;
+          case "asc":
+            this.dataSource2.sort((a, b) => a.score - b.score);
+            break;
+          case "desc":
+            this.dataSource2.sort((a, b) => b.score - a.score);
+            break;
+        }
+        this.loading = false;
+      }, 1000);
     }
   },
   created() {

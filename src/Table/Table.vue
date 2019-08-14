@@ -56,7 +56,12 @@
         </tr>
       </tbody>
     </table>
-    {{checkedArr}}
+    <div
+      class="table-loading"
+      v-show="loading"
+    >
+      <d-icon name="loading"></d-icon>
+    </div>
   </div>
 </template>
 <script>
@@ -103,6 +108,10 @@ export default {
       default() {
         return [];
       }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -193,7 +202,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "_var";
+@import "animate";
 .table-wrapper {
+  position: relative;
   .table {
     width: 100%;
     border-collapse: collapse;
@@ -241,6 +252,22 @@ export default {
           fill: #000;
         }
       }
+    }
+  }
+  .table-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    .icon {
+      width: 50px;
+      height: 50px;
+      animation: spin 1.5s linear infinite;
     }
   }
 }
