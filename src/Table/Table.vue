@@ -10,7 +10,7 @@
               type="checkbox"
               @change="checkAll"
               ref="checkAll"
-              :checked="checkedArr.length === dataSource.length"
+              :checked="areAllChecked"
             ></th>
           <th v-if="hasOrder">#</th>
           <th
@@ -88,6 +88,21 @@ export default {
     return {
       checkedArr: JSON.parse(JSON.stringify(this.checkedItems))
     };
+  },
+  computed: {
+    areAllChecked() {
+      let dataIds = this.dataSource
+        .map(item => item.id)
+        .sort((a, b) => a.id - b.id);
+      let checkedIds = this.checkedArr
+        .map(item => item.id)
+        .sort((a, b) => a.id - b.id);
+      if (dataIds.length !== checkedIds.length) return false;
+      return (
+        dataIds.length > 0 &&
+        dataIds.every((item, index) => item === checkedIds[index])
+      );
+    }
   },
   watch: {
     checkedArr() {
