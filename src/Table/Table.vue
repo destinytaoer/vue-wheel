@@ -9,6 +9,7 @@
           <th v-if="hasCheckbox"><input
               type="checkbox"
               @change="checkAll"
+              ref="checkAll"
               :checked="checkedArr.length === dataSource.length"
             ></th>
           <th v-if="hasOrder">#</th>
@@ -27,7 +28,7 @@
             <input
               type="checkbox"
               @change="checkItem(item, index, $event)"
-              :checked="!!checkedArr.find(i => i.id === item.id)"
+              :checked="checkedArr.find(i => i.id === item.id)"
             >
           </th>
           <td v-if="hasOrder">{{index}}</td>
@@ -87,6 +88,18 @@ export default {
     return {
       checkedArr: JSON.parse(JSON.stringify(this.checkedItems))
     };
+  },
+  watch: {
+    checkedArr() {
+      if (
+        this.checkedArr.length > 0 &&
+        this.checkedArr.length < this.dataSource.length
+      ) {
+        this.$refs.checkAll.indeterminate = true;
+      } else {
+        this.$refs.checkAll.indeterminate = false;
+      }
+    }
   },
   methods: {
     checkItem(item, index, e) {
