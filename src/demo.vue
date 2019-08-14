@@ -2,22 +2,12 @@
   <div class="demo">
     <div>
       <h2>Table</h2>
-      <h3>normal</h3>
+      <h4>hasCheckbox</h4>
       <d-table
         :columns='columns'
         :data-source="dataSource2"
-      ></d-table>
-      <h4>no striped</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        :striped="false"
-      ></d-table>
-      <h4>bordered</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        bordered
+        has-checkbox
+        :checked-items="checkedItems"
       ></d-table>
       <h4>hasOrder</h4>
       <d-table
@@ -25,12 +15,22 @@
         :data-source="dataSource2"
         has-order
       ></d-table>
-      <h4>hasCheckbox</h4>
+      <h4>bordered</h4>
       <d-table
         :columns='columns'
         :data-source="dataSource2"
-        has-checkbox
-        :checked-items="checkedItems"
+        bordered
+      ></d-table>
+      <h4>no striped</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        :striped="false"
+      ></d-table>
+      <h3>normal</h3>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
       ></d-table>
     </div>
     <div>
