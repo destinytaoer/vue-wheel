@@ -578,8 +578,8 @@ export default {
         }
       ],
       columns: [
-        { text: "姓名", field: "name" },
-        { text: "分数", field: "score" }
+        { text: "姓名", field: "name", sort: true },
+        { text: "分数", field: "score", sort: true }
       ],
       dataSource2: [
         { id: 1, name: "xx", score: 10 },

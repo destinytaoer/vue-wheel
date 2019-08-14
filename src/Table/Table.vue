@@ -16,7 +16,24 @@
           <th
             v-for="column in columns"
             :key="column.field"
-          >{{column.text}}</th>
+          >
+            {{column.text}}
+            <span
+              v-if="column.sort"
+              class="table-sorter"
+              title="排序"
+              @click="sortBy(column.field)"
+            >
+              <d-icon
+                name="increase"
+                :class="{active: sortKeys[column.field] === 'asc'}"
+              ></d-icon>
+              <d-icon
+                name="decrease"
+                :class="{active: sortKeys[column.field] === 'desc'}"
+              ></d-icon>
+            </span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -43,8 +60,12 @@
   </div>
 </template>
 <script>
+import DIcon from "../Common/Icon";
 export default {
   name: "DTable",
+  components: {
+    DIcon
+  },
   props: {
     columns: {
       type: Array,
@@ -86,7 +107,8 @@ export default {
   },
   data() {
     return {
-      checkedArr: JSON.parse(JSON.stringify(this.checkedItems))
+      checkedArr: JSON.parse(JSON.stringify(this.checkedItems)),
+      sortKeys: {}
     };
   },
   computed: {
@@ -117,6 +139,31 @@ export default {
     }
   },
   methods: {
+    sortBy(key) {
+      let sortDirection = this.sortKeys[key];
+      switch (sortDirection) {
+        case null: {
+          sortDirection = "asc";
+          break;
+        }
+        case "asc": {
+          sortDirection = "desc";
+          break;
+        }
+        case "desc": {
+          sortDirection = null;
+          break;
+        }
+      }
+      // 对象需要重新赋值为其他地址，才能会触发更新
+      let copy = {};
+      for (let field in this.sortKeys) {
+        copy[field] = null;
+      }
+      copy[key] = sortDirection;
+      this.sortKeys = copy;
+      this.$emit("sort", key, sortDirection);
+    },
     checkItem(item, index, e) {
       let selected = e.target.checked;
       if (selected) {
@@ -134,6 +181,13 @@ export default {
       this.checkedArr = newChecked;
       this.$emit("update:checkedItems", newChecked);
     }
+  },
+  created() {
+    this.columns
+      .filter(item => item.sort)
+      .forEach(item => {
+        this.sortKeys[item.field] = null;
+      });
   }
 };
 </script>
@@ -172,6 +226,20 @@ export default {
       td,
       th {
         padding: 4px;
+      }
+    }
+    &-sorter {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      cursor: pointer;
+      .icon {
+        width: 8px;
+        height: 8px;
+        fill: $btn-disabled-bg;
+        &.active {
+          fill: #000;
+        }
       }
     }
   }
