@@ -14,15 +14,15 @@
             ></th>
           <th v-if="hasOrder">#</th>
           <th
-            v-for="(column, index) in columns"
-            :key="`head-${index}`"
+            v-for="column in columns"
+            :key="column.field"
           >{{column.text}}</th>
         </tr>
       </thead>
       <tbody>
         <tr
           v-for="(item, index) in dataSource"
-          :key="`body-${index}`"
+          :key="item.id"
         >
           <th v-if="hasCheckbox">
             <input
@@ -34,7 +34,7 @@
           <td v-if="hasOrder">{{index}}</td>
           <td
             v-for="(column, index) in columns"
-            :key="index"
+            :key="column.field"
           >{{item[column.field]}}</td>
         </tr>
       </tbody>
