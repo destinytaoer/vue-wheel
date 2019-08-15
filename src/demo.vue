@@ -2,7 +2,28 @@
   <div class="demo">
     <div>
       <h2>Table</h2>
-      <h4>hasCheckbox</h4>
+      <h4>fixed header</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        :checked-items="checkedItems"
+        height="400px"
+        ellipse
+        bordered
+        has-order
+        has-checkbox
+      ></d-table>
+      <h4>fixed header</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        :checked-items="checkedItems"
+        height="400px"
+        bordered
+        has-order
+        has-checkbox
+      ></d-table>
+      <h4>sort & loading</h4>
       <d-table
         :columns='columns'
         :data-source="dataSource2"
@@ -11,11 +32,24 @@
         :loading="loading"
         @sort="sort"
       ></d-table>
+      <h4>hasCheckbox</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        has-checkbox
+        :checked-items="checkedItems"
+      ></d-table>
       <h4>hasOrder</h4>
       <d-table
         :columns='columns'
         :data-source="dataSource2"
         has-order
+      ></d-table>
+      <h4>hovered</h4>
+      <d-table
+        :columns='columns'
+        :data-source="dataSource2"
+        hovered
       ></d-table>
       <h4>bordered</h4>
       <d-table
@@ -584,10 +618,18 @@ export default {
         { text: "分数", field: "score", sort: true }
       ],
       dataSource2: [
-        { id: 1, name: "xx", score: 40 },
+        { id: 1, name: "xxsdfgsdgsdfgdg", score: 40 },
         { id: 2, name: "xx", score: 20 },
         { id: 3, name: "xx", score: 15 },
-        { id: 4, name: "xx", score: 30 }
+        { id: 4, name: "xx", score: 30 },
+        { id: 5, name: "xx", score: 40 },
+        { id: 6, name: "xx", score: 20 },
+        { id: 7, name: "xx", score: 15 },
+        { id: 8, name: "xx", score: 30 },
+        { id: 9, name: "xx", score: 40 },
+        { id: 10, name: "xx", score: 20 },
+        { id: 11, name: "xx", score: 15 },
+        { id: 12, name: "xx", score: 30 }
       ],
       loading: false,
       checkedItems: []
