@@ -413,9 +413,13 @@ export default {
   },
   mounted() {
     this.updateWidth();
-    window.addEventListener("resize", e => {
+    this.onWindowResize = e => {
       this.updateWidth();
-    });
+    };
+    window.addEventListener("resize", this.onWindowResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onWindowResize);
   }
 };
 </script>
