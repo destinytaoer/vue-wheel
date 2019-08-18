@@ -26,7 +26,8 @@ module.exports = {
           '/components/cascader',
           '/components/slides',
           '/components/nav',
-          '/components/pagination'
+          '/components/pagination',
+          '/components/table'
         ]
       },
       '/join/'
