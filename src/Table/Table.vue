@@ -28,38 +28,46 @@
             <th
               v-if="hasCheckbox"
               align="center"
-            ><input
-                type="checkbox"
-                @change="checkAll"
-                ref="checkAll"
-                :checked="areAllChecked"
-              ></th>
+            >
+              <div class="cell">
+                <input
+                  type="checkbox"
+                  @change="checkAll"
+                  ref="checkAll"
+                  :checked="areAllChecked"
+                >
+              </div>
+            </th>
             <th
               v-if="hasOrder"
               align="center"
-            >#</th>
+            >
+              <div class="cell">#</div>
+            </th>
             <th
               v-for="column in columns"
               :key="column.field"
               :align="column.align"
               :ellipse="ellipse || column.ellipse"
             >
-              {{column.text}}
-              <span
-                v-if="column.sort"
-                class="table-sorter"
-                title="排序"
-                @click="sortBy(column.field)"
-              >
-                <d-icon
-                  name="increase"
-                  :class="{active: sortKeys[column.field] === 'asc'}"
-                ></d-icon>
-                <d-icon
-                  name="decrease"
-                  :class="{active: sortKeys[column.field] === 'desc'}"
-                ></d-icon>
-              </span>
+              <div class="cell">
+                {{column.text}}
+                <span
+                  v-if="column.sort"
+                  class="table-sorter"
+                  title="排序"
+                  @click="sortBy(column.field)"
+                >
+                  <d-icon
+                    name="increase"
+                    :class="{active: sortKeys[column.field] === 'asc'}"
+                  ></d-icon>
+                  <d-icon
+                    name="decrease"
+                    :class="{active: sortKeys[column.field] === 'desc'}"
+                  ></d-icon>
+                </span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -99,24 +107,33 @@
               v-if="hasCheckbox"
               align="center"
             >
-              <input
-                type="checkbox"
-                @change="checkItem(item, index, $event)"
-                :checked="checkedArr.find(i => i.id === item.id)"
-              >
+              <div class="cell">
+                <input
+                  type="checkbox"
+                  @change="checkItem(item, index, $event)"
+                  :checked="checkedArr.find(i => i.id === item.id)"
+                >
+              </div>
             </td>
             <td
               v-if="hasOrder"
               align="center"
-            >{{index}}</td>
+            >
+              <div class="cell">{{index}}</div>
+            </td>
             <td
               v-for="column in columns"
               :key="column.field"
               :align="column.align"
-              :ellipse="ellipse || column.ellipse"
               :title="item[column.field]"
-            >{{item[column.field]}}</td>
+            >
+              <div
+                class="cell"
+                :ellipse="ellipse || column.ellipse"
+              >{{item[column.field]}}</div>
+            </td>
           </tr>
+          <!-- TODO: 没有数据时的显示 -->
         </tbody>
       </table>
       <div
@@ -444,11 +461,13 @@ $scrollbarWidth: 6px; // 滚动条宽度
   background-color: $bg;
   font-size: $font-size;
 
-  td,
-  th {
+  .cell {
+    padding: 8px;
     text-align: left;
     padding: 8px;
     color: $color;
+    line-height: 20px;
+    word-break: break-all;
   }
 
   // 添加边框
@@ -461,8 +480,7 @@ $scrollbarWidth: 6px; // 滚动条宽度
   }
   // 紧凑模式
   &.compact {
-    th,
-    td {
+    .cell {
       padding: 4px;
     }
   }
@@ -475,7 +493,6 @@ $scrollbarWidth: 6px; // 滚动条宽度
     word-wrap: break-word;
     text-align: left;
     border-collapse: collapse;
-    border-spacing: 0;
   }
 
   .table-body-wrapper {
@@ -551,7 +568,9 @@ $scrollbarWidth: 6px; // 滚动条宽度
   }
 
   .table-header-wrapper {
-    border-bottom: 1px solid $border-color-light;
+    .table-header {
+      border-bottom: 1px solid $border-color-light;
+    }
     .table-sorter {
       display: inline-flex;
       flex-direction: column;
@@ -581,6 +600,7 @@ $scrollbarWidth: 6px; // 滚动条宽度
     word-break: break-all;
   }
 
+  // TODO: 修改为通用的 checkbox 样式
   /* checkbox 样式 */
   // .checkbox {
   //   position: relative;
