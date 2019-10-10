@@ -1,75 +1,91 @@
 <template>
   <div class="demo">
     <div>
-      <h2>Table</h2>
-      <h4>fixed header</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        :checked-items="checkedItems"
-        height="400px"
-        ellipse
-        bordered
-        has-order
-        has-checkbox
-      ></d-table>
-      <h4>fixed header</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        :checked-items="checkedItems"
-        height="400px"
-        bordered
-        has-order
-        has-checkbox
-      ></d-table>
-      <h4>sort & loading</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        has-checkbox
-        :checked-items="checkedItems"
-        :loading="loading"
-        @sort="sort"
-      ></d-table>
-      <h4>hasCheckbox</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        has-checkbox
-        :checked-items="checkedItems"
-      ></d-table>
-      <h4>hasOrder</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        has-order
-      ></d-table>
-      <h4>hovered</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        hovered
-      ></d-table>
-      <h4>bordered</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        bordered
-      ></d-table>
-      <h4>no striped</h4>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-        :striped="false"
-      ></d-table>
-      <h3>normal</h3>
-      <d-table
-        :columns='columns'
-        :data-source="dataSource2"
-      ></d-table>
+      <h2>图片上传</h2>
+      <d-upload
+        accept="image/*"
+        methods='POST'
+        action="http://localhost:3000/upload"
+        name="avatar"
+        :parseResponse="parseResponse"
+        :fileList.sync="fileList"
+      >
+        <d-button>上传</d-button>
+        <template slot="tips">
+          <div>只能上传 300kb 以内的 png、jpeg 文件</div>
+        </template>
+      </d-upload>
     </div>
     <div>
+      <div>
+        <h2>Table</h2>
+        <h4>fixed header</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          :checked-items="checkedItems"
+          height="400px"
+          ellipse
+          bordered
+          has-order
+          has-checkbox
+        ></d-table>
+        <h4>fixed header</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          :checked-items="checkedItems"
+          height="400px"
+          bordered
+          has-order
+          has-checkbox
+        ></d-table>
+        <h4>sort & loading</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          has-checkbox
+          :checked-items="checkedItems"
+          :loading="loading"
+          @sort="sort"
+        ></d-table>
+        <h4>hasCheckbox</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          has-checkbox
+          :checked-items="checkedItems"
+        ></d-table>
+        <h4>hasOrder</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          has-order
+        ></d-table>
+        <h4>hovered</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          hovered
+        ></d-table>
+        <h4>bordered</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          bordered
+        ></d-table>
+        <h4>no striped</h4>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+          :striped="false"
+        ></d-table>
+        <h3>normal</h3>
+        <d-table
+          :columns='columns'
+          :data-source="dataSource2"
+        ></d-table>
+      </div>
       <div>
         <h2>Pagination</h2>
         <d-pagination
@@ -483,6 +499,7 @@ import NavItem from "./Nav/NavItem";
 import NavSubItem from "./Nav/NavSubItem";
 import Pagination from "./Pagination/Pagination";
 import Table from "./Table/Table";
+import Upload from "./Upload/Upload";
 
 Vue.use(toast);
 
@@ -527,7 +544,8 @@ export default {
     "d-nav-item": NavItem,
     "d-nav-sub-item": NavSubItem,
     "d-pagination": Pagination,
-    "d-table": Table
+    "d-table": Table,
+    "d-upload": Upload
   },
   data() {
     return {
@@ -632,10 +650,16 @@ export default {
         { id: 12, name: "xx", score: 30 }
       ],
       loading: false,
-      checkedItems: []
+      checkedItems: [],
+      fileList: []
     };
   },
   methods: {
+    parseResponse(res) {
+      let obj = JSON.parse(res);
+      let url = `http://localhost:3000/preview/${obj.id}`;
+      return url;
+    },
     inputChange() {},
     showToast(position) {
       this.$toast(`随机数：${Math.random()}`, {
