@@ -18,13 +18,21 @@
           alt=""
         >
         {{file.name}}
+        <d-icon
+          name="close"
+          @click="onRemoveFile(file)"
+        ></d-icon>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import DIcon from "../Common/Icon";
 export default {
   name: "DUpload",
+  components: {
+    DIcon
+  },
   props: {
     name: {
       type: String,
@@ -96,6 +104,15 @@ export default {
         callback(xhr.response);
       };
       xhr.send(data);
+    },
+    onRemoveFile(file) {
+      let answer = window.confirm("是否删除这个文件");
+      if (answer) {
+        let copy = [...this.fileList];
+        let index = copy.indexOf(file);
+        copy.splice(index, 1);
+        this.$emit("update:fileList", copy);
+      }
     }
   }
 };
