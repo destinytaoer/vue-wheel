@@ -1,0 +1,10 @@
+{
+  "name": "node-server",
+  "version": "1.0.0",
+  "description": "为 demo 搭建测试服务器",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}
