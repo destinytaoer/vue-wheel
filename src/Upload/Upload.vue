@@ -11,7 +11,11 @@
         v-for="file in fileList"
         :key="file.url"
       >
+        <template v-if="file.status === 'uploading'">
+          <d-icon name="loading"></d-icon>
+        </template>
         <img
+          v-if="file.status === 'success'"
           :src="file.url"
           width="100"
           height="100"
@@ -19,6 +23,7 @@
         >
         {{file.name}}
         <d-icon
+          v-if="file.status === 'success'"
           name="close"
           @click="onRemoveFile(file)"
         ></d-icon>
@@ -57,11 +62,6 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      url: "about:blank"
-    };
-  },
   methods: {
     onClickUpload() {
       // 生成一个 input 进行点击
@@ -74,34 +74,75 @@ export default {
       });
       input.click();
     },
-    uploadFile(file) {
+    beforeUpload(file) {
+      // 在上传之前先放入 fileList 中，进行占位
       let { name, size, type } = file;
       while (this.fileList.filter(f => f.name === name).length > 0) {
         let dotIndex = name.lastIndexOf(".");
-        if (dotIndex > 0) {
+        if (dotIndex > -1) {
           let filename = name.slice(0, dotIndex);
           let ext = name.slice(dotIndex);
           name = filename + "(1)" + ext;
         }
       }
+      this.$emit("update:fileList", [
+        ...this.fileList,
+        { name, size, type, status: "uploading" }
+      ]);
+      return name;
+    },
+    afterUpload(file, name, url) {
+      let copy = [...this.fileList];
+      let index = copy.findIndex(function(item) {
+        return item.name === name;
+      });
+      if (index > -1) {
+        copy[index].status = "success";
+        copy[index].url = url;
+        this.$emit("update:fileList", copy);
+      }
+    },
+    uploadFile(file) {
+      let name = this.beforeUpload(file);
       // 封装成 FormData 形式
       let formData = new FormData();
       formData.append(this.name, file);
       // 通过 ajax 发送到服务器
-      this.ajax(formData, res => {
-        // 通过传入的函数解析返回的数据
-        let url = this.parseResponse(res);
-        this.$emit("update:fileList", [
-          ...this.fileList,
-          { name, size, type, url }
-        ]);
-      });
+      this.ajax(
+        formData,
+        res => {
+          // 通过传入的函数解析返回的数据
+          let url = this.parseResponse(res);
+          // 上传成功之后，根据 name 找到文件，再次修改其状态
+          this.afterUpload(file, name, url);
+        },
+        () => {
+          this.uploadErr(name);
+        }
+      );
     },
-    ajax(data, callback) {
+    uploadErr(name) {
+      let copy = [...this.fileList];
+      let index = copy.findIndex(function(item) {
+        return item.name === name;
+      });
+      if (index > -1) {
+        copy[index].status = "fail";
+        this.$emit("update:fileList", copy);
+      }
+    },
+    ajax(data, success, fail) {
       let xhr = new XMLHttpRequest();
       xhr.open(this.methods, this.action);
       xhr.onload = () => {
-        callback(xhr.response);
+        if (
+          xhr.readyState === 4 &&
+          (xhr.status === 200 || xhr.status === 304)
+        ) {
+          success(xhr.response);
+        } else {
+          fail(xhr.statusText);
+        }
       };
       xhr.send(data);
     },
