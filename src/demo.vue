@@ -10,7 +10,7 @@
         :parseResponse="parseResponse"
         :fileList.sync="fileList"
       >
-        <d-button>上传</d-button>
+        <d-button icon="upload">上传</d-button>
         <template slot="tips">
           <div>只能上传 300kb 以内的 png、jpeg 文件</div>
         </template>

@@ -6,6 +6,7 @@
     >
       <slot></slot>
     </div>
+    <slot name="tips"></slot>
     <ul>
       <li
         v-for="file in fileList"
