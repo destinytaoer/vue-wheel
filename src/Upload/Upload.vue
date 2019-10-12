@@ -6,24 +6,35 @@
     >
       <slot></slot>
     </div>
-    <ul>
+    <ul class="upload-filelist">
       <li
         v-for="file in fileList"
         :key="file.url"
       >
         <template v-if="file.status === 'uploading'">
-          <d-icon name="loading"></d-icon>
+          <d-icon
+            class="upload-loading"
+            name="loading"
+          ></d-icon>
         </template>
-        <img
-          v-if="file.status === 'success'"
-          :src="file.url"
-          width="100"
-          height="100"
-          alt=""
-        >
-        {{file.name}}
+        <template v-if="file.type.includes('image')">
+          <img
+            v-if="file.status === 'success'"
+            :src="file.url"
+            alt=""
+            class="upload-img"
+          >
+        </template>
+        <template v-else>
+          <div class="upload-img"></div>
+        </template>
+        <span
+          class="upload-filename"
+          :class="{[file.status]:file.status}"
+        >{{file.name}}</span>
         <d-icon
           v-if="file.status === 'success'"
+          class="upload-close"
           name="close"
           @click="onRemoveFile(file)"
         ></d-icon>
@@ -159,9 +170,46 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+@import "_var";
+@import "animate";
+$img-size: 32px;
+.upload {
+  &-filelist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    > li {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      border: 1px solid $border-color;
+      > .upload-loading {
+        font-size: $img-size;
+        animation: spin 1s linear infinite;
+      }
+      > .upload-filename {
+        margin-left: 8px;
+        margin-right: auto;
+        &.success {
+          color: green;
+        }
+        &.fail {
+          color: red;
+        }
+      }
+      > .upload-close {
+        font-size: 12px;
+        cursor: pointer;
+        margin-right: 8px;
+        &:hover {
+          fill: $border-color-hover;
+        }
+      }
+    }
+  }
+  &-img {
+    width: $img-size;
+    height: $img-size;
+  }
 }
 </style>
