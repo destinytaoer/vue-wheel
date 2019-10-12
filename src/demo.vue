@@ -2,6 +2,7 @@
   <div class="demo">
     <div>
       <h2>图片上传</h2>
+      <div>只能上传 300kb 以内的 png、jpeg 文件</div>
       <d-upload
         accept="image/*"
         methods='POST'
@@ -11,9 +12,6 @@
         :fileList.sync="fileList"
       >
         <d-button icon="upload">上传</d-button>
-        <template slot="tips">
-          <div>只能上传 300kb 以内的 png、jpeg 文件</div>
-        </template>
       </d-upload>
     </div>
     <div>
