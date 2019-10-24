@@ -82,6 +82,8 @@ export default {
         // 通过 change 事件获取到文件
         let file = input.files[0];
         this.uploadFile(file);
+        // 删掉这个 input
+        input.remove();
       });
       input.click();
     },
