@@ -10,6 +10,8 @@
         name="avatar"
         :parseResponse="parseResponse"
         :fileList.sync="fileList"
+        :sizeLimit="2*1024"
+        @error="errorMsg"
       >
         <d-button icon="upload">上传</d-button>
       </d-upload>
@@ -653,6 +655,9 @@ export default {
     };
   },
   methods: {
+    errorMsg(msg) {
+      alert(msg);
+    },
     parseResponse(res) {
       let obj = JSON.parse(res);
       let url = `http://localhost:3000/preview/${obj.id}`;

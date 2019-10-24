@@ -71,6 +71,9 @@ export default {
       default() {
         return [];
       }
+    },
+    sizeLimit: {
+      type: Number
     }
   },
   methods: {
@@ -87,27 +90,24 @@ export default {
       });
       input.click();
     },
-    beforeUpload(file) {
+    beforeUpload(file, newName) {
       // 在上传之前先放入 fileList 中，进行占位
-      let { name, size, type } = file;
-      while (this.fileList.filter(f => f.name === name).length > 0) {
-        let dotIndex = name.lastIndexOf(".");
-        if (dotIndex > -1) {
-          let filename = name.slice(0, dotIndex);
-          let ext = name.slice(dotIndex);
-          name = filename + "(1)" + ext;
-        }
+      let { size, type } = file;
+      if (this.sizeLimit && size > this.sizeLimit) {
+        this.$emit("error", `oversize`);
+        return false;
+      } else {
+        this.$emit("update:fileList", [
+          ...this.fileList,
+          { name: newName, size, type, status: "uploading" }
+        ]);
+        return true;
       }
-      this.$emit("update:fileList", [
-        ...this.fileList,
-        { name, size, type, status: "uploading" }
-      ]);
-      return name;
     },
-    afterUpload(file, name, url) {
+    afterUpload(file, newName, url) {
       let copy = [...this.fileList];
       let index = copy.findIndex(function(item) {
-        return item.name === name;
+        return item.name === newName;
       });
       if (index > -1) {
         copy[index].status = "success";
@@ -115,8 +115,24 @@ export default {
         this.$emit("update:fileList", copy);
       }
     },
+    generateName(name) {
+      // 对文件名进行处理
+      let newName = name;
+      while (this.fileList.filter(f => f.name === name).length > 0) {
+        let dotIndex = name.lastIndexOf(".");
+        if (dotIndex > -1) {
+          let filename = name.slice(0, dotIndex);
+          let ext = name.slice(dotIndex);
+          newName = filename + "(1)" + ext;
+        }
+      }
+      return newName;
+    },
     uploadFile(file) {
-      let name = this.beforeUpload(file);
+      let name = this.generateName(file.name);
+      // 在上传之前可以判断是否允许上传
+      let isAllow = this.beforeUpload(file, name);
+      if (!isAllow) return;
       // 封装成 FormData 形式
       let formData = new FormData();
       formData.append(this.name, file);
@@ -129,12 +145,12 @@ export default {
           // 上传成功之后，根据 name 找到文件，再次修改其状态
           this.afterUpload(file, name, url);
         },
-        () => {
-          this.uploadErr(name);
+        xhr => {
+          this.uploadErr(xhr, name);
         }
       );
     },
-    uploadErr(name) {
+    uploadErr(xhr, name) {
       let copy = [...this.fileList];
       let index = copy.findIndex(function(item) {
         return item.name === name;
@@ -142,6 +158,9 @@ export default {
       if (index > -1) {
         copy[index].status = "fail";
         this.$emit("update:fileList", copy);
+
+        // 触发一个失败事件, 传递 xhr
+        this.$emit("error", xhr);
       }
     },
     ajax(data, success, fail) {
@@ -154,7 +173,7 @@ export default {
         ) {
           success(xhr.response);
         } else {
-          fail(xhr.statusText);
+          fail(xhr);
         }
       };
       xhr.send(data);
