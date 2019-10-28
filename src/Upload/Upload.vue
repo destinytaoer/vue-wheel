@@ -74,6 +74,13 @@ export default {
     },
     sizeLimit: {
       type: Number
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    accept: {
+      type: String
     }
   },
   methods: {
@@ -81,28 +88,40 @@ export default {
       // 生成一个 input 进行点击
       let input = document.createElement("input");
       input.type = "file";
+      if (this.accept) {
+        input.accept = this.accept;
+      }
+      if (this.multiple) {
+        input.multiple = true;
+      }
       input.addEventListener("change", () => {
         // 通过 change 事件获取到文件
-        let file = input.files[0];
-        this.uploadFile(file);
+        let files = input.files;
+        this.uploadFiles(files);
         // 删掉这个 input
         input.remove();
       });
       input.click();
     },
-    beforeUpload(file, newName) {
-      // 在上传之前先放入 fileList 中，进行占位
-      let { size, type } = file;
-      if (this.sizeLimit && size > this.sizeLimit) {
-        this.$emit("error", `oversize`);
-        return false;
-      } else {
-        this.$emit("update:fileList", [
-          ...this.fileList,
-          { name: newName, size, type, status: "uploading" }
-        ]);
-        return true;
+    beforeUpload(files, newNames) {
+      // 在上传之前, 先将所有初始文件信息保存在 fileList 中
+      // 先判断是否有文件超过大小限制
+      for (let i = 0; i < files.length; i++) {
+        let { size } = files[i];
+        console.log(size);
+        if (this.sizeLimit && size > this.sizeLimit) {
+          this.$emit("error", `oversize`);
+          return false;
+        }
       }
+      // 前面判断成功后, 再进行保存
+      let newFiles = files.map((file, index) => {
+        let { size, type } = file;
+        return { name: newNames[index], type, size, status: "uploading" };
+      });
+      // 需要一次性 emit, 而不是分开多次
+      this.$emit("update:fileList", [...this.fileList, ...newFiles]);
+      return true;
     },
     afterUpload(file, newName, url) {
       let copy = [...this.fileList];
@@ -128,27 +147,37 @@ export default {
       }
       return newName;
     },
-    uploadFile(file) {
-      let name = this.generateName(file.name);
-      // 在上传之前可以判断是否允许上传
-      let isAllow = this.beforeUpload(file, name);
+    uploadFiles(files) {
+      console.log("uploadfiles");
+      // 多文件上传, 将文件逐个发送请求进行上传
+      // 处理名称的重复
+      files = Array.from(files);
+      let newNames = files.map(file => this.generateName(file.name));
+
+      // 在上传之前可以判断是否允许上传, 并且全部保存文件的信息
+      let isAllow = this.beforeUpload(files, newNames);
       if (!isAllow) return;
-      // 封装成 FormData 形式
-      let formData = new FormData();
-      formData.append(this.name, file);
-      // 通过 ajax 发送到服务器
-      this.ajax(
-        formData,
-        res => {
-          // 通过传入的函数解析返回的数据
-          let url = this.parseResponse(res);
-          // 上传成功之后，根据 name 找到文件，再次修改其状态
-          this.afterUpload(file, name, url);
-        },
-        xhr => {
-          this.uploadErr(xhr, name);
-        }
-      );
+
+      // 逐个发送请求
+      files.forEach((file, index) => {
+        let newName = newNames[index];
+        // 封装成 FormData 形式
+        let formData = new FormData();
+        formData.append(this.name, file);
+        // 通过 ajax 发送到服务器
+        this.ajax(
+          formData,
+          res => {
+            // 通过传入的函数解析返回的数据
+            let url = this.parseResponse(res);
+            // 上传成功之后，根据 name 找到文件，再次修改其状态
+            this.afterUpload(file, newName, url);
+          },
+          xhr => {
+            this.uploadErr(xhr, newName);
+          }
+        );
+      });
     },
     uploadErr(xhr, name) {
       let copy = [...this.fileList];

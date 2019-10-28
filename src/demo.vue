@@ -7,10 +7,10 @@
         accept="image/*"
         methods='POST'
         action="http://localhost:3000/upload"
-        name="avatar"
+        name="file"
         :parseResponse="parseResponse"
         :fileList.sync="fileList"
-        :sizeLimit="2*1024"
+        :sizeLimit="2*1024*1024"
         @error="errorMsg"
       >
         <d-button icon="upload">上传</d-button>
