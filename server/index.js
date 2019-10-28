@@ -6,7 +6,12 @@ const upload = multer({ dest: 'uploads/' });
 const app = express();
 const port = 3000;
 
-app.post('/upload', cors(), upload.single('avatar'), (req, res) => {
+// 多文件上传
+// app.post('/upload', cors(), upload.array('files', 12), (req, res) => {
+//   res.send(req.files.map(file => file.filename));
+// });
+// 单文件上传
+app.post('/upload', cors(), upload.single('file'), (req, res) => {
   let filename = req.file.filename;
   let object = { id: filename };
   res.send(object);
