@@ -1,22 +1,42 @@
 <template>
   <div class="demo">
     <div>
-      <h2>图片上传</h2>
-      <div>只能上传 300kb 以内的 png、jpeg 文件</div>
-      <d-upload
-        accept="image/*"
-        methods='POST'
-        action="http://localhost:3000/upload"
-        name="file"
-        :parseResponse="parseResponse"
-        :fileList.sync="fileList"
-        :sizeLimit="2*1024*1024"
-        @error="errorMsg"
-      >
-        <d-button icon="upload">上传</d-button>
-      </d-upload>
+      <h2>Sticky</h2>
+      <div>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p>6</p>
+        <p>7</p>
+        <p>8</p>
+        <p>9</p>
+        <p>10</p>
+      </div>
+      <div>
+        <d-sticky :distance="100">
+          <div style="border: 1px solid red">粘连内容</div>
+        </d-sticky>
+      </div>
     </div>
     <div>
+      <div>
+        <h2>图片上传</h2>
+        <div>只能上传 300kb 以内的 png、jpeg 文件</div>
+        <d-upload
+          accept="image/*"
+          methods='POST'
+          action="http://localhost:3000/upload"
+          name="file"
+          :parseResponse="parseResponse"
+          :fileList.sync="fileList"
+          :sizeLimit="2*1024*1024"
+          @error="errorMsg"
+        >
+          <d-button icon="upload">上传</d-button>
+        </d-upload>
+      </div>
       <div>
         <h2>Table</h2>
         <h4>fixed header</h4>
@@ -500,6 +520,7 @@ import NavSubItem from "./Nav/NavSubItem";
 import Pagination from "./Pagination/Pagination";
 import Table from "./Table/Table";
 import Upload from "./Upload/Upload";
+import Sticky from "./Sticky/Sticky";
 
 Vue.use(toast);
 
@@ -545,7 +566,8 @@ export default {
     "d-nav-sub-item": NavSubItem,
     "d-pagination": Pagination,
     "d-table": Table,
-    "d-upload": Upload
+    "d-upload": Upload,
+    "d-sticky": Sticky
   },
   data() {
     return {
